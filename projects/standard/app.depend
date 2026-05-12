@@ -1763,7 +1763,7 @@
 
 1725420956 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\xcfg.h
 
-1743411110 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
+1778573872 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
 	"config_define.h"
 	"config_extra.h"
 
@@ -1893,7 +1893,7 @@
 
 1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\sfunc_record_play.h
 
-1778553828 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_lowpwr.h
+1778556329 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_lowpwr.h
 
 1692782604 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_update.h
 
@@ -2192,7 +2192,7 @@
 1710919366 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_spp.c
 	"include.h"
 
-1735199055 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_sys.c
+1778556319 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_sys.c
 	"include.h"
 
 1656983743 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_tkey.c
@@ -2201,7 +2201,7 @@
 1724765767 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_uart.c
 	"include.h"
 
-1732194636 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func.c
+1778556318 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func.c
 	"include.h"
 
 1732083165 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_aux.c
@@ -2209,7 +2209,7 @@
 	"func.h"
 	"func_aux.h"
 
-1710472193 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt.c
+1778556319 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt.c
 	"include.h"
 	"func.h"
 	"func_bt.h"
@@ -2263,7 +2263,7 @@
 	"func.h"
 	"func_idle.h"
 
-1702880203 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_lowpwr.c
+1778556318 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_lowpwr.c
 	"include.h"
 	"func.h"
 
@@ -2450,7 +2450,7 @@
 	"include.h"
 	"ledseg/display_ledseg.h"
 
-1666321538 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\main.c
+1778554227 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\main.c
 	"include.h"
 
 1693991373 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_aux.c
@@ -2567,7 +2567,7 @@
 1650792792 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_mic.c
 	"include.h"
 
-1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_mute.c
+1778566230 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_mute.c
 	"include.h"
 
 1717754388 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_pwm.c

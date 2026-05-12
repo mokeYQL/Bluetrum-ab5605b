@@ -11,22 +11,22 @@
 /*****************************************************************************
  * Module    : Function选择相关配置
  *****************************************************************************/
-#define FUNC_MUSIC_EN                   1   //是否打开MUSIC功能
-#define FUNC_CLOCK_EN                   1   //是否打开时钟功能
-#define FUNC_FMRX_EN                    1   //是否打开FM功能
-#define FUNC_BT_EN                      1   //是否打开蓝牙功能
-#define FUNC_BTHID_EN                   0   //是否打开独立自拍器模式
-#define FUNC_BT_DUT_EN                  0   //是否打开蓝牙的独立DUT测试模式
-#define FUNC_BT_FCC_EN                  0   //是否打开蓝牙的独立FCC测试模式
-#define FUNC_AUX_EN                     1   //是否打开AUX功能
-#define FUNC_USBDEV_EN                  1   //是否打开USB DEVICE功能
-#define FUNC_SPEAKER_EN                 1   //是否打开Speaker模式
-#define FUNC_SPDIF_EN                   0   //是否打开SPDIF功能
-#define FUNC_HDMI_EN                    0   //是否打开HDMI_ARC功能
-#define FUNC_I2S_EN                     0   //是否打开I2S接收功能（需使能I2S为Slave）
-#define FUNC_HUART_EN                   0   //是否打开HUART接收功能
-#define FUNC_TOM_CAT_EN                 0   //是否打开TOM_CAT模式(需要开启录音功能，使用flash 1M的型号进行内录)
-#define FUNC_IDLE_EN                    0   //是否打开IDLE功能
+#define FUNC_MUSIC_EN                   0   //BT音箱: 关闭
+#define FUNC_CLOCK_EN                   0   //BT音箱: 关闭
+#define FUNC_FMRX_EN                    0   //BT音箱: 关闭
+#define FUNC_BT_EN                      1   //BT音箱: ★ 核心功能
+#define FUNC_BTHID_EN                   0   //关闭
+#define FUNC_BT_DUT_EN                  0   //关闭
+#define FUNC_BT_FCC_EN                  0   //关闭
+#define FUNC_AUX_EN                     0   //BT音箱: 关闭
+#define FUNC_USBDEV_EN                  0   //BT音箱: 关闭
+#define FUNC_SPEAKER_EN                 0   //BT音箱: 关闭
+#define FUNC_SPDIF_EN                   0   //关闭
+#define FUNC_HDMI_EN                    0   //关闭
+#define FUNC_I2S_EN                     0   //关闭
+#define FUNC_HUART_EN                   0   //关闭
+#define FUNC_TOM_CAT_EN                 0   //关闭
+#define FUNC_IDLE_EN                    0   //关闭
 
 /*****************************************************************************
  * Module    : 系统功能选择配置
@@ -35,7 +35,7 @@
 #define POWKEY_10S_RESET                xcfg_cb.powkey_10s_reset
 #define SOFT_POWER_ON_OFF               1                       //是否使用软开关机功能
 #define PWRKEY_2_HW_PWRON               0                       //用PWRKEY模拟硬开关
-#define USB_SD_UPDATE_EN                1                       //是否支持UDISK/SD的离线升级
+#define USB_SD_UPDATE_EN                0   //BT音箱: 关闭U盘/SD升级
 #define EXT_32K_EN                      0                       //是否使用外部32.768K晶振,否则内部32K OSC。
 #define PWR_RC_32K_EN                   0                       //软关机时RTC是否省晶振，使用RC 32K
 #define SYS_ADJ_DIGVOL_EN               0                       //系统是否调数字音量
@@ -129,38 +129,38 @@
 #define BT_FCC_TEST_EN                  0   //蓝牙FCC测试使能   //默认PB3 波特率1500000通信
 #define BT_LOCAL_ADDR                   0   //蓝牙是否使用本地地址，0使用配置工具地址
 
-#define BT_2ACL_EN                      1   //是否支持连接两部手机
-#define BT_A2DP_EN                      1   //是否打开蓝牙音乐服务
-#define BT_HFP_EN                       1   //是否打开蓝牙通话服务
-#define BT_HSP_EN                       0   //是否打开蓝牙HSP通话服务
-#define BT_PBAP_EN                      0   //是否打开蓝牙电话簿服务
-#define BT_MAP_EN                       0   //是否打开蓝牙短信服务(用于获取设备时间，支持IOS/Android)
+#define BT_2ACL_EN                      0   //BT音箱: 关闭一拖二
+#define BT_A2DP_EN                      1   //BT音箱: ★ A2DP音乐核心
+#define BT_HFP_EN                       0   //BT音箱: 关闭通话
+#define BT_HSP_EN                       0   //BT音箱: 关闭HSP
+#define BT_PBAP_EN                      0   //BT音箱: 关闭电话簿
+#define BT_MAP_EN                       0   //BT音箱: 关闭短信
 
-#define BT_SPP_EN                       1   //是否打开蓝牙串口服务
-#define BT_HID_EN                       1   //是否打开蓝牙HID服务
-#define BT_HID_TYPE                     HID_TYPE_PHOTO1  //选择HID服务类型
-#define BT_HID_MENU_EN                  1   //蓝牙HID是否需要手动连接/断开
-#define BT_HID_DISCON_DEFAULT_EN        0   //蓝牙HID服务默认不连接，需要手动进行连接。
-#define BT_HID_SIMPLE_KEYBOARD          0   //蓝牙HID，枚举成键盘，做音量加减，播放/暂停，上下曲切歌和唤醒语音助手 (需要把 BT_HID_TYPE 配置为3)
-#define BT_HFP_CALL_PRIVATE_EN          1   //是否使能私密接听与蓝牙接听切换功能
-#define BT_HFP_CALL_PRIVATE_FORCE_EN    0   //是否强制使用私密接听（手机端接听）
-#define BT_HFP_RING_NUMBER_EN           1   //是否支持来电报号
-#define BT_HFP_PLAY_IOS_RING_EN         1   //是否支持ios来电铃声（android默认用RING提示音）
-#define BT_HFP_BAT_REPORT_EN            1   //是否支持电量显示
-#define BT_HFP_MSBC_EN                  0   //是否打开宽带语音功能
-#define BT_HSF_CALL_NUMBER_EN           1   //是否支持获取回拔,主动拨出电话的号码
-#define BT_A2DP_AAC_AUDIO_EN            0   //是否支持蓝牙AAC音频格式
-#define BT_A2DP_VOL_CTRL_EN             1   //是否支持A2DP音量与手机同步
-#define BT_A2DP_VOL_HID_CTRL_EN         0   //是否打开HID调A2DP音量与手机同步功能，同时需打开HID拍照功能，音量同步功能
-#define BT_A2DP_RECON_EN                0   //是否支持A2DP控制键（播放/暂停、上下曲键）回连
-#define BT_AVDTP_DELAY_REPORT_EN        1   //是否上报耳机当前延迟给手机进行音视频同步
-#define BT_SCO_DBG_EN                   1   //是否打开无线SPP调试通话参数功能
-#define BT_CONNECTED_AUTO_PLAY_EN       0   //是否打开蓝牙连接后自动播放音乐功能
-#define BT_ID3_TAG_EN                   0   //是否获取蓝牙ID3信息,蓝牙ID3信息会从bt_id3_tag_callback函数中输出
-#define BT_TOUCH_SCREEN_EN              0   //车机HID 触摸屏 (传统蓝牙HID, 只支持苹果)
-#define BT_CARPLAY_EN                   0   //是否使能车机carplay功能
-#define BT_SUPPORT_EIGHT_DEVICE_EN      0   //是否支持8台设备信息保存
-#define BT_SRCRAM_PHASECOM_SYNC         0   //蓝牙同步方式使用SRCRAM_PHASECOM
+#define BT_SPP_EN                       0   //BT音箱: 关闭串口
+#define BT_HID_EN                       0   //BT音箱: 关闭HID
+#define BT_HID_TYPE                     0   //关闭
+#define BT_HID_MENU_EN                  0   //关闭
+#define BT_HID_DISCON_DEFAULT_EN        0   //关闭
+#define BT_HID_SIMPLE_KEYBOARD          0   //关闭
+#define BT_HFP_CALL_PRIVATE_EN          0   //BT音箱: 关闭
+#define BT_HFP_CALL_PRIVATE_FORCE_EN    0
+#define BT_HFP_RING_NUMBER_EN           0   //BT音箱: 关闭
+#define BT_HFP_PLAY_IOS_RING_EN         0   //BT音箱: 关闭
+#define BT_HFP_BAT_REPORT_EN            0   //BT音箱: 关闭
+#define BT_HFP_MSBC_EN                  0   //BT音箱: 关闭
+#define BT_HSF_CALL_NUMBER_EN           0   //BT音箱: 关闭
+#define BT_A2DP_AAC_AUDIO_EN            0   //关闭
+#define BT_A2DP_VOL_CTRL_EN             1   //BT音箱: ★ 音量同步保留
+#define BT_A2DP_VOL_HID_CTRL_EN         0   //关闭
+#define BT_A2DP_RECON_EN                0   //关闭
+#define BT_AVDTP_DELAY_REPORT_EN        1   //保留
+#define BT_SCO_DBG_EN                   0   //BT音箱: 关闭
+#define BT_CONNECTED_AUTO_PLAY_EN       0   //关闭
+#define BT_ID3_TAG_EN                   0   //关闭
+#define BT_TOUCH_SCREEN_EN              0   //关闭
+#define BT_CARPLAY_EN                   0   //关闭
+#define BT_SUPPORT_EIGHT_DEVICE_EN      0   //关闭
+#define BT_SRCRAM_PHASECOM_SYNC         0   //关闭
 
 #define BT_TWS_EN                       0   //是否支持TWS    //注意使用不带TWS的蓝牙库时,需要关闭该TWS的宏,否则会有死机情况
 #define BT_TSCO_EN                      0   //是否支持TWS双路通话  //bt_is_force_master函数需要返回true
@@ -254,7 +254,7 @@
 #define MIC_CHANNEL_CFG                 CH_MIC_PF2                  //选择MIC的通路
 #define AUX_2_SDADC_EN                  1                           //AUX是否进SDADC, 否则直通DAC。进SDADC可以调AUX EQ, 及AUX录音等功能
 #define AUX_SNR_EN                      1                           //AUX模式动态降噪(AUX模拟直通也能用)
-#define LINEIN_DETECT_EN                1                           //是否打开LINEIN检测
+#define LINEIN_DETECT_EN                0   //BT音箱: 关闭
 #define SDCMD_MUX_DETECT_LINEIN         0                           //是否复用SDCMD检测LINEIN插入
 #define LINEIN_2_PWRDOWN_EN             0                           //是否插入Linein后直接软关机（大耳包功能）
 #define AUX_CHANNEL_EXCHANGE            0                           //是否AUX左右声道互换
@@ -271,18 +271,14 @@
  /*****************************************************************************
  * Module    : HDMI ARC配置
  *****************************************************************************/
-#define HDMI_DETECT_EN                  1           //是否开启HDMI插入检测
+#define HDMI_DETECT_EN                  0   //BT音箱: 关闭
 //other config see "bsp_hdmi.c"
 
 /*****************************************************************************
  * Module    : 录音功能配置
  *****************************************************************************/
-#define FUNC_REC_EN                     0   //录音功能总开关
-#define FMRX_REC_EN                     1   //是否打开FM录音功能
-#define AUX_REC_EN                      1   //是否打开AUX录音功能
-#define MIC_REC_EN                      1   //是否打开MIC录音功能
-#define TOM_CAT_REC_EN                  1   //是否打开TOM_CAT录音功能
-#define BT_REC_EN                       1   //是否打开蓝牙音乐录音功能
+#define FUNC_REC_EN                     0   //BT音箱: 关闭录音
+#define BT_REC_EN                       0   //BT音箱: 关闭蓝牙录音
 #define BT_HFP_REC_EN                   0   //是否打开蓝牙通话录音功能（不支持karaok）
 #define KARAOK_REC_EN                   0   //是否打开KARAOK录音功能，需同步打开KARAOK功能
 #define REC_ONE_FOLDER_EN               0   //是否各模式录音放到同一目录下
@@ -338,49 +334,30 @@
 /*****************************************************************************
  * Module    : K歌功能配置
  *****************************************************************************/
-#define SYS_KARAOK_EN                   0   //是否打开K歌功能（暂不支持与录音、WMA、FLAC同时打开）
-#define BT_HFP_CALL_KARAOK_EN           0   //通话是否支持KARAOK.
-#define SYS_ECHO_EN                     1   //是否使能混响功能
-#define SYS_ECHO_DELAY                  16  //混响间隔级数
-#define SYS_BASS_TREBLE_EN              0   //是否使能高低音调节
-#define SYS_MAGIC_VOICE_EN              1   //是否使能魔音功能,不支持同时开启BT_HFP_CALL_KARAOK_EN宏
-#define SYS_HOWLING_EN                  1   //是否使能防啸叫功能
-#define SYS_PITCH_SHIFT                 0   //是否使能新的魔音算法,要更改链接文件才能支持魔音, 可与SYS_MAGIC_VOICE_EN搭配使用，择优
-
-
-#define MIC_DETECT_EN                   0   //是否使能MIC检测
-#define MIC_DNR_EN                      1   //是否使能MIC动态降噪
-#define KARAOK_DENOISE_EN               1   //是否使能高级版本MIC动态降噪,主要优化MIC_DNR_EN效果不明显,可以和MIC_DNR_EN同时使用,目前主要用于KARAOK MIC降噪
-#define KARAOK_DENOISE_LEVEL            16  //降噪级别，值越大降噪效果越明显,声音还原度会相应变差. 取值范围0~31
-#define KARAOK_MIC_DRC                  0   //是否使能mic的drc功能，开启后需要拉sdadc.drc文件曲线（不支持在线调节）。//后置数字增益也受此宏控制
-
-#define KARAOK_RM_VOICE                 0   //蓝牙音乐或播放mp3音乐消人声
-#define AUDIO_STRETCH_EN				0	//变速不变调 buf与混响共用           加速模式下主频需要120M 且要关闭K歌和魔音宏开关
-
-#define KARAOK_MIX_PLAY_WAV_EN          0   //PCM资源文件混到KARAOK_MIC数据流中一起播放出来(常用于开KARAOK时,该WAV提示音与KARAOK一起输出)
-
-///通过配置工具选择检测GPIO
-#define MIC_DETECT_INIT()               mic_detect_init()
-#define MIC_IS_ONLINE()                 mic_is_online()
-#define IS_DET_MIC_BUSY()               is_detect_mic_busy()
+#define SYS_KARAOK_EN                   0
+#define BT_HFP_CALL_KARAOK_EN           0   //BT音箱: 关闭
+#define SYS_ECHO_EN                     0   //BT音箱: 关闭混响
+#define SYS_MAGIC_VOICE_EN              0   //BT音箱: 关闭魔音
+#define SYS_HOWLING_EN                  0   //BT音箱: 关闭防啸叫
+#define MIC_DNR_EN                      0   //BT音箱: 关闭MIC降噪
+#define KARAOK_DENOISE_EN               0   //BT音箱: 关闭
 
 
 /*****************************************************************************
  * Module    : User按键配置 (可以同时选择多组按键)
  *****************************************************************************/
-#define USER_ADKEY                      1           //ADKEY的使用， 0为不使用
-#define USER_ADKEY2                     0           //ADKEY2的使用，0为不使用
-#define USER_PWRKEY                     1           //PWRKEY的使用，0为不使用
-#define USER_IOKEY                      0           //IOKEY的使用， 0为不使用
-#define USER_ADKEY_MUX_SDCLK            0           //是否使用复用SDCLK的ADKEY, 共用USER_ADKEY的按键table
-#define USER_ADKEY_MUX_LED              0           //是否使用ADKEY与LED复用, 共用USER_ADKEY的流程(ADKEY与BLED配置同一IO)
-#define ADKEY_PU10K_EN                  0           //ADKEY是否使用内部10K上拉, 按键数量及阻值见port_key.c
+#define USER_ADKEY                      0           //BT音箱: 关闭ADKEY(悬空误触)
+#define USER_ADKEY2                     0           //关闭
+#define USER_PWRKEY                     1           //保留PWRKEY开关机
+#define USER_IOKEY                      0           //关闭
+#define USER_ADKEY_MUX_SDCLK            0           //关闭
+#define USER_ADKEY_MUX_LED              0           //关闭
+#define ADKEY_PU10K_EN                  0           //关闭
 
-#define USER_KEY_KNOB_EN                0           //旋钮的使用，0为不使用
-#define USER_KEY_KNOB_LEVEL             16          //旋钮的级数
+#define USER_KEY_KNOB_EN                0           //关闭旋钮
+#define USER_KEY_KNOB_LEVEL             16
 
-#define USER_MULTI_PRESS_EN              1           //按键N击检测使能
-#define USER_KEY_DOUBLE                 {KU_HSF, KU_REC, KU_PLAY_POWER, KU_PLAY}        //支持双击/三击/四击/五击的按键
+#define USER_MULTI_PRESS_EN              0           //BT音箱: 关闭连击检测
 #define ADKEY_CH                        xcfg_cb.adkey_ch    //ADCCH_PE7
 #define ADKEY2_CH                       xcfg_cb.adkey2_ch   //ADCCH_PE6
 
@@ -494,56 +471,39 @@
 
 
 /*****************************************************************************
- * Module    : IRRX配置
+ * Module    : IRRX配置 (BT音箱: 关闭)
  *****************************************************************************/
-#define IRRX_HW_EN                      0           //是否打IRRX硬件模块
-#define IRRX_SW_EN                      0           //是否打开timer capture ir
-#define IR_NUMKEY_EN                    1           //是否打开数字键输入
-#define IR_INPUT_NUM_MAX                999         //最大输入数字9999
-
-//可以打开一个或多个
-#define IR_ADDR_FF00_EN                 1
-#define IR_ADDR_BF00_EN                 0
-#define IR_ADDR_FD02_EN                 0
-#define IR_ADDR_FE01_EN                 0
-#define IR_ADDR_7F80_EN                 0
-
-#define IR_CAPTURE_PORT()               {GPIOEDE |= BIT(6); GPIOEPU  |= BIT(6); GPIOEDIR |= BIT(6);}
-#define IRRX_MAPPING                    IRMAP_PE6
-#define TMR3CAP_MAPPING                 TMR3MAP_PE6
+#define IRRX_HW_EN                      0
+#define IRRX_SW_EN                      0
+#define IR_NUMKEY_EN                    0
 
 
 /*****************************************************************************
  * Module    : usb device 功能选择
  *****************************************************************************/
-#define UDE_STORAGE_EN                 1
-#define UDE_SPEAKER_EN                 1
-#define UDE_HID_EN                     1
-#define UDE_MIC_EN                     1
-#define UDE_STOAGE_FLASH_EN            0            //外挂flash虚拟U盘
-#define UDE_MIC_KARAOK_EN              0            //USB_DEV karaok
-
-#define UDE_MIC_VOLUME_EN              0            //电脑端ude mic音量设置大小
-#define USB_MIC_COMPATIBILITY_XP_SYS   0            //USB_MIC兼容xp系统
-#define USB_DETECT_ONLY_CHECK_HOST     0            //USB插入检测的新机制      //用于只检测主机,U盘检测功能可能会受影响
+#define UDE_STORAGE_EN                 0   //BT音箱: 关闭USB设备
+#define UDE_SPEAKER_EN                 0
+#define UDE_HID_EN                     0
+#define UDE_MIC_EN                     0
+#define UDE_MIC_VOLUME_EN              0   //BT音箱: 关闭
+#define USB_MIC_COMPATIBILITY_XP_SYS   0   //BT音箱: 关闭
 
 /*****************************************************************************
  * Module    : 系统细节配置
  *****************************************************************************/
-#define PWM_OUT_EN                      0           //设置定时器5 (PA5、PA6、PA7)PWM输出
-#define RGB_SERIAL_EN                   0           //串行RGB推灯功能
-#define PWM_RGB_EN                      0           //PWM RGB三色灯功能
-#define ENERGY_LED_EN                   0           //能量灯软件PWM显示,声音越大,点亮的灯越多.
-#define SYS_PARAM_RTCRAM                0           //是否系统参数保存到RTCRAM
-#define PWRON_ENTER_BTMODE_EN           0           //是否上电默认进蓝牙模式
-#define VBAT_DETECT_EN                  1           //电池电量检测功能
-#define VBAT2_ADCCH                     ADCCH_VBAT  //ADCCH_VBAT为内部1/2电压通路，带升压应用需要外部ADC通路检测1/2电池电压
-#define VBAT_FILTER_USE_PEAK            0           //电池检测滤波选则://0 取平均值.//1 取峰值(适用于播放音乐时,电池波动比较大的音箱方案).
-#define VUSB_ADCCH                      0           //使用VUSB做ADC检测,蓝牙模式最好关闭宏BT_POWER_OPTIMIZE，不然检测不准确
-#define EQ_MODE_EN                      1           //是否调节EQ MODE (POP, Rock, Jazz, Classic, Country)
-#define MIC_EQ_EN                       0           //是否调节MIC_EQ
-#define EQ_DBG_IN_UART                  0           //是否使能UART在线调节EQ
-#define EQ_DBG_IN_SPP                   0           //是否使能SPP在线调节EQ
+#define PWM_OUT_EN                      0
+#define RGB_SERIAL_EN                   0
+#define PWM_RGB_EN                      0
+#define ENERGY_LED_EN                   0
+#define PWRON_ENTER_BTMODE_EN           1   //BT音箱: 上电默认进蓝牙
+#define VBAT_DETECT_EN                  1   //保留电池检测
+#define VBAT2_ADCCH                     ADCCH_VBAT  //电池电压检测通路
+#define VUSB_ADCCH                      0
+#define VBAT_FILTER_USE_PEAK            0
+#define EQ_MODE_EN                      0   //BT音箱: 关闭EQ
+#define MIC_EQ_EN                       0
+#define EQ_DBG_IN_UART                  0
+#define EQ_DBG_IN_SPP                   0
 #define EQ_DBG_DUMP                     0           //设置DAC EQ时,导出实际EQ设置的数据,怀疑在线调EQ和最终整合的资源EQ不一致。这里导出数据进行对比
 #define SYS_EQ_FOR_IDX_EN               0           //是否使能10条EQ独立调节(包括高低音)
 #define SYS_EQ_LOUD_EN                  0           //是否使能LOUD EQ独立调节（100Hz）
@@ -575,7 +535,7 @@
 /*****************************************************************************
  * Module    : Loudspeaker mute及耳机检测配置
  *****************************************************************************/
-#define EARPHONE_DETECT_EN              1           //是否打开耳机检测
+#define EARPHONE_DETECT_EN              0   //BT音箱: 关闭
 #define SDCMD_MUX_DETECT_EARPHONE       1           //是否复用SDCMD检测耳机插入
 
 ///通过配置工具选择检测GPIO
@@ -639,30 +599,31 @@
 #define WARNING_VOLUME                  xcfg_cb.warning_volume   //播放提示音的音量级数
 #define LANG_SELECT                     LANG_EN      //提示音语言选择
 
-#define WARNING_POWER_ON                1
-#define WARNING_POWER_OFF               1
+#define WARNING_POWER_ON                1   //保留开机提示音
+#define WARNING_POWER_OFF               1   //保留关机提示音
+#define WARNING_FUNC_BT                 1   //BT音箱: ★ 保留
+#define WARNING_BT_WAIT_CONNECT         1   //BT音箱: ★ 保留
+#define WARNING_BT_CONNECT              1   //BT音箱: ★ 保留
+#define WARNING_BT_DISCONNECT           1   //BT音箱: ★ 保留
+#define WARNING_LOW_BATTERY             1   //保留低电提醒
+#define WARNING_MAX_VOLUME              1   //保留最大音量提醒
+// BT音箱: 以下关闭
 #define WARNING_FUNC_MUSIC              0
-#define WARNING_FUNC_BT                 1
-#define WARNING_FUNC_CLOCK              1
-#define WARNING_FUNC_FMRX               1
-#define WARNING_FUNC_AUX                1
-#define WARNING_FUNC_USBDEV             1
-#define WARNING_FUNC_SPEAKER            1
-#define WARNING_LOW_BATTERY             1
-#define WARNING_BT_WAIT_CONNECT         1
-#define WARNING_BT_CONNECT              1
-#define WARNING_BT_DISCONNECT           1
-#define WARNING_BT_TWS_CONNECT          1
+#define WARNING_FUNC_CLOCK              0
+#define WARNING_FUNC_FMRX               0
+#define WARNING_FUNC_AUX                0
+#define WARNING_FUNC_USBDEV             0
+#define WARNING_FUNC_SPEAKER            0
+#define WARNING_BT_TWS_CONNECT          0
 #define WARNING_BT_TWS_DISCON           0
-#define WARNING_BT_INCALL               1
-#define WARNING_BT_CALLOUT              1
-#define WARNING_USB_SD                  1
-#define WARNING_MAX_VOLUME              1
+#define WARNING_BT_INCALL               0
+#define WARNING_BT_CALLOUT              0
+#define WARNING_USB_SD                  0
 #define WARNING_MIN_VOLUME              0
-#define WARNING_BT_HID_MENU             1            //BT HID MENU手动连接/断开HID Profile提示音
-#define WARNING_BTHID_CONN              0            //BTHID模式是否有独立的连接/断开提示音
-#define WARNING_BT_PAIR                 0            //BT PAIRING提示音
-#define WARNING_UPDATE_DONE             1
+#define WARNING_BT_HID_MENU             0
+#define WARNING_BTHID_CONN              0
+#define WARNING_BT_PAIR                 0
+#define WARNING_UPDATE_DONE             0
 
 #define SW_VERSION		"V0.0.1"		//只能使用数字0-9,ota需要转码
 

@@ -1,0 +1,399 @@
+---
+description: 
+alwaysApply: true
+enabled: true
+updatedAt: 2026-05-12T02:29:26.056Z
+provider: 
+---
+
+# BT经典蓝牙基础知识库
+
+> **目标读者**: 熟悉BLE但不熟悉BT（经典蓝牙）的开发者
+> **适用范围**: 中科蓝讯AB5605B SDK项目中的BT功能开发
+
+---
+
+## 一、BT经典蓝牙 vs BLE 低功耗蓝牙 - 核心差异
+
+### 1.1 基本对比
+
+| 特性 | BT经典蓝牙 (Classic Bluetooth) | BLE (Bluetooth Low Energy) |
+|------|-------------------------------|---------------------------|
+| **设计目标** | 高速数据传输、音频流 | 低功耗、小数据量 |
+| **传输速率** | 1-3 Mbps (EDR: 2-3 Mbps) | 125 Kbps - 2 Mbps |
+| **功耗** | 高 (持续连接) | 极低 (事件驱动) |
+| **延迟** | 低 (音频实时) | 可变 (连接间隔) |
+| **拓扑** | 点对点 (1:1) | 广播/扫描 (1:N) |
+| **主要应用** | 音频、文件传输、串口 | 传感器、IoT、穿戴设备 |
+| **协议栈** | BR/EDR (Basic Rate/Enhanced Data Rate) | LE (Low Energy) |
+| **频段** | 2.4GHz (79个信道, 1MHz间隔) | 2.4GHz (40个信道, 2MHz间隔) |
+| **调制** | GFSK (BR), π/4-DQPSK, 8-DPSK (EDR) | GFSK |
+
+### 1.2 关键概念对比
+
+```
+BT经典蓝牙:
+- 面向连接 (Connection-oriented)
+- 同步传输 (SCO/eSCO for 音频)
+- 异步传输 (ACL for 数据)
+- 持续嗅探 (Sniff mode for 省电)
+
+BLE:
+- 事件驱动 (Event-driven)
+- 广播/扫描 (Advertising/Scanning)
+- 连接事件 (Connection Events)
+- 深度睡眠 (Deep Sleep between events)
+```
+
+---
+
+## 二、BT经典蓝牙协议栈架构
+
+### 2.1 协议栈分层
+
+```
+┌─────────────────────────────────────────────┐
+│          应用层 (Application Layer)           │
+│  A2DP, HFP, SPP, HID, AVRCP, PBAP, etc.   │
+└─────────────────────────────────────────────┘
+                    ↑
+┌─────────────────────────────────────────────┐
+│          Profile层 (Profile Layer)           │
+│  (协议实现，如A2DP的AVDTP, HFP的RFCOMM)    │
+└─────────────────────────────────────────────┘
+                    ↑
+┌─────────────────────────────────────────────┐
+│          Host层 (Bluetooth Stack Host)      │
+│  L2CAP, SDP, RFCOMM, AVCTP, AVDTP         │
+└─────────────────────────────────────────────┘
+                    ↑
+┌─────────────────────────────────────────────┐
+│          HCI层 (Host Controller Interface)   │
+│  (UART/USB/SPI 传输层)                      │
+└─────────────────────────────────────────────┘
+                    ↑
+┌─────────────────────────────────────────────┐
+│      Controller层 (Bluetooth Controller)    │
+│  Link Manager, Baseband, RF                 │
+└─────────────────────────────────────────────┘
+```
+
+### 2.2 核心协议
+
+| 协议 | 全称 | 功能 |
+|------|------|------|
+| **L2CAP** | Logical Link Control and Adaptation Protocol | 数据复用、分段重组 |
+| **SDP** | Service Discovery Protocol | 服务发现 (查找附近设备的服务) |
+| **RFCOMM** | RFCOMM (Serial Port Emulation) | 串口仿真 (用于SPP, HFP) |
+| **AVDTP** | Audio/Video Distribution Transport Protocol | 音频传输 (A2DP) |
+| **AVCTP** | Audio/Video Control Transport Protocol | 音频控制 (AVRCP) |
+| **SMP** | Security Manager Protocol | 配对与加密 (BT 2.1+) |
+
+---
+
+## 三、BT核心Profile详解
+
+### 3.1 A2DP (Advanced Audio Distribution Profile)
+
+**功能**: 蓝牙立体声音频传输 (音乐播放)
+
+**角色**:
+- **Source** (源端): 发送音频 (手机、电脑)
+- **Sink** (接收端): 接收音频 (音箱、耳机)
+
+**音频编码**:
+| 编码 | 全称 | 比特率 | 延迟 | 说明 |
+|------|------|--------|------|------|
+| **SBC** | Sub-band Coding | 328 Kbps | ~200ms | 强制支持，基础编码 |
+| **AAC** | Advanced Audio Coding | 可变 | ~100ms | iOS首选，音质好 |
+| **aptX** | aptX | 384 Kbps | ~100ms | Qualcomm专利，低延迟 |
+| **LDAC** | LDAC | 990 Kbps | ~100ms | Sony高清音频 |
+| **LHDC** | LHDC | 900 Kbps | ~100ms | 华为高清音频 |
+
+**在AB5605B中的实现**:
+```c
+// platform/libs/api_btstack.h
+void bt_a2dp_init(void);                  // A2DP初始化
+void bt_a2dp_connect(void);               // A2DP连接
+void bt_a2dp_disconnect(void);             // A2DP断开
+void bt_a2dp_play(void);                  // 播放
+void bt_a2dp_pause(void);                 // 暂停
+u8 bt_a2dp_get_status(void);             // 获取状态
+```
+
+### 3.2 HFP (Hands-Free Profile)
+
+**功能**: 蓝牙通话 (免提模式)
+
+**角色**:
+- **AG** (Audio Gateway): 音频网关 (手机)
+- **HF** (Hands-Free): 免提设备 (车载、耳机)
+
+**核心功能**:
+- 接听/挂断电话
+- 拨号/重拨
+- 音量控制
+- 呼叫等待/保持
+- 语音识别 (VR)
+
+**AT命令集** (通过RFCOMM传输):
+```
+AT+BRSF=<features>          # 交换支持的功能
+AT+CIND=?                  # 查询指示器
+AT+CIND?                   # 读取指示器值
+AT+CMER=<mode>             # 启用指示器上报
+AT+CHLD=<n>                # 呼叫保持/释放
+ATA                         # 接听电话
+ATH                         # 挂断电话
+ATD<number>;               # 拨号
+```
+
+### 3.3 SPP (Serial Port Profile)
+
+**功能**: 蓝牙串口 (无线串口)
+
+**实现**: 基于RFCOMM协议
+
+**应用场景**:
+- 蓝牙串口模块
+- 无线调试
+- 设备配置
+
+### 3.4 AVRCP (Audio/Video Remote Control Profile)
+
+**功能**: 音频/视频远程控制 (播放控制)
+
+**版本**:
+- **v1.0**: 基本控制 (播放/暂停/停止/上一曲/下一曲)
+- **v1.3**: 元数据 (歌曲名、艺术家、专辑)
+- **v1.4**: 浏览 (Browsing)、绝对音量
+- **v1.6**: 封面艺术 (Cover Art)
+
+### 3.5 BLE (Bluetooth Low Energy) - 在AB5605B中的实现
+
+**功能**: 低功耗蓝牙 (与经典蓝牙共存)
+
+**GAP角色**:
+- **Peripheral** (从设备): 广播、接受连接
+- **Central** (主设备): 扫描、发起连接
+
+**GATT角色**:
+- **Server** (服务器): 提供数据 (GATT DB)
+- **Client** (客户端): 读取数据
+
+---
+
+## 四、BT射频通信原理
+
+### 4.1 物理层 (Physical Layer)
+
+**频段**: 2.400 GHz - 2.4835 GHz
+
+**信道划分**:
+- **79个信道** (BT 1.0-3.0): 0-78, 中心频率 = 2402 + k MHz (k=0-78)
+- **40个信道** (BLE): 0-39, 中心频率 = 2402 + 2*k MHz (k=0-39)
+
+**跳频技术 (Frequency Hopping)**:
+- **跳频序列**: 伪随机序列，由主设备地址和时钟决定
+- **跳频速率**: 1600次/秒 (BT经典), 可变 (BLE)
+- **目的**: 抗干扰、多设备共存
+
+**调制方式**:
+| 技术 | 调制 | 符号速率 | 比特率 |
+|------|------|----------|--------|
+| **BR** (Basic Rate) | GFSK | 1 Msps | 1 Mbps |
+| **EDR** (Enhanced Data Rate) | π/4-DQPSK | 2 Msps | 2 Mbps |
+| **EDR** (Enhanced Data Rate) | 8-DPSK | 3 Msps | 3 Mbps |
+
+### 4.2 链路层 (Link Layer)
+
+**设备角色**:
+- **Master** (主设备): 发起连接、控制时钟和跳频
+- **Slave** (从设备): 接受连接、同步主设备
+
+**链路类型**:
+| 链路类型 | 全称 | 功能 | 时隙分配 |
+|----------|------|------|----------|
+| **SCO** | Synchronous Connection-Oriented | 语音 (固定带宽) | 保留时隙 (64 Kbps) |
+| **eSCO** | Extended SCO | 语音 (可变带宽) | 保留时隙 + 重传 |
+| **ACL** | Asynchronous Connection-Less | 数据 (可变带宽) | 轮询 (Master → Slave) |
+
+**时隙 (Time Slot)**:
+- **时长**: 625 μs (1个时隙)
+- **SCO**: 固定时隙 (每2个时隙, 64 Kbps)
+- **ACL**: 可变时隙 (1-5个时隙, 异步)
+
+---
+
+## 五、配对与连接流程
+
+### 5.1 设备发现 (Inquiry)
+
+```
+Master → Inquiry Scan (手机搜索)
+Slave → Inquiry Response (音箱响应)
+
+Inquiry: 发送ID Packet (72个跳频)
+Inquiry Scan: 监听Inquiry
+Inquiry Response: 返回BD_ADDR + Clock + Class of Device
+```
+
+### 5.2 配对 (Pairing)
+
+```
+1. 传统配对 (BT 2.0-):
+   - PIN码输入 (0000, 1234, 或自定义)
+   - 链路密钥 (Link Key) 生成
+   - 加密启用
+
+2. 安全简单配对 (SSP, BT 2.1+):
+   - Just Works (无用户交互)
+   - Numeric Comparison (数字比较)
+   - Passkey Entry (密码输入)
+   - Out of Band (NFC)
+```
+
+### 5.3 连接 (Connection)
+
+```
+1. Page (寻呼):
+   Master → Page (发送ID Packet)
+   Slave → Page Response (响应)
+
+2. Page Scan (寻呼扫描):
+   Slave → Page Scan (监听Page)
+
+3. 连接建立:
+   Master → FHS Packet (包含BD_ADDR, Clock, etc.)
+   Slave → 响应
+   → 进入Connection State
+```
+
+---
+
+## 六、AB5605B SDK中的BT实现
+
+### 6.1 BT初始化流程
+
+```c
+// platform/libs/api_btstack.h
+void bt_init(void) {
+    // 1. 硬件初始化 (RF, Baseband)
+    bt_hw_init();
+    
+    // 2. 协议栈初始化 (L2CAP, SDP, RFCOMM, AVDTP, AVCTP)
+    bt_stack_init();
+    
+    // 3. Profile初始化 (A2DP, HFP, SPP, AVRCP)
+    bt_a2dp_init();
+    bt_hfp_init();
+    bt_spp_init();
+    bt_avrcp_init();
+    
+    // 4. BLE初始化 (可选)
+    #if BT_BLE_EN
+    ble_init();
+    #endif
+    
+    // 5. 开始可发现/可连接
+    bt_set_discoverable(TRUE);
+    bt_set_connectable(TRUE);
+}
+```
+
+### 6.2 BT配置选项
+
+```c
+// projects/standard/config.h
+
+// 蓝牙功能配置
+#define BT_A2DP_EN                     1    // A2DP音乐服务
+#define BT_HFP_EN                      1    // HFP通话服务
+#define BT_SPP_EN                      1    // SPP串口服务
+#define BT_AVRCP_EN                    1    // AVRCP远程控制
+#define BT_BLE_EN                      1    // BLE低功耗蓝牙
+
+// 蓝牙名称配置
+#define BT_NAME_DEFAULT                 "BT-BOX"
+
+// A2DP音频编码配置
+#define BT_A2DP_CODEC_SBC_EN           1    // SBC编码
+#define BT_A2DP_CODEC_AAC_EN           1    // AAC编码
+
+// HFP功能配置
+#define BT_HFP_CODEC_CVSD_EN           1    // CVSD编码
+#define BT_HFP_CODEC_MSBC_EN           1    // mSBC编码 (宽带语音)
+#define BT_HFP_NREC_EN                 1    // 回声消除/噪声抑制
+```
+
+---
+
+## 七、BT开发常见问题与调试
+
+### 7.1 连接问题
+
+**问题**: 设备无法被发现
+**原因**:
+- 未开启可发现模式 (`bt_set_discoverable(FALSE)`)
+- 设备名称未设置
+- 射频未校准
+
+**解决**:
+```c
+bt_set_discoverable(TRUE);
+bt_set_device_name("My_Device");
+```
+
+### 7.2 音频问题
+
+**问题**: A2DP音频卡顿
+**原因**:
+- 信号干扰
+- 缓冲区不足
+- 跳频冲突
+
+**解决**:
+```c
+// 增加缓冲区
+#define BT_A2DP_BUFFER_SIZE            4096  // 默认2048
+
+// 降低音频质量 (减少带宽)
+#define BT_A2DP_CODEC_SBC_BITPOOL      32    // 默认53 (范围2-53)
+```
+
+### 7.3 功耗问题
+
+**问题**: 功耗过高
+**原因**:
+- 未进入Sniff模式
+- 广播间隔过短 (BLE)
+- 未关闭未使用的Profile
+
+**解决**:
+```c
+// 启用Sniff模式
+#define BT_SNIFF_MODE_EN               1
+#define BT_SNIFF_MIN_INTERVAL          50    // 最小间隔 (ms)
+#define BT_SNIFF_MAX_INTERVAL          100   // 最大间隔 (ms)
+
+// 关闭未使用的Profile
+#define BT_SPP_EN                      0
+```
+
+---
+
+## 八、总结
+
+**BT经典蓝牙** 是为高速数据传输和音频流设计的，与BLE低功耗蓝牙有本质区别：
+
+1. **设计目标不同**: BT经典 → 高速/音频; BLE → 低功耗/小数据
+2. **协议栈不同**: BT经典 → L2CAP/SDP/RFCOMM; BLE → L2CAP/ATT/GATT
+3. **应用场景不同**: BT经典 → 音频/文件/串口; BLE → 传感器/IoT
+4. **功耗不同**: BT经典 → 高; BLE → 低
+
+**在AB5605B SDK中开发BT功能**:
+1. 理解BT协议栈架构 (L2CAP, SDP, RFCOMM, AVDTP, AVCTP)
+2. 熟悉核心Profile (A2DP, HFP, SPP, AVRCP)
+3. 掌握BT射频通信原理 (跳频、时隙、SCO/ACL)
+4. 使用SDK提供的API (api_btstack.h)
+5. 通过消息队列处理BT事件 (func_message)

@@ -1763,7 +1763,7 @@
 
 1725420956 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\xcfg.h
 
-1778576688 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
+1778578235 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
 	"config_define.h"
 	"config_extra.h"
 
@@ -2450,7 +2450,7 @@
 	"include.h"
 	"ledseg/display_ledseg.h"
 
-1778554227 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\main.c
+1778575332 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\main.c
 	"include.h"
 
 1693991373 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_aux.c

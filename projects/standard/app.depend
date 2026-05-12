@@ -1724,3 +1724,867 @@
 1727164580 source:e:\ÖÐ¿ÆÀ¶Ñ¶\bluetrum-ab5605b\projects\standard\ram.ld
 	"config.h"
 
+1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_audio.c
+	"include.h"
+
+1732083165 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\include.h
+	"global.h"
+	"xcfg.h"
+	"config.h"
+	"io_def.h"
+	"api.h"
+	"func.h"
+	"bsp.h"
+	"gui.h"
+	"plugin.h"
+	"res.h"
+	"app_fota.h"
+	"audio_softeq_drc.h"
+	"bt_mono_xdrc_effect_adjust.h"
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\global.h
+	<stddef.h>
+	<stdarg.h>
+	<stdbool.h>
+	<stdlib.h>
+	<string.h>
+	"typedef.h"
+	"macro.h"
+	"clib.h"
+	"sfr.h"
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\typedef.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\macro.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\clib.h
+
+1688034960 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\sfr.h
+
+1725420956 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\xcfg.h
+
+1743411110 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
+	"config_define.h"
+	"config_extra.h"
+
+1722824600 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\config_define.h
+
+1729501625 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\config_extra.h
+
+1699583839 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\io_def.h
+	"global.h"
+	"config.h"
+	"sfr.h"
+
+1713853531 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api.h
+	"api_btstack.h"
+	"api_cm.h"
+	"api_music.h"
+	"api_sd.h"
+	"api_rtc.h"
+	"api_usb.h"
+	"api_fs.h"
+	"api_device.h"
+	"api_sdadc.h"
+	"api_update.h"
+	"api_dac.h"
+	"api_sysclk.h"
+	"api_msg.h"
+	"api_saradc.h"
+	"api_fmrx.h"
+	"api_sys.h"
+	"api_pwr.h"
+	"api_key.h"
+	"api_gpio.h"
+	"api_uart.h"
+	"api_karaok.h"
+	"api_fmtx.h"
+	"api_tkey.h"
+	"api_bt_mono_xdrc.h"
+
+1731638365 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_btstack.h
+
+1715917761 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_cm.h
+
+1687765039 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_music.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_sd.h
+
+1735199055 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_rtc.h
+
+1724035798 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_usb.h
+
+1726278270 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_fs.h
+
+1735199055 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_device.h
+
+1651216218 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_sdadc.h
+
+1686562185 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_update.h
+
+1732083165 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_dac.h
+
+1664270550 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_sysclk.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_msg.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_saradc.h
+
+1725420956 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_fmrx.h
+
+1735199055 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_sys.h
+
+1651216218 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_pwr.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_key.h
+
+1634174170 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_gpio.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_uart.h
+
+1679401982 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_karaok.h
+
+1629164767 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_fmtx.h
+
+1636171094 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_tkey.h
+
+1732194636 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_bt_mono_xdrc.h
+
+1722826763 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func.h
+	"func_bt.h"
+	"func_bt_hid.h"
+	"func_clock.h"
+	"func_idle.h"
+	"func_music.h"
+	"func_fmrx.h"
+	"func_usbdev.h"
+	"func_aux.h"
+	"func_speaker.h"
+	"sfunc_record.h"
+	"sfunc_record_play.h"
+	"func_lowpwr.h"
+	"func_update.h"
+	"func_i2s.h"
+	"func_spdif.h"
+	"func_hdmi.h"
+	"func_bt_dut.h"
+	"func_uart_upd.h"
+	"func_tom_cat.h"
+
+1725852812 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt_hid.h
+
+1710493871 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_clock.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_idle.h
+
+1635754301 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_music.h
+
+1729501625 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_fmrx.h
+
+1629799029 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_usbdev.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_aux.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_speaker.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\sfunc_record.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\sfunc_record_play.h
+
+1778553828 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_lowpwr.h
+
+1692782604 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_update.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_i2s.h
+
+1728562544 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_spdif.h
+
+1642563467 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_hdmi.h
+
+1658828430 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt_dut.h
+
+1692782604 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_uart_upd.h
+
+1722826763 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_tom_cat.h
+
+1727613970 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp.h
+	"bsp_sys.h"
+	"bsp_key.h"
+	"bsp_dac.h"
+	"bsp_fmrx.h"
+	"bsp_fmtx.h"
+	"bsp_param.h"
+	"bsp_ir.h"
+	"bsp_audio.h"
+	"bsp_music.h"
+	"bsp_led.h"
+	"bsp_fs.h"
+	"bsp_bt.h"
+	"bsp_eq.h"
+	"bsp_piano.h"
+	"bsp_id3_tag.h"
+	"bsp_record.h"
+	"bsp_aux.h"
+	"bsp_i2c.h"
+	"bsp_karaok.h"
+	"bsp_lrc.h"
+	"bsp_ble.h"
+	"bsp_tkey.h"
+	"bsp_i2s.h"
+	"bsp_iis_ext.h"
+	"bsp_spi_audio.h"
+	"bsp_charge.h"
+	"bsp_hdmi.h"
+	"bsp_port_init.h"
+
+1732083165 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_sys.h
+
+1692782604 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_key.h
+
+1700560006 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_dac.h
+
+1619247991 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_fmrx.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_fmtx.h
+
+1722826763 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_param.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_ir.h
+
+1722826763 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_audio.h
+
+1704371874 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_music.h
+
+1636171094 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_led.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_fs.h
+
+1725852812 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_bt.h
+
+1695199148 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_eq.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_piano.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_id3_tag.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_record.h
+
+1690340180 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_aux.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_i2c.h
+
+1693366204 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_karaok.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_lrc.h
+
+1686562185 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_ble.h
+
+1630029642 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_tkey.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_i2s.h
+
+1659431141 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_iis_ext.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_spi_audio.h
+
+1647309663 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_charge.h
+
+1642563467 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_hdmi.h
+	"api_hdmi.h"
+
+1642563467 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_hdmi.h
+
+1727613970 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_port_init.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\gui\gui.h
+	"ledseg/ledseg_common.h"
+	"ledseg/display_ledseg.h"
+	"lcd/lcd.h"
+	"lcd/display_lcd.h"
+	"lcd/display_listbox.h"
+	"lcd/list_view.h"
+	"lcd/listbox.h"
+	"lcd/dialogbox.h"
+	"lcd/display_dialogbox.h"
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\gui\ledseg\ledseg_common.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\ledseg\display_ledseg.h
+	"ledseg/ledseg_7p7s.h"
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\gui\ledseg\ledseg_7p7s.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\gui\lcd\lcd.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\gui\lcd\list_view.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\gui\lcd\listbox.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\gui\lcd\dialogbox.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\plugin.h
+	"multi_lang.h"
+	"port_pwm.h"
+	"port_linein.h"
+	"port_led.h"
+	"port_sd.h"
+	"port_earphone.h"
+	"port_mic.h"
+	"port_tkey.h"
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\multi_lang.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_pwm.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_linein.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_led.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_sd.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_earphone.h
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_mic.h
+
+1630029642 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_tkey.h
+
+1732083165 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\res.h
+
+1686562185 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\app\app_fota\app_fota.h
+
+1729330388 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\audio_softeq_drc\audio_softeq_drc.h
+
+1732083411 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\bt_mono_xdrc\bt_mono_xdrc_effect_adjust.h
+
+1690340180 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_aux.c
+	"include.h"
+
+1647584711 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_bpap.c
+	"include.h"
+
+1731638365 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_bt.c
+	"include.h"
+	"api.h"
+
+1647309663 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_charge.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_cm.c
+	"include.h"
+
+1732083165 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_dac.c
+	"include.h"
+	"bsp_dac.h"
+
+1713864752 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_dump_buf_huart.c
+	"include.h"
+
+1732194636 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_eq.c
+	"include.h"
+	"bsp_eq.h"
+
+1703507721 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_eq_table.c
+	"include.h"
+
+1729330388 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_fmrx.c
+	"include.h"
+
+1720595971 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_fmtx.c
+	"include.h"
+	"bsp_fmtx.h"
+
+1687765039 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_fs.c
+	"include.h"
+
+1644913573 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_hdmi.c
+	"include.h"
+	"bsp_hdmi.h"
+	"bsp_i2c.h"
+
+1642563467 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_hdmi_cec_msg.c
+	"include.h"
+	"bsp_hdmi.h"
+
+1703574087 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_huart_audio.c
+	"include.h"
+	"bsp_huart_audio.h"
+
+1703574087 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_huart_audio.h
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_i2c.c
+	"include.h"
+
+1680767261 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_i2s.c
+	"include.h"
+	"bsp_i2s_ta5711.h"
+
+1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_i2s_ta5711.h
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_i2s_ta5711.c
+	"include.h"
+	"bsp_i2c.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_i2s_wm8978.c
+	"include.h"
+	"bsp_i2c.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_iap.c
+	"include.h"
+
+1726190616 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_id3_tag.c
+	"include.h"
+
+1688034960 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_iic_putchar.c
+	"include.h"
+
+1681118614 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_iis_ext.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_ir.c
+	"include.h"
+
+1704371874 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_karaok.c
+	"include.h"
+
+1702880203 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_key.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_led.c
+	"include.h"
+	"bsp_led.h"
+
+1725527978 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_map.c
+	"include.h"
+
+1732083165 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_music.c
+	"include.h"
+
+1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_param.c
+	"include.h"
+	"func_exspiflash_music.h"
+
+1635154192 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_exspiflash_music.h
+	"bsp_spiflash1.h"
+	"api_spiflash_ex.h"
+
+1635754301 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_spiflash1.h
+
+1689660495 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\api_spiflash_ex.h
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_piano.c
+	"include.h"
+
+1727613970 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_port_init.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_record.c
+	"include.h"
+
+1734337998 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_spiflash1.c
+	"include.h"
+	"bsp_spiflash1.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_spiflash1_music_bin.c
+	"include.h"
+
+1710919366 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_spp.c
+	"include.h"
+
+1735199055 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_sys.c
+	"include.h"
+
+1656983743 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_tkey.c
+	"include.h"
+
+1724765767 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_uart.c
+	"include.h"
+
+1732194636 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func.c
+	"include.h"
+
+1732083165 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_aux.c
+	"include.h"
+	"func.h"
+	"func_aux.h"
+
+1710472193 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt.c
+	"include.h"
+	"func.h"
+	"func_bt.h"
+
+1719022682 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt_dut.c
+	"include.h"
+	"func.h"
+
+1651228707 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt_hid.c
+	"include.h"
+	"func.h"
+	"func_bt_hid.h"
+
+1711524929 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_clock.c
+	"include.h"
+	"func.h"
+	"func_clock.h"
+
+1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_exspiflash_music.c
+	"include.h"
+	"func.h"
+	"func_music.h"
+	"func_exspiflash_music.h"
+	"api_spiflash_ex.h"
+
+1729501625 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_fmrx.c
+	"include.h"
+	"func.h"
+	"func_fmrx.h"
+
+1644913573 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_hdmi.c
+	"include.h"
+	"func_hdmi.h"
+	"func_spdif.h"
+	"bsp_hdmi.h"
+
+1703573359 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_huart.c
+	"include.h"
+	"func.h"
+	"func_huart.h"
+	"sfr.h"
+
+1703573359 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_huart.h
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_i2s.c
+	"include.h"
+	"func.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_idle.c
+	"include.h"
+	"func.h"
+	"func_idle.h"
+
+1702880203 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_lowpwr.c
+	"include.h"
+	"func.h"
+
+1735199055 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_music.c
+	"include.h"
+	"func.h"
+	"func_music.h"
+
+1682662545 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_spdif.c
+	"include.h"
+	"func.h"
+
+1690340180 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_speaker.c
+	"include.h"
+	"func.h"
+	"func_speaker.h"
+	"sfr.h"
+
+1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_tom_cat.c
+	"include.h"
+
+1693192312 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_uart_upd.c
+	"include.h"
+	"func.h"
+	"func_update.h"
+
+1722824600 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_update.c
+	"include.h"
+	"func.h"
+	"func_update.h"
+
+1692328451 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_usbdev.c
+	"include.h"
+	"func.h"
+	"func_usbdev.h"
+
+1732083165 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\sfunc_bt_call.c
+	"include.h"
+	"func.h"
+	"func_bt.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\sfunc_bt_ota.c
+	"include.h"
+	"func.h"
+	"func_bt.h"
+
+1732083165 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\sfunc_bt_ring.c
+	"include.h"
+	"func.h"
+	"func_bt.h"
+
+1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\sfunc_record.c
+	"include.h"
+	"func.h"
+	"sfunc_record.h"
+	"bsp_spiflash1.h"
+	"api_spiflash_ex.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\sfunc_record_play.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\gui\gui.c
+	"include.h"
+	"gui.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\gui\ledseg\ledseg_7p7s.c
+	"include.h"
+	"ledseg_common.h"
+	"ledseg_7p7s.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\gui\ledseg\ledseg_common.c
+	"include.h"
+	"ledseg_common.h"
+	"ledseg_7p7s.h"
+
+1732083165 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\libs\strong_symbol.c
+	"include.h"
+
+1686562185 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\app\app_fota\app_fota.c
+	"include.h"
+
+1732083165 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\audio_softeq_drc\audio_softeq_drc.c
+	"include.h"
+
+1729330388 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\audio_softeq_drc\audio_softeq_drc_online_adjust.c
+	"include.h"
+
+1636007027 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\adv0.c
+	"include.h"
+	"bsp_ble.h"
+
+1726210477 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble.c
+	"include.h"
+	"bsp_ble.h"
+
+1687852075 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\bt\a2dp.c
+	"include.h"
+	"api.h"
+
+1731638365 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\bt\bt.c
+	"include.h"
+	"api.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\bt\hfhs.c
+	"include.h"
+	"api.h"
+
+1726134629 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\bt\hid.c
+	"include.h"
+	"api.h"
+
+1724763560 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\bt\profile.c
+	"include.h"
+	"api.h"
+
+1704955371 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\bt\tws.c
+	"include.h"
+	"api.h"
+
+1735203502 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\bt_mono_xdrc\bt_mono_xdrc.c
+	"include.h"
+
+1732194636 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\bt_mono_xdrc\bt_mono_xdrc_effect_adjust.c
+	"include.h"
+
+1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_aux.c
+	"include.h"
+	"func.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_bt.c
+	"include.h"
+	"func.h"
+	"func_bt.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_clock.c
+	"include.h"
+	"func.h"
+	"func_clock.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_fmam_freq.c
+	"include.h"
+	"func.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_fmrx.c
+	"include.h"
+	"func.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_idle.c
+	"include.h"
+	"func.h"
+	"func_idle.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_music.c
+	"include.h"
+	"func.h"
+	"func_music.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_record.c
+	"include.h"
+	"func.h"
+	"sfunc_record.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_spdif.c
+	"include.h"
+	"func.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_speaker.c
+	"include.h"
+	"func.h"
+
+1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_tom_cat.c
+	"include.h"
+	"func.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\display_usbdev.c
+	"include.h"
+	"func.h"
+	"func_usbdev.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\display\ledseg\display_ledseg.c
+	"include.h"
+	"ledseg/display_ledseg.h"
+
+1666321538 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\main.c
+	"include.h"
+
+1693991373 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_aux.c
+	"include.h"
+	"func.h"
+	"bsp_karaok.h"
+
+1725860256 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_bt.c
+	"include.h"
+	"func.h"
+	"func_bt.h"
+
+1710210864 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_clock.c
+	"include.h"
+	"func.h"
+	"func_clock.h"
+
+1650596722 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_exspiflash_music.c
+	"include.h"
+	"func.h"
+	"func_music.h"
+	"func_exspiflash_music.h"
+
+1619342318 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_fmrx.c
+	"include.h"
+	"func.h"
+	"func_fmrx.h"
+
+1642563467 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_hdmi.c
+	"include.h"
+	"func_hdmi.h"
+
+1703573359 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_huart.c
+	"include.h"
+	"func.h"
+	"func_huart.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_i2s.c
+	"include.h"
+	"func.h"
+	"func_i2s.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_idle.c
+	"include.h"
+	"func.h"
+	"func_idle.h"
+
+1696909948 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_music.c
+	"include.h"
+	"func.h"
+	"func_music.h"
+
+1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_record.c
+	"include.h"
+	"func.h"
+	"sfunc_record.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_spdif.c
+	"include.h"
+	"func.h"
+	"func_spdif.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_speaker.c
+	"include.h"
+	"func.h"
+	"bsp_spiflash1.h"
+
+1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_tom_cat.c
+	"include.h"
+	"func.h"
+	"bsp_spiflash1.h"
+
+1724380820 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_usbdev.c
+	"include.h"
+	"func.h"
+	"func_idle.h"
+
+1778550507 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\app.xm
+	"config.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\download.xm
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\res.xm
+
+1725420956 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\xcfg.xm
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\eq_table.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\multi_lang.c
+	"include.h"
+
+1659601401 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\plugin.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_earphone.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ir.c
+	"include.h"
+
+1679986675 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_key.c
+	"include.h"
+
+1666321538 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_led.c
+	"include.h"
+
+1649397637 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ledseg.c
+	"include.h"
+
+1635313434 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_linein.c
+	"include.h"
+
+1650792792 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_mic.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_mute.c
+	"include.h"
+
+1717754388 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_pwm.c
+	"include.h"
+
+1733987420 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_sd.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_sd1.c
+	"include.h"
+
+1632984149 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_tkey.c
+	"include.h"
+
+1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_update.c
+	"include.h"
+
+1727164580 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\ram.ld
+	"config.h"
+

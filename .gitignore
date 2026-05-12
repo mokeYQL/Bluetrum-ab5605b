@@ -1,0 +1,19 @@
+# 编译输出目录
+projects/standard/Output/
+
+# 编译生成文件
+*.bin
+*.dcf
+*.rv32
+*.xm
+
+# IDE 配置文件
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# 临时文件
+*.tmp
+*.log

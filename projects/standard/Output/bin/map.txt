@@ -5055,24 +5055,24 @@ LOAD Output\obj\projects\standard\port\port_update.o
                 0x0000000010012008                print_info
                 0x0000000010012030                func_process
  *fill*         0x0000000010012052        0x2 
- .text.func     0x0000000010012054      0x158 Output\obj\platform\functions\func.o
+ .text.func     0x0000000010012054      0x15a Output\obj\platform\functions\func.o
                 0x0000000010012054                func_enter
-                0x00000000100120a0                func_exit
-                0x00000000100120f6                func_run
+                0x00000000100120a2                func_exit
+                0x00000000100120f8                func_run
  .text.func.aux
-                0x00000000100121ac      0x182 Output\obj\platform\functions\func_aux.o
-                0x00000000100121ac                func_aux_start
-                0x00000000100121d8                func_aux_stop
-                0x00000000100121ee                func_aux_pause_play
-                0x0000000010012222                func_aux_setvol_callback
-                0x0000000010012258                func_aux_process
-                0x000000001001225c                func_aux
- .text.bsp.aux  0x000000001001232e       0x30 Output\obj\platform\functions\func_aux.o
-                0x000000001001232e                func_aux_mp3_res_play
+                0x00000000100121ae      0x182 Output\obj\platform\functions\func_aux.o
+                0x00000000100121ae                func_aux_start
+                0x00000000100121da                func_aux_stop
+                0x00000000100121f0                func_aux_pause_play
+                0x0000000010012224                func_aux_setvol_callback
+                0x000000001001225a                func_aux_process
+                0x000000001001225e                func_aux
+ .text.bsp.aux  0x0000000010012330       0x30 Output\obj\platform\functions\func_aux.o
+                0x0000000010012330                func_aux_mp3_res_play
  .text.func_bt_mp3_res_play
-                0x000000001001235e       0x24 Output\obj\platform\functions\func_bt.o
-                0x000000001001235e                func_bt_mp3_res_play
- *fill*         0x0000000010012382       0x3e 
+                0x0000000010012360       0x24 Output\obj\platform\functions\func_bt.o
+                0x0000000010012360                func_bt_mp3_res_play
+ *fill*         0x0000000010012384       0x3c 
  .text.func_bt_chkclr_warning
                 0x00000000100123c0       0x40 Output\obj\platform\functions\func_bt.o
                 0x00000000100123c0                func_bt_chkclr_warning
@@ -5086,52 +5086,52 @@ LOAD Output\obj\projects\standard\port\port_update.o
  .text.func_bt_disp_status
                 0x00000000100124bc       0xe0 Output\obj\platform\functions\func_bt.o
                 0x00000000100124bc                func_bt_disp_status
- .text.func.bt  0x000000001001259c      0x1e6 Output\obj\platform\functions\func_bt.o
+ .text.func.bt  0x000000001001259c      0x1ea Output\obj\platform\functions\func_bt.o
                 0x000000001001259c                func_bt_status
                 0x00000000100125ac                func_bt_sub_process
                 0x00000000100125ae                func_bt_process
-                0x0000000010012640                func_bt_init
-                0x0000000010012662                func_bt_chk_off
-                0x0000000010012692                func_bt_enter
-                0x0000000010012702                func_bt_exit
-                0x000000001001274c                func_bt
- .text.bthid    0x0000000010012782       0x18 Output\obj\platform\functions\func_bt_hid.o
-                0x0000000010012782                is_bthid_mode
+                0x0000000010012644                func_bt_init
+                0x0000000010012666                func_bt_chk_off
+                0x0000000010012696                func_bt_enter
+                0x0000000010012706                func_bt_exit
+                0x0000000010012750                func_bt
+ .text.bthid    0x0000000010012786       0x18 Output\obj\platform\functions\func_bt_hid.o
+                0x0000000010012786                is_bthid_mode
  .text.func.clock.init
-                0x000000001001279a       0x52 Output\obj\platform\functions\func_clock.o
-                0x000000001001279a                rtc_clock_init
+                0x000000001001279e       0x52 Output\obj\platform\functions\func_clock.o
+                0x000000001001279e                rtc_clock_init
  .text.func.clock
-                0x00000000100127ec       0xf0 Output\obj\platform\functions\func_clock.o
-                0x00000000100127ec                rtc_set_alarm_relative_time
-                0x0000000010012814                rtc_set_alarm_wakeup
-                0x000000001001283a                func_clock_process
-                0x000000001001283e                func_clock
+                0x00000000100127f0       0xf0 Output\obj\platform\functions\func_clock.o
+                0x00000000100127f0                rtc_set_alarm_relative_time
+                0x0000000010012818                rtc_set_alarm_wakeup
+                0x000000001001283e                func_clock_process
+                0x0000000010012842                func_clock
  .text.func.fmrx
-                0x00000000100128dc      0x5ec Output\obj\platform\functions\func_fmrx.o
-                0x00000000100128dc                func_fmrx_mp3_res_play
-                0x000000001001291a                func_fmrx_pause_play
-                0x0000000010012960                func_fmrx_setvol_callback
-                0x0000000010012970                save_ch_buf
-                0x00000000100129a0                get_ch_freq
-                0x00000000100129f2                reset_fm_cb
-                0x0000000010012a16                fmrx_switch_freq
-                0x0000000010012a7a                fmrx_switch_channel
-                0x0000000010012ac0                fmrx_seek_start
-                0x0000000010012aec                fmrx_seek_stop
-                0x0000000010012b4a                fmrx_half_seek_start
-                0x0000000010012bd4                fmrx_half_seek_stop
-                0x0000000010012be6                func_fmrx_process
-                0x0000000010012d9a                func_fmrx_enter
-                0x0000000010012e54                func_fmrx_exit
-                0x0000000010012e90                func_fmrx
+                0x00000000100128e0      0x5ec Output\obj\platform\functions\func_fmrx.o
+                0x00000000100128e0                func_fmrx_mp3_res_play
+                0x000000001001291e                func_fmrx_pause_play
+                0x0000000010012964                func_fmrx_setvol_callback
+                0x0000000010012974                save_ch_buf
+                0x00000000100129a4                get_ch_freq
+                0x00000000100129f6                reset_fm_cb
+                0x0000000010012a1a                fmrx_switch_freq
+                0x0000000010012a7e                fmrx_switch_channel
+                0x0000000010012ac4                fmrx_seek_start
+                0x0000000010012af0                fmrx_seek_stop
+                0x0000000010012b4e                fmrx_half_seek_start
+                0x0000000010012bd8                fmrx_half_seek_stop
+                0x0000000010012bea                func_fmrx_process
+                0x0000000010012d9e                func_fmrx_enter
+                0x0000000010012e58                func_fmrx_exit
+                0x0000000010012e94                func_fmrx
  .text.fmrx_set_curch_freq
-                0x0000000010012ec8       0x46 Output\obj\platform\functions\func_fmrx.o
- *fill*         0x0000000010012f0e       0xf2 
+                0x0000000010012ecc       0x46 Output\obj\platform\functions\func_fmrx.o
+ *fill*         0x0000000010012f12       0xee 
  .text.lowpwr.sleep
-                0x0000000010013000      0x67c Output\obj\platform\functions\func_lowpwr.o
+                0x0000000010013000      0x67a Output\obj\platform\functions\func_lowpwr.o
                 0x0000000010013000                sleep_process
                 0x0000000010013400                func_sleepmode
- *fill*         0x000000001001367c      0x184 
+ *fill*         0x000000001001367a      0x186 
  .text.lowpwr.pwroff
                 0x0000000010013800      0x4e4 Output\obj\platform\functions\func_lowpwr.o
                 0x0000000010013800                sfunc_lowbat

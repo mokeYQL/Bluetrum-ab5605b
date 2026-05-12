@@ -11,10 +11,6 @@ bool wav_res_is_play(void);
 bool wav_res_stop(void);
 void mp3_res_play_exit(void);
 
-#if FUNC_MUSIC_EN
-
-uint8_t wma_lock_ram_en = BT_BACKSTAGE_EN;
-
 #if BT_BACKSTAGE_EN
 const u32 *res_addr[] = {
 #if WARNING_FUNC_MUSIC
@@ -35,6 +31,10 @@ const u32 *res_addr[] = {
 #endif
 };
 #endif
+
+#if FUNC_MUSIC_EN
+
+uint8_t wma_lock_ram_en = BT_BACKSTAGE_EN;
 
 //扫描全盘文件
 bool pf_scan_music(u8 new_dev)

@@ -1763,7 +1763,7 @@
 
 1725420956 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\xcfg.h
 
-1778578235 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
+1778578469 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
 	"config_define.h"
 	"config_extra.h"
 
@@ -2158,7 +2158,7 @@
 1725527978 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_map.c
 	"include.h"
 
-1732083165 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_music.c
+1778578865 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_music.c
 	"include.h"
 
 1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_param.c

@@ -568,17 +568,8 @@ void func_bt_exit(void)
     bt_off();
     f_bt.bt_is_inited = 0;
 #else
-    if (bt_get_status() == BT_STA_PLAYING && !bt_is_testmode()) {        //蓝牙退出停掉音乐
-        delay_5ms(10);
-        if(bt_get_status() == BT_STA_PLAYING) {     //再次确认play状态
-            u32 timeout = 850; //8.5s
-            bt_music_pause();
-            while (bt_get_status() == BT_STA_PLAYING && timeout > 0) {
-                timeout--;
-                delay_5ms(2);
-            }
-        }
-    }
+    // BT后台模式: 不停音乐，只静音音频，保持连接和播放状态
+    // 切回BT时音乐自动恢复出声
 #endif
 
 #if BT_RF_POWER_BALANCE_EN

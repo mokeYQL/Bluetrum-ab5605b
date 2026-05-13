@@ -631,8 +631,8 @@
 
 #define WARNING_POWER_ON 1        // 保留开机提示音
 #define WARNING_POWER_OFF 1       // 保留关机提示音
-#define WARNING_FUNC_BT 1         // BT音箱: ★ 保留
-#define WARNING_BT_WAIT_CONNECT 1 // BT音箱: ★ 保留
+#define WARNING_FUNC_BT 0         // 去除模式切换提示音
+#define WARNING_BT_WAIT_CONNECT 0 // 去除等待连接提示音
 #define WARNING_BT_CONNECT 1      // BT音箱: ★ 保留
 #define WARNING_BT_DISCONNECT 1   // BT音箱: ★ 保留
 #define WARNING_LOW_BATTERY 1     // 保留低电提醒

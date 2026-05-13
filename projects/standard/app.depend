@@ -1763,7 +1763,7 @@
 
 1725420956 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\xcfg.h
 
-1778578469 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
+1778579570 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
 	"config_define.h"
 	"config_extra.h"
 
@@ -2209,7 +2209,7 @@
 	"func.h"
 	"func_aux.h"
 
-1778556319 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt.c
+1778579324 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt.c
 	"include.h"
 	"func.h"
 	"func_bt.h"

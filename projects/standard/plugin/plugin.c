@@ -1,4 +1,5 @@
 #include "include.h"
+#include "port_ws2812.h"
 
 volatile int pwrkey_detect_flag;            //pwrkey 820K用于复用检测的标志。
 
@@ -25,6 +26,9 @@ void plugin_init(void)
 {
 #if (LANG_SELECT == LANG_EN_ZH)
     multi_lang_init(sys_cb.lang_id);
+#endif
+#if RGB_WS2812_EN
+    ws2812_init();          // ★ 初始化 WS2812 灯带（PE6）
 #endif
 }
 
@@ -115,6 +119,7 @@ void plugin_tmr5ms_isr(void)
 #if ENERGY_LED_EN
     energy_led_level_calc();
 #endif
+    // WS2812 全部在主循环 ws2812_flush() 中处理，ISR 不做任何操作
 }
 
 AT(.com_text.plugin)

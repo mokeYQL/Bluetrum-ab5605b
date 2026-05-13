@@ -1763,7 +1763,7 @@
 
 1725420956 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\xcfg.h
 
-1778579570 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
+1778640771 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
 	"config_define.h"
 	"config_extra.h"
 
@@ -2036,7 +2036,7 @@
 
 1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\multi_lang.h
 
-1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_pwm.h
+1778638164 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_pwm.h
 
 1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_linein.h
 
@@ -2209,10 +2209,11 @@
 	"func.h"
 	"func_aux.h"
 
-1778579324 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt.c
+1778640780 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt.c
 	"include.h"
 	"func.h"
 	"func_bt.h"
+	"port_ws2812.h"
 
 1719022682 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt_dut.c
 	"include.h"
@@ -2543,8 +2544,9 @@
 1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\multi_lang.c
 	"include.h"
 
-1659601401 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\plugin.c
+1778641583 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\plugin.c
 	"include.h"
+	"port_ws2812.h"
 
 1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_earphone.c
 	"include.h"
@@ -2570,7 +2572,7 @@
 1778566230 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_mute.c
 	"include.h"
 
-1717754388 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_pwm.c
+1778638164 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_pwm.c
 	"include.h"
 
 1733987420 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_sd.c
@@ -2587,4 +2589,10 @@
 
 1727164580 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\ram.ld
 	"config.h"
+
+1778641820 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.h
+
+1778641620 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.c
+	"include.h"
+	"port_ws2812.h"
 

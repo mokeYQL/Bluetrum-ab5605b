@@ -523,6 +523,7 @@
  * Module    : 系统细节配置
  *****************************************************************************/
 #define PWM_OUT_EN 0
+#define RGB_WS2812_EN 1    // ★ 开启 WS2812 灯带（PA5 GPIO模拟，与RGB_SERIAL_EN独立）
 #define RGB_SERIAL_EN 0
 #define PWM_RGB_EN 0
 #define ENERGY_LED_EN 0

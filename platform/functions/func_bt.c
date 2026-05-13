@@ -1,6 +1,7 @@
 #include "include.h"
 #include "func.h"
 #include "func_bt.h"
+#include "port_ws2812.h"        // ★ WS2812 灯带
 
 void sbc_decode_exit(void);
 void btrf_power_balance_exit(void);
@@ -434,6 +435,9 @@ void func_bt_process(void)
     if(sleep_process(bt_is_sleep)) {
         f_bt.disp_status = 0xff;
     }
+#if RGB_WS2812_EN
+    ws2812_flush();         // ★ WS2812 灯带刷新（主循环，不关中断）
+#endif
 }
 
 AT(.text.func.bt)

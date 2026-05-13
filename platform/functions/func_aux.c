@@ -1,6 +1,7 @@
 #include "include.h"
 #include "func.h"
 #include "func_aux.h"
+#include "port_ws2812.h"        // ★ WS2812 灯带
 
 #define AUX_ADC_DUMP_TEST        0
 
@@ -199,6 +200,9 @@ AT(.text.func.aux)
 void func_aux_process(void)
 {
     func_process();
+#if RGB_WS2812_EN
+    ws2812_flush();             // ★ WS2812 灯带刷新（AUX模式音乐律动）
+#endif
 }
 
 static void func_aux_enter(void)

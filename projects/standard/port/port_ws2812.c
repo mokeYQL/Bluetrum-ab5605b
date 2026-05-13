@@ -96,27 +96,60 @@ void ws2812_set_color(u8 led_idx, u8 r, u8 g, u8 b)
     ws2812_rgb_buf[led_idx * 3 + 2] = b;
 }
 
-/* 在主循环中调用：测试用红→绿→蓝切换 */
+/* 在 func_bt_process() 主循环中调用 */
 void ws2812_flush(void)
 {
     static u32 last_tick = 0;
-    static u8 step = 0;
-    u8 i;
+    u16 energy;
+    u8 level, i, r, g, b;
 
-    // 每500ms切换一次颜色
-    if (!tick_check_expire(last_tick, 500)) return;
+    if (!tick_check_expire(last_tick, 80)) return;  // 每80ms刷新
     last_tick = tick_get();
 
-    step = (step + 1) % 3;
+#if FUNC_AUX_EN
+    if (func_cb.sta == FUNC_AUX) {
+        /* ===== AUX 模式：音乐律动 ===== */
+        energy = dac_pcm_pow_calc();
 
-    // 简单测试：全部红灯 → 全部绿灯 → 全部蓝灯
-    for (i = 0; i < WS2812_NUM_LEDS; i++) {
-        if (step == 0) ws2812_set_color(i, 255, 0, 0);   // 红
-        if (step == 1) ws2812_set_color(i, 0, 255, 0);   // 绿
-        if (step == 2) ws2812_set_color(i, 0, 0, 255);   // 蓝
+        {
+            static u16 log_cnt = 0;
+            if (++log_cnt >= 30) {  // 每30次≈2.4秒打印一次
+                log_cnt = 0;
+                printf("[WS2812] AUX energy=%d\n", energy);
+            }
+        }
+
+        // 能量 → 灯数映射
+        if (energy < 500)        level = 0;
+        else if (energy < 1500)  level = 1;
+        else if (energy < 3000)  level = 3;
+        else if (energy < 6000)  level = 5;
+        else if (energy < 12000) level = 7;
+        else if (energy < 20000) level = 9;
+        else                     level = WS2812_NUM_LEDS;
+
+        // 填充灯带
+        for (i = 0; i < WS2812_NUM_LEDS; i++) {
+            if (i < level) {
+                u16 pos = (i + 1) * 256 / WS2812_NUM_LEDS;
+                if (pos < 85)      { r = 0;              g = pos * 3;        b = 0; }
+                else if (pos < 170) { r = (pos - 85) * 3; g = 255;            b = 0; }
+                else               { r = 255;             g = 255 - (pos - 170) * 3; b = 0; }
+                ws2812_set_color(i, r, g, b);
+            } else {
+                ws2812_set_color(i, 0, 0, 0);
+            }
+        }
+
+        ws2812_update();
+        return;
     }
+#endif
 
-    printf("[WS2812] step=%d\n", step);
+    /* ===== 非AUX模式（BT等）：蓝色常亮（柔和） ===== */
+    for (i = 0; i < WS2812_NUM_LEDS; i++) {
+        ws2812_set_color(i, 0, 0, 15);  // 微蓝
+    }
     ws2812_update();
 }
 

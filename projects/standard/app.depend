@@ -2204,10 +2204,11 @@
 1778556318 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func.c
 	"include.h"
 
-1732083165 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_aux.c
+1778653382 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_aux.c
 	"include.h"
 	"func.h"
 	"func_aux.h"
+	"port_ws2812.h"
 
 1778640780 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt.c
 	"include.h"
@@ -2592,7 +2593,7 @@
 
 1778645188 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.h
 
-1778642959 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.c
+1778653206 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.c
 	"include.h"
 	"port_ws2812.h"
 

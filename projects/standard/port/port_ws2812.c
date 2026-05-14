@@ -119,13 +119,15 @@ void ws2812_flush(void)
             }
         }
 
-        // 能量 → 灯数映射
-        if (energy < 500)        level = 0;
-        else if (energy < 1500)  level = 1;
-        else if (energy < 3000)  level = 3;
-        else if (energy < 6000)  level = 5;
-        else if (energy < 12000) level = 7;
-        else if (energy < 20000) level = 9;
+        // 能量 → 灯数映射（40灯，8级均匀覆盖）
+        if (energy < 300)         level = 0;
+        else if (energy < 1000)  level = 5;
+        else if (energy < 2500)  level = 10;
+        else if (energy < 5000)  level = 15;
+        else if (energy < 8000)  level = 20;
+        else if (energy < 12000) level = 25;
+        else if (energy < 18000) level = 30;
+        else if (energy < 25000) level = 35;
         else                     level = WS2812_NUM_LEDS;
 
         // 填充灯带

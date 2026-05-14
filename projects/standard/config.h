@@ -523,7 +523,7 @@
  * Module    : 系统细节配置
  *****************************************************************************/
 #define PWM_OUT_EN 0
-#define RGB_WS2812_EN 0 // ★ WS2812 灯带（SPI1 G4: PE7→DIN）
+#define RGB_WS2812_EN 1 // ★ WS2812 灯带（SPI1 G4: PE7→DIN）
 #define RGB_SERIAL_EN 0 // SDK 原版 SPI WS2812（PA4, 不用）
 #define PWM_RGB_EN 0
 #define ENERGY_LED_EN 0

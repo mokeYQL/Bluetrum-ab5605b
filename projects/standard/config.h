@@ -252,7 +252,7 @@
 #define AUX_CHANNEL_CFG (CH_AUXL_PB1 | CH_AUXR_PB2) // 选择LINEIN通路
 #define MIC_CHANNEL_CFG CH_MIC_PF2                  // 选择MIC的通路
 #define AUX_2_SDADC_EN 1                            // AUX是否进SDADC, 否则直通DAC。进SDADC可以调AUX EQ, 及AUX录音等功能
-#define AUX_SNR_EN 1                                // AUX模式动态降噪(AUX模拟直通也能用)
+#define AUX_SNR_EN 0                                // ★ 关闭AUX动态降噪，防止静音后DNR静音导致语音开头被截
 #define LINEIN_DETECT_EN 1                          // ★ 开启LINEIN检测（PA6控制AUX/BT切换）
 #define SDCMD_MUX_DETECT_LINEIN 0                   // 是否复用SDCMD检测LINEIN插入
 #define LINEIN_2_PWRDOWN_EN 0                       // 是否插入Linein后直接软关机（大耳包功能）
@@ -523,8 +523,8 @@
  * Module    : 系统细节配置
  *****************************************************************************/
 #define PWM_OUT_EN 0
-#define RGB_WS2812_EN 1    // ★ WS2812 灯带（SPI1 G4: PE7→DIN）
-#define RGB_SERIAL_EN 0    // SDK 原版 SPI WS2812（PA4, 不用）
+#define RGB_WS2812_EN 0 // ★ WS2812 灯带（SPI1 G4: PE7→DIN）
+#define RGB_SERIAL_EN 0 // SDK 原版 SPI WS2812（PA4, 不用）
 #define PWM_RGB_EN 0
 #define ENERGY_LED_EN 0
 #define PWRON_ENTER_BTMODE_EN 1 // BT音箱: 上电默认进蓝牙

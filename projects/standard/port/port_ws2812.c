@@ -148,7 +148,50 @@ void ws2812_flush(void)
     }
 #endif
 
-    /* ===== 非AUX模式（BT等）：蓝色常亮（柔和） ===== */
+#if FUNC_BT_EN
+    if (func_cb.sta == FUNC_BT) {
+        /* ===== BT 模式：光色随声变（全灯同色，由能量驱动） ===== */
+        u16 hue;
+
+        energy = dac_pcm_pow_calc();
+
+        // 能量 → 色相（0-255: 蓝→绿→黄→红→紫）（阈值适中放宽）
+        if (energy < 300)         hue = 0;
+        else if (energy < 1500)  hue = 32;
+        else if (energy < 3500)  hue = 64;
+        else if (energy < 7000)  hue = 96;
+        else if (energy < 12000) hue = 128;
+        else if (energy < 20000) hue = 160;
+        else if (energy < 32000) hue = 192;
+        else if (energy < 48000) hue = 224;
+        else                     hue = 255;
+
+        // 色相→RGB转换
+        u8 rr, gg, bb;
+        if (hue < 85) {       // 蓝→绿（通过青色）
+            rr = 0;
+            gg = hue * 3;
+            bb = 255 - hue * 3;
+        } else if (hue < 170) { // 绿→红（通过黄色）
+            rr = (hue - 85) * 3;
+            gg = 255;
+            bb = 0;
+        } else {               // 红→紫（通过洋红）
+            rr = 255;
+            gg = (255 - hue) * 3;
+            bb = (hue - 170) * 3;
+        }
+
+        // 所有40灯显示同一颜色
+        for (i = 0; i < WS2812_NUM_LEDS; i++) {
+            ws2812_set_color(i, rr, gg, bb);
+        }
+        ws2812_update();
+        return;
+    }
+#endif
+
+    /* ===== 非播放状态（空闲等）：蓝色常亮（柔和） ===== */
     for (i = 0; i < WS2812_NUM_LEDS; i++) {
         ws2812_set_color(i, 0, 0, 15);  // 微蓝
     }

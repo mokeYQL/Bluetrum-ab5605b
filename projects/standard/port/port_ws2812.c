@@ -43,15 +43,14 @@ static void ws2812_encode_byte(u8 data, u8 *out)
     out[2] = spi_val & 0xFF;
 }
 
-/* 初始化 SPI1 G4: PE7(DO)→WS2812 DIN, PE6(CLK)悬空 */
+/* 初始化 SPI1 G4: PE7(DO)→WS2812 DIN, PE6(CLK)悬空, PE5(DI)保留为普通IO */
 void ws2812_init(void)
 {
-    // SPI1 G4: CLK=PE6, DI=PE5, DO=PE7
-    GPIOEDE |= BIT(5) | BIT(6) | BIT(7);  // 开启数字功能
-    GPIOEFEN |= BIT(5) | BIT(6) | BIT(7); // 开启功能复用模式（SPI）
-    GPIOEDIR &= ~BIT(6);                  // PE6(CLK) 输出
-    GPIOEDIR &= ~BIT(7);                  // PE7(DO) 输出
-    GPIOEDIR |= BIT(5);                   // PE5(DI) 输入（不用）
+    // SPI1 G4: CLK=PE6, DO=PE7（DI=PE5 不初始化，留作普通IO）
+    GPIOEDE  |= BIT(6) | BIT(7);             // 开启数字功能
+    GPIOEFEN |= BIT(6) | BIT(7);             // 开启功能复用模式（SPI）
+    GPIOEDIR &= ~BIT(6);                      // PE6(CLK) 输出
+    GPIOEDIR &= ~BIT(7);                      // PE7(DO) 输出
 
     FUNCMCON1 = (0x0F << 12); // 清除 SPI1 映射
     FUNCMCON1 = SPI1MAP_G4;   // 设置 G4 映射

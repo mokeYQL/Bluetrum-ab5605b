@@ -174,7 +174,7 @@
 #define BT_RF_EXT_CTL_EN 0       // 是否外接BT RF LAN 放大器
 #define BT_RF_POWER_BALANCE_EN 0 // BT RF功耗配平,降低蓝牙RF TX/RX耗电不均引起的DAC噪声,但芯片耗电会加大  //默认使用了 //PA4/PA3/PF1/PB0/PB5 这五个IO口 (SSOP24/SOP16 没有用到的GPIO)
 
-#define LE_EN 0      // 是否打开BLE功能  打开ble需要同步替换带BLE的库 libbtstack_ble_no_tws.a 或 libbtstack_tws_ble.a (改名为libbtstack.a再编译),相关库的描述见libs/libbtstack_Readme.txt
+#define LE_EN 1      // 是否打开BLE功能  打开ble需要同步替换带BLE的库 libbtstack_ble_no_tws.a 或 libbtstack_tws_ble.a (改名为libbtstack.a再编译),相关库的描述见libs/libbtstack_Readme.txt
 #define LE_PAIR_EN 0 // 是否使能BLE的加密配对
 
 // 独立FOTA功能配置

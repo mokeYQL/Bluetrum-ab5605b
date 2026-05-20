@@ -196,15 +196,15 @@ void ws2812_flush(void)
         energy = dac_pcm_pow_calc();
 
         // 能量 → 扩散层数（0~20 层，每层左右各 2 颗 = 共 40 颗）
+        // 阈值整体偏高，小音量只亮中心几颗
         if      (energy < 300)    level = 0;
-        else if (energy < 1000)   level = 2;
-        else if (energy < 2500)   level = 5;
-        else if (energy < 5000)   level = 8;
-        else if (energy < 8000)   level = 11;
-        else if (energy < 12000)  level = 14;
-        else if (energy < 18000)  level = 17;
-        else if (energy < 25000)  level = 19;
-        else                      level = 20;
+        else if (energy < 4000)   level = 2;   // 中心4颗
+        else if (energy < 8000)   level = 5;   // 10颗
+        else if (energy < 12000)  level = 8;   // 16颗
+        else if (energy < 18000)  level = 11;  // 22颗
+        else if (energy < 25000)  level = 14;  // 28颗
+        else if (energy < 35000)  level = 17;  // 34颗
+        else                      level = 20;  // 全亮
 
         // 能量 → 色相（0-255: 蓝→绿→黄→红→紫）
         if      (energy < 1200)   hue = 32;

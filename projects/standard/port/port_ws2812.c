@@ -184,66 +184,73 @@ void ws2812_flush(void)
 #if FUNC_BT_EN
     if ((func_cb.sta == FUNC_BT) && (bt_get_status() >= BT_STA_CONNECTED))
     {
-        /* ===== BT 模式：光色随声变（全灯同色，由能量驱动） ===== */
+        /* ===== BT 模式：从中心向两边扩散 =====
+         * 中心 LED 19/20，左右对称扩散
+         * level: 亮灯层数（0~20），20=全亮
+         * 颜色随 energy 渐变：蓝→绿→黄→红→紫
+         */
+        s16  left_idx, right_idx;
         u16 hue;
+        u8  rr = 0, gg = 0, bb = 0;
 
         energy = dac_pcm_pow_calc();
 
-        // // 低能量（静音/空闲）→ 淡蓝
-        // if (energy < 300)
-        // {
-        //     for (i = 0; i < WS2812_NUM_LEDS; i++)
-        //     {
-        //         ws2812_set_color(i, 0, 0, 5);
-        //     }
-        //     ws2812_update();
-        //     return;
-        // }
+        // 能量 → 扩散层数（0~20 层，每层左右各 2 颗 = 共 40 颗）
+        if      (energy < 300)    level = 0;
+        else if (energy < 1000)   level = 2;
+        else if (energy < 2500)   level = 5;
+        else if (energy < 5000)   level = 8;
+        else if (energy < 8000)   level = 11;
+        else if (energy < 12000)  level = 14;
+        else if (energy < 18000)  level = 17;
+        else if (energy < 25000)  level = 19;
+        else                      level = 20;
 
         // 能量 → 色相（0-255: 蓝→绿→黄→红→紫）
-        if (energy < 1200)
-            hue = 32;
-        else if (energy < 3000)
-            hue = 64;
-        else if (energy < 6000)
-            hue = 96;
-        else if (energy < 10000)
-            hue = 128;
-        else if (energy < 16000)
-            hue = 160;
-        else if (energy < 25000)
-            hue = 192;
-        else if (energy < 38000)
-            hue = 224;
-        else
-            hue = 255;
+        if      (energy < 1200)   hue = 32;
+        else if (energy < 3000)   hue = 64;
+        else if (energy < 6000)   hue = 96;
+        else if (energy < 10000)  hue = 128;
+        else if (energy < 16000)  hue = 160;
+        else if (energy < 25000)  hue = 192;
+        else if (energy < 38000)  hue = 224;
+        else                      hue = 255;
 
-        // 色相→RGB转换
-        u8 rr, gg, bb;
+        // 色相→RGB
         if (hue < 85)
-        { // 蓝→绿（通过青色）
+        {
             rr = 0;
             gg = hue * 3;
             bb = 255 - hue * 3;
         }
         else if (hue < 170)
-        { // 绿→红（通过黄色）
+        {
             rr = (hue - 85) * 3;
             gg = 255;
             bb = 0;
         }
         else
-        { // 红→紫（通过洋红）
+        {
             rr = 255;
             gg = (255 - hue) * 3;
             bb = (hue - 170) * 3;
         }
 
-        // 所有40灯显示同一颜色
+        // 先全灭
         for (i = 0; i < WS2812_NUM_LEDS; i++)
+            ws2812_set_color(i, 0, 0, 0);
+
+        // 从中心向两边点亮（LED编号 0~39，中心=19/20）
+        for (i = 0; i < level; i++)
         {
-            ws2812_set_color(i, rr, gg, bb);
+            left_idx  = 19 - i;
+            right_idx = 20 + i;
+            if (left_idx >= 0)
+                ws2812_set_color((u8)left_idx, rr, gg, bb);
+            if (right_idx < WS2812_NUM_LEDS)
+                ws2812_set_color((u8)right_idx, rr, gg, bb);
         }
+
         ws2812_update();
         return;
     }

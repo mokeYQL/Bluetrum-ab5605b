@@ -558,6 +558,10 @@
 		<Unit filename="port/port_update.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="port/port_ws2812.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="port/port_ws2812.h" />
 		<Unit filename="ram.ld">
 			<Option compile="1" />
 			<Option compiler="riscv32" use="1" buildCommand="$compiler $options $includes -E -P -x c -c $file -o $(TARGET_OBJECT_DIR)ram.o" />

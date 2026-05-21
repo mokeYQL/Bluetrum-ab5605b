@@ -1763,7 +1763,7 @@
 
 1725420956 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\xcfg.h
 
-1779172071 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
+1779268529 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
 	"config_define.h"
 	"config_extra.h"
 
@@ -2593,7 +2593,7 @@
 
 1778724100 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.h
 
-1779249348 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.c
+1779260576 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.c
 	"include.h"
 	"port_ws2812.h"
 

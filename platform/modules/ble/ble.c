@@ -1,6 +1,7 @@
 #include "include.h"
 #include "bsp_ble.h"
 #include "ble_merach.h"
+#include "ble_devinfo.h"
 
 #define BLE_MAX_LOCAL_NAME      32
 
@@ -34,70 +35,30 @@ const uint8_t scan_data_const[] = {
     0x08, 0x09, 'B', 'L', 'E', '-', 'B', 'O', 'X',
 };
 
+/* ================================================================
+ * BLE Profile — 仅保留参考项目一致的服务:
+ *   1. Merach 私有协议 (0x0001-0x0007)
+ *   2. Device Information Service (0x0008-0x0016)
+ * ================================================================ */
 const uint8_t profile_data[] =
 {
-// 0x0001 PRIMARY_SERVICE-ORG_BLUETOOTH_SERVICE_BATTERY_SERVICE
-    0x0a, 0x00, 0x02, 0x00, 0x01, 0x00, 0x00, 0x28, 0x0f, 0x18,
-    // 0x0002 CHARACTERISTIC-ORG_BLUETOOTH_CHARACTERISTIC_BATTERY_LEVEL-DYNAMIC | READ | NOTIFY
-    0x0d, 0x00, 0x02, 0x00, 0x02, 0x00, 0x03, 0x28, 0x12, 0x03, 0x00, 0x19, 0x2a,
-    // 0x0003 VALUE-ORG_BLUETOOTH_CHARACTERISTIC_BATTERY_LEVEL-DYNAMIC | READ | NOTIFY-''
-    // READ_ANYBODY
-    0x08, 0x00, 0x02, 0x01, 0x03, 0x00, 0x19, 0x2a,
-    // 0x0004 CLIENT_CHARACTERISTIC_CONFIGURATION
-    // READ_ANYBODY, WRITE_ANYBODY
-    0x0a, 0x00, 0x0a, 0x01, 0x04, 0x00, 0x02, 0x29, 0x00, 0x00,
-
-// Test Service
-    // 0x0005 PRIMARY_SERVICE-FF10
-    0x0a, 0x00, 0x02, 0x00, 0x07, 0x00, 0x00, 0x28, 0x10, 0xff,
-    // Test Characteristic, with read and notify
-    // 0x0006 CHARACTERISTIC-FF11-READ | WRITE | NOTIFY | DYNAMIC
-    0x0d, 0x00, 0x02, 0x00, 0x08, 0x00, 0x03, 0x28, 0x1a, 0x09, 0x00, 0xf1, 0xff,
-    // 0x0007 VALUE-FF11-READ | WRITE | NOTIFY | DYNAMIC-''
-    // READ_ANYBODY, WRITE_ANYBODY
-    0x08, 0x00, 0x0a, 0x01, 0x09, 0x00, 0xf1, 0xff,
-    // 0x0008 CLIENT_CHARACTERISTIC_CONFIGURATION
-    // READ_ANYBODY, WRITE_ANYBODY
-//    0x0a, 0x00, 0x0a, 0x01, 0x0a, 0x00, 0x02, 0x29, 0x00, 0x00,
-
-    // APP
-    // 0x000a PRIMARY_SERVICE-FF12
-    0x0a, 0x00, 0x02, 0x00, 0x0a, 0x00, 0x00, 0x28, 0x12, 0xff,
-    // APP->BSP Characteristic, with write
-    // 0x000b CHARACTERISTIC-FF13-WRITE | DYNAMIC
-    0x0d, 0x00, 0x02, 0x00, 0x0b, 0x00, 0x03, 0x28, 0x08, 0x0c, 0x00, 0x13, 0xff,
-    // 0x000c VALUE-FF13-WRITE | DYNAMIC-''
-    // WRITE_ANYBODY
-    0x08, 0x00, 0x08, 0x01, 0x0c, 0x00, 0x13, 0xff,
-    // BSP->APP Characteristic, with notify
-    // 0x000d CHARACTERISTIC-FF14-NOTIFY | DYNAMIC
-    0x0d, 0x00, 0x02, 0x00, 0x0d, 0x00, 0x03, 0x28, 0x10, 0x0e, 0x00, 0x14, 0xff,
-    // 0x000e VALUE-FF14-NOTIFY | DYNAMIC-''
-    0x08, 0x00, 0x00, 0x01, 0x0e, 0x00, 0x14, 0xff,
-    // 0x000f CLIENT_CHARACTERISTIC_CONFIGURATION
-    // READ_ANYBODY, WRITE_ANYBODY
-    0x0a, 0x00, 0x0a, 0x01, 0x0f, 0x00, 0x02, 0x29, 0x00, 0x00,
-    // 0x0010 CHARACTERISTIC-FF15-READ | WRITE_WITHOUT_RESPONSE | DYNAMIC
-    0x0d, 0x00, 0x02, 0x00, 0x10, 0x00, 0x03, 0x28, 0x06, 0x11, 0x00, 0x15, 0xff,
-    // 0x0003 VALUE-FF15-READ | WRITE_WITHOUT_RESPONSE | DYNAMIC-''
-    // READ_ANYBODY, WRITE_ANYBODY
-    0x08, 0x00, 0x06, 0x01, 0x11, 0x00, 0x15, 0xff,
-
-// ★ Merach 私有协议服务
     MERACH_PROFILE_ENTRIES
+    DIS_PROFILE_ENTRIES
 
     // END
     0x00, 0x00,
 };
 
 const struct att_hdl_t att_hdl_tbl[] = {
-    [0]   = {0x0003,  1},
-    [1]   = {0x0009,  1},
-    [2]   = {0x000c,  0},
-    [3]   = {0x000e,  1},
-    [4]   = {0x0011,  1},
-    [5]   = {0x0014,  1},   // ★ Merach Heart Pack
-    [6]   = {0x0017,  1},   // ★ Merach SPP Data
+    [0]  = {HDL_MERACH_HEART_VAL,  1},   // Merach Heart Pack VALUE
+    [1]  = {HDL_MERACH_SPP_VAL,    1},   // Merach SPP Data VALUE
+    [2]  = {HDL_DIS_MANU_VAL,      0},   // DIS Manufacturer Name
+    [3]  = {HDL_DIS_MODEL_VAL,     0},   // DIS Model Number
+    [4]  = {HDL_DIS_SERIAL_VAL,    0},   // DIS Serial Number
+    [5]  = {HDL_DIS_HW_VAL,        0},   // DIS Hardware Revision
+    [6]  = {HDL_DIS_FW_VAL,        0},   // DIS Firmware Revision
+    [7]  = {HDL_DIS_SW_VAL,        0},   // DIS Software Revision
+    [8]  = {HDL_DIS_SYSID_VAL,     0},   // DIS System ID
 };
 
 const u8 *ble_get_profile_data(void)
@@ -127,16 +88,6 @@ u32 ble_get_adv_data(u8 *adv_buf, u32 buf_size)
     memset(adv_buf, 0, buf_size);
     u32 data_len = sizeof(adv_data_const);
     memcpy(adv_buf, adv_data_const, data_len);
-
-    //读取BLE配置的蓝牙名称
-//    int len;
-//    len = strlen(xcfg_cb.le_name);
-//    if (len > 0) {
-//        memcpy(&adv_buf[5], xcfg_cb.le_name, len);
-//        data_len = 5 + len;
-//        adv_buf[3] = len + 1;
-//    }
-
     return data_len;
 }
 
@@ -144,13 +95,12 @@ static void bsp_ble_init(void);
 void ble_init_att(void)
 {
     u8 buffer[4];
-//    buffer[0] = ble_get_bat_level();
-//    ble_init_att_do(BLE_IDX_BATTERY, att_hdl_tbl[BLE_IDX_BATTERY].hdl, att_hdl_tbl[BLE_IDX_BATTERY].cfg, buffer, 1);   //初始化电量
     memset(buffer, 0, 4);
     for (int i = 0; i < (sizeof(att_hdl_tbl) / sizeof(struct att_hdl_t)); i++) {
         ble_init_att_do(i, att_hdl_tbl[i].hdl, att_hdl_tbl[i].cfg, buffer, 4);
     }
     ble_merach_init();
+    ble_devinfo_init();
     bsp_ble_init();
 }
 
@@ -171,46 +121,31 @@ struct ble_cb_t {
     u8 cmd_wptr;
 } ble_cb;
 
+/* ================================================================
+ * BLE 读回调
+ * ================================================================ */
 u8 ble_att_read_callback(u16 handle, u8 *ptr, u8 len)
 {
     printf("BLE SLAVE Read hanlde:[%04x]\n",handle);
     u8 data_len = 0;
 
-    // ★ Merach 服务读取
+    // Merach
     data_len = ble_merach_att_read_callback(handle, ptr, len);
     if (data_len) return data_len;
 
-    switch(handle)
-    {
-        case 0x0003: //att_hdl_tbl[BLE_IDX_BATTERY].hdl
-            *ptr = 0x60;
-            data_len = 1;
-            break;
-        case 0x00007: //att_hdl_tbl[BLE_IDX_OLD_APP].hdl
-            memset(ptr,0x55,5);
-            data_len = 5;
-            break;
-        ///...
-        default:    //默认用ble_init_att_do初始化的数值
-            data_len = 0;
-            break;
-    }
+    // DIS
+    data_len = ble_devinfo_att_read_callback(handle, ptr, len);
+    if (data_len) return data_len;
 
     return data_len;
 }
 
+/* ================================================================
+ * BLE 写回调
+ * ================================================================ */
 u8 ble_att_write_callback(u16 handle, u8 *ptr, u8 len)
 {
-#if FOT_EN
-    if(handle == 0x0011){
-        if(fot_app_connect_auth(ptr, len)){
-            fot_recv_proc(ptr, len);
-            return true;
-        }
-    }
-#endif
-
-    // ★ Merach 服务写入（心跳、SPP 透传、CCCD 更新）
+    // Merach
     if (ble_merach_att_write_callback(handle, ptr, len)) {
         return true;
     }
@@ -229,63 +164,26 @@ u8 ble_att_write_callback(u16 handle, u8 *ptr, u8 len)
     return true;
 }
 
-bool ble_send_packet(u8 *buf, u8 len)
-{
-    if (buf == NULL || len > ble_get_gatt_mtu()) {
-        return false;
-    }
-
-    printf("BLE TX [%d]: \n", len);
-    print_r(buf, len);
-
-    return ble_tx_notify(1, buf, len);
-}
-
-#if LE_AB_FOT_EN
-bool ble_fot_send_packet(u8 *buf, u8 len)
-{
-    return ble_tx_notify(3, buf, len);
-}
-#endif
-
-void bsp_ble_tx_test(void)
-{
-    int i;
-    u8 ble_test_buf[66];
-    for (i = 1; i < 66; i++) {
-        ble_test_buf[i-1] = i;
-    }
-    for (i = 1; i < (ble_get_gatt_mtu() + 1); i++) {
-        if (ble_is_connect()) {
-            ble_test_buf[0] = i;
-            ble_send_packet(ble_test_buf, i);
-            delay_5ms(8);
-            WDT_CLR();
-        }
-    }
-}
-
+/* ================================================================
+ * BLE 轮询处理
+ * ================================================================ */
 void bsp_ble_process(void)
 {
     ble_merach_process();
-
-    if (ble_cb.cmd_rptr == ble_cb.cmd_wptr) {
-        return;
-    }
-    u8 rptr = ble_cb.cmd_rptr & BLE_CMD_BUF_MASK;
-    ble_cb.cmd_rptr++;
-    u8 *ptr = ble_cb.cmd[rptr].buf;
-    u8 len = ble_cb.cmd[rptr].len;
-    u16 handle = ble_cb.cmd[rptr].handle;
-    if (handle == 0x0009) {             //兼容旧版APP
-        if ((len == 4) && (ptr[0] == 0x01) && (ptr[1] == 0x06)) {
-            bsp_ble_tx_test();
-        } else {
-            bt_app_cmd_process(ptr, len, 1);
-        }
-    }
 }
 
+/* ================================================================
+ * 兼容桩函数 — bsp_ble.h 声明的旧 API
+ * ================================================================ */
+bool ble_send_packet(u8 *buf, u8 len)
+{
+    /* 旧版 Test Service 已移除，此函数不再使用 */
+    return false;
+}
+
+/* ================================================================
+ * 内部初始化
+ * ================================================================ */
 static void bsp_ble_init(void)
 {
     memset(&ble_cb, 0, sizeof(struct ble_cb_t));
@@ -294,7 +192,6 @@ static void bsp_ble_init(void)
 void ble_conn_callback(void)
 {
     printf("ble_conn\n");
-
 #if LE_AB_FOT_EN
     fot_ble_connect_callback();
 #endif
@@ -303,7 +200,6 @@ void ble_conn_callback(void)
 void ble_disconn_callback(void)
 {
     printf("ble_disconn\n");
-
 #if LE_AB_FOT_EN
     fot_ble_disconnect_callback();
 #endif

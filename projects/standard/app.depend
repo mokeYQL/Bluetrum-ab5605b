@@ -2357,10 +2357,11 @@
 	"include.h"
 	"bsp_ble.h"
 
-1779411685 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble.c
+1779413608 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble.c
 	"include.h"
 	"bsp_ble.h"
 	"ble_merach.h"
+	"ble_devinfo.h"
 
 1687852075 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\bt\a2dp.c
 	"include.h"
@@ -2598,10 +2599,17 @@
 	"include.h"
 	"port_ws2812.h"
 
-1779411917 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_merach.h
+1779413562 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_merach.h
 	"include.h"
 
 1779411927 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_merach.c
 	"include.h"
 	"ble_merach.h"
+
+1779413567 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_devinfo.h
+	"include.h"
+
+1779412888 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_devinfo.c
+	"include.h"
+	"ble_devinfo.h"
 

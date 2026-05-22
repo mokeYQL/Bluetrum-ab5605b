@@ -372,6 +372,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../../platform/modules/ble/ble_merach.h" />
+		<Unit filename="../../platform/modules/ble/ble_devinfo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../platform/modules/ble/ble_devinfo.h" />
 		<Unit filename="../../platform/modules/bt/a2dp.c">
 			<Option compilerVar="CC" />
 		</Unit>

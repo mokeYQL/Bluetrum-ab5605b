@@ -1,5 +1,6 @@
 #include "include.h"
 #include "bsp_ble.h"
+#include "ble_merach.h"
 
 #define BLE_MAX_LOCAL_NAME      32
 
@@ -82,9 +83,12 @@ const uint8_t profile_data[] =
     // READ_ANYBODY, WRITE_ANYBODY
     0x08, 0x00, 0x06, 0x01, 0x11, 0x00, 0x15, 0xff,
 
+// ★ Merach 私有协议服务
+    MERACH_PROFILE_ENTRIES
+
     // END
     0x00, 0x00,
-}; // total size 99 bytes
+};
 
 const struct att_hdl_t att_hdl_tbl[] = {
     [0]   = {0x0003,  1},
@@ -92,6 +96,8 @@ const struct att_hdl_t att_hdl_tbl[] = {
     [2]   = {0x000c,  0},
     [3]   = {0x000e,  1},
     [4]   = {0x0011,  1},
+    [5]   = {0x0014,  1},   // ★ Merach Heart Pack
+    [6]   = {0x0017,  1},   // ★ Merach SPP Data
 };
 
 const u8 *ble_get_profile_data(void)
@@ -144,6 +150,7 @@ void ble_init_att(void)
     for (int i = 0; i < (sizeof(att_hdl_tbl) / sizeof(struct att_hdl_t)); i++) {
         ble_init_att_do(i, att_hdl_tbl[i].hdl, att_hdl_tbl[i].cfg, buffer, 4);
     }
+    ble_merach_init();
     bsp_ble_init();
 }
 
@@ -168,6 +175,11 @@ u8 ble_att_read_callback(u16 handle, u8 *ptr, u8 len)
 {
     printf("BLE SLAVE Read hanlde:[%04x]\n",handle);
     u8 data_len = 0;
+
+    // ★ Merach 服务读取
+    data_len = ble_merach_att_read_callback(handle, ptr, len);
+    if (data_len) return data_len;
+
     switch(handle)
     {
         case 0x0003: //att_hdl_tbl[BLE_IDX_BATTERY].hdl
@@ -197,6 +209,11 @@ u8 ble_att_write_callback(u16 handle, u8 *ptr, u8 len)
         }
     }
 #endif
+
+    // ★ Merach 服务写入（心跳、SPP 透传、CCCD 更新）
+    if (ble_merach_att_write_callback(handle, ptr, len)) {
+        return true;
+    }
 
     printf("BLE RX [%d]: \n", len);
     print_r(ptr, len);
@@ -250,6 +267,8 @@ void bsp_ble_tx_test(void)
 
 void bsp_ble_process(void)
 {
+    ble_merach_process();
+
     if (ble_cb.cmd_rptr == ble_cb.cmd_wptr) {
         return;
     }

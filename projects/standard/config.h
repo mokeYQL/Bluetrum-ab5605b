@@ -131,7 +131,7 @@
 
 #define BT_2ACL_EN 0 // BT音箱: 关闭一拖二
 #define BT_A2DP_EN 1 // BT音箱: ★ A2DP音乐核心
-#define BT_HFP_EN 0  // BT音箱: 关闭通话
+#define BT_HFP_EN 1  // BT音箱: 开启通话（微信语音/电话走音箱出声）
 #define BT_HSP_EN 0  // BT音箱: 关闭HSP
 #define BT_PBAP_EN 0 // BT音箱: 关闭电话簿
 #define BT_MAP_EN 0  // BT音箱: 关闭短信
@@ -142,8 +142,8 @@
 #define BT_HID_MENU_EN 0           // 关闭
 #define BT_HID_DISCON_DEFAULT_EN 0 // 关闭
 #define BT_HID_SIMPLE_KEYBOARD 0   // 关闭
-#define BT_HFP_CALL_PRIVATE_EN 0   // BT音箱: 关闭
-#define BT_HFP_CALL_PRIVATE_FORCE_EN 0
+#define BT_HFP_CALL_PRIVATE_EN 1   // ★ 通话中按PLAY切换私密/免提
+#define BT_HFP_CALL_PRIVATE_FORCE_EN 1  // ★ 通知手机支持私密通话切换
 #define BT_HFP_RING_NUMBER_EN 0      // BT音箱: 关闭
 #define BT_HFP_PLAY_IOS_RING_EN 0    // BT音箱: 关闭
 #define BT_HFP_BAT_REPORT_EN 0       // BT音箱: 关闭

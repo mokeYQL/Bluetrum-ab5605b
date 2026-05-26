@@ -1,0 +1,252 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="为什么无法拆分">
+    <mxGraphModel dx="1400" dy="950" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1050" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="title" value="产品想要的方案 为什么不能实现" style="text;fontSize=20;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="300" y="10" width="700" height="35" as="geometry"/>
+        </mxCell>
+
+        <!-- ================================================================ -->
+        <!-- 三列场景对比 -->
+        <!-- ================================================================ -->
+
+        <!-- Col 1: Current State -->
+        <mxCell id="c1_box" value="" style="rounded=1;fillColor=#f5f5f5;strokeColor=#999999;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="30" y="55" width="420" height="300" as="geometry"/>
+        </mxCell>
+        <mxCell id="c1_title" value="① 当前板子状态" style="text;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="62" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="c1_phone" value="📱 手机" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="95" width="120" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="c1_chip" value="蓝牙芯片" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="180" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="c1_spk" value="🔊 喇叭 ✅" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="270" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="c1_nomic" value="❌ 无 MIC" style="rounded=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="95" width="100" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="c1_a2dp" value="A2DP 音乐 →" style="edgeStyle=none;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#82b366;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="c1_phone" target="c1_chip">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="c1_dac" value="DAC →" style="edgeStyle=none;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#82b366;strokeWidth=2;fontSize=11;" edge="1" parent="1" source="c1_chip" target="c1_spk">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="c1_note" value="只有 A2DP 音乐通道，没有 MIC" style="text;fontSize=11;fillColor=#f5f5f5;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="120" y="325" width="230" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Col 2: Standard HFP (what other products do) -->
+        <mxCell id="c2_box" value="" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="480" y="55" width="420" height="300" as="geometry"/>
+        </mxCell>
+        <mxCell id="c2_title" value="② 标准 HFP 免提（加 MIC 后）" style="text;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="62" width="280" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="c2_phone" value="📱 手机" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="95" width="120" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="c2_chip" value="蓝牙芯片" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="180" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="c2_spk" value="🔊 喇叭 ✅" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="270" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="c2_mic" value="🎤 MIC ✅" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="95" width="100" height="45" as="geometry"/>
+        </mxCell>
+        <!-- Bidirectional SCO -->
+        <mxCell id="c2_down" value="SCO 下行 ✅&#xa;对方声音→喇叭" style="edgeStyle=none;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="c2_phone" target="c2_chip">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="c2_up" value="SCO 上行 ✅&#xa;MIC→手机" style="edgeStyle=none;rounded=0;exitX=0.5;exitY=0;entryX=1;entryY=0.5;strokeColor=#82b366;strokeWidth=2;fontSize=10;endArrow=block;" edge="1" parent="1" source="c2_mic" target="c2_phone">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="810" y="70"/>
+              <mxPoint x="810" y="117"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c2_dac" value="DAC →" style="edgeStyle=none;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="c2_chip" target="c2_spk">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="c2_note" value="HFP 上下行完整，跟车载蓝牙一样" style="text;fontSize=11;fillColor=#d5e8d4;fontColor=#336633;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="560" y="325" width="260" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Col 3: Desired Split (impossible) -->
+        <mxCell id="c3_box" value="" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;verticalAlign=top;dashed=1;dashPattern=8 8;" vertex="1" parent="1">
+          <mxGeometry x="930" y="55" width="420" height="300" as="geometry"/>
+        </mxCell>
+        <mxCell id="c3_title" value="③ 产品想要的（不可行）" style="text;fontSize=14;fontStyle=1;fillColor=#fff2cc;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="62" width="220" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="c3_phone" value="📱 手机" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="95" width="120" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="c3_pmic" value="手机 MIC ✅" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="95" width="100" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="c3_chip" value="蓝牙芯片" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="180" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="c3_spk" value="🔊 喇叭" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="270" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <!-- Down path OK -->
+        <mxCell id="c3_down" value="HFP 下行 ✅&#xa;对方声音→喇叭" style="edgeStyle=none;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="c3_phone" target="c3_chip">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="c3_dac" value="DAC →" style="edgeStyle=none;rounded=0;exitX=0.5;exitY=1;entryX=0.5;entryY=0;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="c3_chip" target="c3_spk">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Up path FAILS -->
+        <mxCell id="c3_up_fail" value="HFP 上行 ❌&#xa;要传给对方，无 MIC" style="edgeStyle=none;rounded=0;exitX=0.5;exitY=1;entryX=0;entryY=0.5;strokeColor=#b85450;strokeWidth=2;fontSize=10;fontColor=#b85450;dashed=1;" edge="1" parent="1" source="c3_pmic" target="c3_chip">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1260" y="150"/>
+              <mxPoint x="1050" y="150"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <!-- Phone MIC blocked -->
+        <mxCell id="c3_block" value="❌ HFP 建立后&#xa;手机 MIC 被关闭" style="rounded=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="140" width="120" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="c3_note" value="想做：上行手机MIC，下行蓝牙喇叭&#xa;不行：HFP 的上下行走同一条线" style="text;fontSize=11;fillColor=#fff2cc;fontColor=#996600;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="970" y="325" width="350" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ================================================================ -->
+        <!-- SCO Rope Visualization -->
+        <!-- ================================================================ -->
+        <mxCell id="rope_box" value="" style="rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="30" y="375" width="1320" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="rope_label" value="核心原因：HFP 的 SCO 链路就像一根双向绳子，砍不断" style="text;fontSize=15;fontStyle=1;fillColor=#fff2cc;" vertex="1" parent="1">
+          <mxGeometry x="300" y="380" width="550" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- Rope left end -->
+        <mxCell id="rope_left" value="" style="ellipse;fillColor=#dae8fc;strokeColor=#6c8ebf;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="80" y="415" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="rope_left_label" value="📱&#xa;手机" style="text;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="80" y="480" width="60" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Rope right end -->
+        <mxCell id="rope_right" value="" style="ellipse;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="415" width="60" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="rope_right_label" value="蓝牙&#xa;芯片" style="text;fontSize=12;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="480" width="60" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Rope itself -->
+        <mxCell id="rope_line" value="" style="endArrow=none;strokeWidth=8;strokeColor=#d6b656;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="140" y="445" as="sourcePoint"/>
+            <mxPoint x="1240" y="445" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Down arrow on rope -->
+        <mxCell id="rope_down_arrow" value="" style="endArrow=classic;strokeColor=#82b366;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="435" as="sourcePoint"/>
+            <mxPoint x="350" y="435" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rope_down_label" value="下行（对方的声音）" style="text;fontSize=11;fillColor=#d5e8d4;fontColor=#336633;" vertex="1" parent="1">
+          <mxGeometry x="200" y="418" width="130" height="18" as="geometry"/>
+        </mxCell>
+
+        <!-- Up arrow on rope -->
+        <mxCell id="rope_up_arrow" value="" style="endArrow=classic;strokeColor=#f8cecc;strokeWidth=3;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="455" as="sourcePoint"/>
+            <mxPoint x="200" y="455" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rope_up_label" value="上行（我说话）" style="text;fontSize=11;fillColor=#f8cecc;fontColor=#993333;" vertex="1" parent="1">
+          <mxGeometry x="220" y="468" width="110" height="18" as="geometry"/>
+        </mxCell>
+
+        <!-- X mark in middle: can't cut -->
+        <mxCell id="rope_x" value="" style="endArrow=none;strokeColor=#b85450;strokeWidth=4;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="415" as="sourcePoint"/>
+            <mxPoint x="700" y="475" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rope_x2" value="" style="endArrow=none;strokeColor=#b85450;strokeWidth=4;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="700" y="415" as="sourcePoint"/>
+            <mxPoint x="680" y="475" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rope_cut_label" value="想从这里砍开&#xa;一半接手机MIC&#xa;一半接音响喇叭&#xa;❌ 协议不支持" style="text;fontSize=12;fillColor=#f8cecc;strokeColor=#b85450;fontColor=#b85450;fontStyle=1;align=center;rounded=1;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="425" width="150" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- ================================================================ -->
+        <!-- Three Reasons in a row -->
+        <!-- ================================================================ -->
+        <mxCell id="r1_box" value="" style="rounded=1;fillColor=#f8cecc;strokeColor=#b85450;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="30" y="575" width="420" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="r1_title" value="原因① 手机 OS 自动关 MIC" style="text;fontSize=13;fontStyle=1;fillColor=#f8cecc;" vertex="1" parent="1">
+          <mxGeometry x="100" y="580" width="250" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="r1_text" value="HFP 一连接 → 手机认为话筒在蓝牙上&#xa;→ 关闭自身 MIC → 不是代码能控制的（iOS/Android 都这样）" style="text;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="50" y="605" width="380" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r2_box" value="" style="rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="480" y="575" width="420" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="r2_title" value="原因② 芯片硬件写入绑定" style="text;fontSize=13;fontStyle=1;fillColor=#e1d5e7;" vertex="1" parent="1">
+          <mxGeometry x="580" y="580" width="200" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="r2_text" value="btmic_ch_tbl[] = {CH_MIC_PF2, CH_MIC_PF3}&#xa;MIC 只能是芯片引脚 → 没有『选手机 MIC』的代码路径" style="text;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="500" y="605" width="380" height="45" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r3_box" value="" style="rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="930" y="575" width="420" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="r3_title" value="原因③ 换芯片/RTOS 也不行" style="text;fontSize=13;fontStyle=1;fillColor=#dae8fc;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="580" width="220" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="r3_text" value="问题在蓝牙协议(Controller 硬件层)，不在应用层&#xa;RTOS 只管 CPU 调度 → 管不了射频物理链路方向" style="text;fontSize=11;align=left;" vertex="1" parent="1">
+          <mxGeometry x="950" y="605" width="380" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- ================================================================ -->
+        <!-- Summary: Two solutions -->
+        <!-- ================================================================ -->
+        <mxCell id="sol_box" value="" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=2;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="30" y="680" width="1320" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="sol_title" value="结论：两个可选方案（没有第三个）" style="text;fontSize=15;fontStyle=1;fillColor=#d5e8d4;" vertex="1" parent="1">
+          <mxGeometry x="460" y="685" width="350" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="sol_a_label" value="方案A：私密模式（不改硬件）&#xa;BT_HFP_CALL_PRIVATE_FORCE_EN=1&#xa;通话时走手机听筒+MIC，音箱不参与通话" style="text;fontSize=11;align=left;fillColor=#dae8fc;rounded=1;strokeColor=#6c8ebf;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="715" width="520" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="sol_b_label" value="方案B：免提模式（需在 PF2 外接 MIC 电路）&#xa;HFP 上下行完整 → 音箱出声 + MIC 收音&#xa;跟车载蓝牙一样的免提体验" style="text;fontSize=11;align=left;fillColor=#fff2cc;rounded=1;strokeColor=#d6b656;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="715" width="520" height="45" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

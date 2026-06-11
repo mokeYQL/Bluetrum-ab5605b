@@ -11,7 +11,7 @@
 /*****************************************************************************
  * Module    : Function选择相关配置
  *****************************************************************************/
-#define FUNC_MUSIC_EN                   0 // 是否打开MUSIC功能
+#define FUNC_MUSIC_EN                   1 // 是否打开MUSIC功能
 #define FUNC_CLOCK_EN                   0 // 是否打开时钟功能
 #define FUNC_FMRX_EN                    0 // 是否打开FM功能
 #define FUNC_BT_EN                      1 // 是否打开蓝牙功能
@@ -35,7 +35,7 @@
 #define POWKEY_10S_RESET                xcfg_cb.powkey_10s_reset
 #define SOFT_POWER_ON_OFF               1          // 是否使用软开关机功能
 #define PWRKEY_2_HW_PWRON               0          // 用PWRKEY模拟硬开关
-#define USB_SD_UPDATE_EN                0          // 是否支持UDISK/SD的离线升级
+#define USB_SD_UPDATE_EN                1          // 是否支持UDISK/SD的离线升级
 #define EXT_32K_EN                      0          // 是否使用外部32.768K晶振,否则内部32K OSC。
 #define PWR_RC_32K_EN                   0          // 软关机时RTC是否省晶振，使用RC 32K
 #define SYS_ADJ_DIGVOL_EN               0          // 系统是否调数字音量

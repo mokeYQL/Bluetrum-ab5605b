@@ -1763,13 +1763,13 @@
 
 1725420956 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\xcfg.h
 
-1779268529 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
+1781160066 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
 	"config_define.h"
 	"config_extra.h"
 
 1722824600 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\config_define.h
 
-1729501625 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\config_extra.h
+1780564704 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\config_extra.h
 
 1699583839 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\io_def.h
 	"global.h"
@@ -2148,7 +2148,7 @@
 1704371874 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_karaok.c
 	"include.h"
 
-1779095811 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_key.c
+1781160059 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_key.c
 	"include.h"
 
 1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_led.c
@@ -2158,7 +2158,7 @@
 1725527978 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_map.c
 	"include.h"
 
-1778578865 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_music.c
+1781156949 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_music.c
 	"include.h"
 
 1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_param.c
@@ -2192,7 +2192,7 @@
 1710919366 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_spp.c
 	"include.h"
 
-1779095811 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_sys.c
+1780564704 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_sys.c
 	"include.h"
 
 1656983743 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_tkey.c
@@ -2204,13 +2204,13 @@
 1778556318 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func.c
 	"include.h"
 
-1778723651 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_aux.c
+1781156949 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_aux.c
 	"include.h"
 	"func.h"
 	"func_aux.h"
 	"port_ws2812.h"
 
-1778723651 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt.c
+1781156949 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_bt.c
 	"include.h"
 	"func.h"
 	"func_bt.h"
@@ -2269,7 +2269,7 @@
 	"include.h"
 	"func.h"
 
-1735199055 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_music.c
+1780968560 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_music.c
 	"include.h"
 	"func.h"
 	"func_music.h"
@@ -2292,7 +2292,7 @@
 	"func.h"
 	"func_update.h"
 
-1722824600 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_update.c
+1780968560 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_update.c
 	"include.h"
 	"func.h"
 	"func_update.h"
@@ -2357,7 +2357,7 @@
 	"include.h"
 	"bsp_ble.h"
 
-1779413608 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble.c
+1781156949 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble.c
 	"include.h"
 	"bsp_ble.h"
 	"ble_merach.h"
@@ -2532,7 +2532,7 @@
 	"func.h"
 	"func_idle.h"
 
-1778550507 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\app.xm
+1653013344 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\app.xm
 	"config.h"
 
 1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\download.xm
@@ -2547,7 +2547,7 @@
 1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\multi_lang.c
 	"include.h"
 
-1778723651 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\plugin.c
+1781156949 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\plugin.c
 	"include.h"
 	"port_ws2812.h"
 
@@ -2593,23 +2593,23 @@
 1779171904 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\ram.ld
 	"config.h"
 
-1778724100 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.h
+1781156949 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.h
 
-1779260576 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.c
+1781156949 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_ws2812.c
 	"include.h"
 	"port_ws2812.h"
 
-1779413562 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_merach.h
+1781156949 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_merach.h
 	"include.h"
 
-1779411927 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_merach.c
+1781156949 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_merach.c
 	"include.h"
 	"ble_merach.h"
 
-1779413567 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_devinfo.h
+1781156949 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_devinfo.h
 	"include.h"
 
-1779412888 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_devinfo.c
+1781156949 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_devinfo.c
 	"include.h"
 	"ble_devinfo.h"
 

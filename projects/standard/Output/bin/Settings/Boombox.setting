@@ -45,7 +45,7 @@
         <add key="charge_constant_curr" value="12" />
         <add key="charge_trickle_curr" value="2" />
         <add key="charge_full_bled" value="3" />
-        <add key="bt_name" value="BT-BOX_560X" />
+        <add key="bt_name" value="MR-T28-BT" />
         <add key="bt_addr_mode" value="随机地址" />
         <add key="bt_addr" value="41:42:00:00:00:01" />
         <add key="bt_addr_start" value="41:42:00:00:00:00" />
@@ -105,9 +105,9 @@
         <add key="mode_2_aux_en" value="False" />
         <add key="aux_anl_gain" value="2" />
         <add key="aux_dig_gain" value="0" />
-        <add key="auxl_sel" value="4" />
-        <add key="auxr_sel" value="4" />
-        <add key="linein_det_iosel" value="0" />
+        <add key="auxl_sel" value="6" />
+        <add key="auxr_sel" value="0" />
+        <add key="linein_det_iosel" value="7" />
         <add key="user_pwrkey_en" value="True" />
         <add key="user_adkey_en" value="True" />
         <add key="user_adkey2_en" value="False" />

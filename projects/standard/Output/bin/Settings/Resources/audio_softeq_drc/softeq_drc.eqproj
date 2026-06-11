@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <appSettings>
+        <add key="FILE" value="EQ-PROJ" />
+        <add key="VERSION" value="0.1.0" />
+        <add key="ProjectName" value="SOFT_EQ_DRC" />
+        <add key="AncPanel" value="Diable" />
+        <add key="EQName_1" value="PRE_EQ" />
+        <add key="EQPath_1" value="softeq_drc\pre.eq" />
+        <add key="EQName_2" value="DRC" />
+        <add key="EQPath_2" value="softeq_drc\drc.drc" />
+        <add key="EQName_3" value="POST_EQ" />
+        <add key="EQPath_3" value="softeq_drc\post.eq" />
+        <add key="EQName_4" value="" />
+        <add key="EQPath_4" value="" />
+    </appSettings>
+</configuration>

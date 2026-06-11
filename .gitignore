@@ -1,5 +1,5 @@
 # 编译输出目录
-projects/standard/Output/
+projects/standard/Output/obj
 
 # 编译生成文件
 *.bin

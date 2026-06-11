@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <appSettings>
+        <add key="FILE" value="EQ-PROJ" />
+        <add key="VERSION" value="0.1.0" />
+        <add key="ProjectName" value="多频带DRC" />
+        <add key="AncPanel" value="Diable" />
+        <add key="EQName_1" value="PRE_EQ" />
+        <add key="EQPath_1" value="xdrc\pre.eq" />
+        <add key="EQName_2" value="FILTER_LP" />
+        <add key="EQPath_2" value="xdrc\lp.eq" />
+        <add key="EQName_3" value="FILTER_LP_EXP" />
+        <add key="EQPath_3" value="xdrc\lp_exp.eq" />
+        <add key="EQName_4" value="LP_DRC" />
+        <add key="EQPath_4" value="xdrc\lp.drc" />
+        <add key="EQName_5" value="FILTER_HP" />
+        <add key="EQPath_5" value="xdrc\hp.eq" />
+        <add key="EQName_6" value="FILTER_HP_EXP" />
+        <add key="EQPath_6" value="xdrc\hp_exp.eq" />
+        <add key="EQName_7" value="HP_DRC" />
+        <add key="EQPath_7" value="xdrc\hp.drc" />
+        <add key="EQName_8" value="ALL_DRC" />
+        <add key="EQPath_8" value="xdrc\all.drc" />
+        <add key="EQName_9" value="POST_EQ" />
+        <add key="EQPath_9" value="xdrc\post.eq" />
+        <add key="EQName_10" value="" />
+        <add key="EQPath_10" value="" />
+    </appSettings>
+</configuration>

@@ -366,7 +366,7 @@
  *****************************************************************************/
 #define USER_ADKEY                      0 // ADKEY的使用， 0为不使用
 #define USER_ADKEY2                     0 // ADKEY2的使用，0为不使用
-#define USER_PWRKEY                     0 // PWRKEY的使用，0为不使用
+#define USER_PWRKEY                     1 // PWRKEY的使用，0为不使用
 #define USER_IOKEY                      0 // IOKEY的使用， 0为不使用
 #define USER_ADKEY_MUX_SDCLK            0 // 是否使用复用SDCLK的ADKEY, 共用USER_ADKEY的按键table
 #define USER_ADKEY_MUX_LED              0 // 是否使用ADKEY与LED复用, 共用USER_ADKEY的流程(ADKEY与BLED配置同一IO)

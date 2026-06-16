@@ -107,7 +107,7 @@
         <add key="aux_dig_gain" value="0" />
         <add key="auxl_sel" value="6" />
         <add key="auxr_sel" value="0" />
-        <add key="linein_det_iosel" value="7" />
+        <add key="linein_det_iosel" value="6" />
         <add key="user_pwrkey_en" value="True" />
         <add key="user_adkey_en" value="True" />
         <add key="user_adkey2_en" value="False" />

@@ -40,7 +40,7 @@
 #define PWR_RC_32K_EN                   0          // 软关机时RTC是否省晶振，使用RC 32K
 #define SYS_ADJ_DIGVOL_EN               0          // 系统是否调数字音量
 #define GUI_SELECT                      GUI_NO     // GUI Display Select
-#define UART0_PRINTF_SEL                PRINTF_PA7 // PRINTF_PB3, PRINTF_PA7 选择UART打印信息输出IO，或关闭打印信息输出
+#define UART0_PRINTF_SEL                PRINTF_PB3 // PRINTF_PB3, PRINTF_PA7 选择UART打印信息输出IO，或关闭打印信息输出
 #define UART0_CLK_SEL_X26M              1          // 打印用的UART0时钟源选则X26M,系统时钟大于13M时才支持串口1.5M打印输出
 #define BT_POWER_OPTIMIZE               0          // 蓝牙电源优化,芯片供电纹波比较大时,蓝牙播放音乐可能卡顿,打开此选项优化蓝牙播放音乐的卡顿
 #define LED_MATRIX_HUART_TX             0          // 用作LED点阵屏主机，huart默认使用PB3，1500000波特率

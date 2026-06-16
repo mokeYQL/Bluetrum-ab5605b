@@ -4,13 +4,13 @@
 #if RGB_WS2812_EN
 
 /*
- * WS2812 SPI 驱动 — 使用 SPI1 G2 映射
+ * WS2812 SPI 驱动 — 使用 SPI1 G4 映射
  *
  * 原理：每个 WS2812 bit 用 3 个 SPI bit 编码
  *   WS2812 Bit 0 → SPI 100 (短高长低: H≈420ns, L≈840ns)
  *   WS2812 Bit 1 → SPI 110 (长高短低: H≈840ns, L≈420ns)
  *
- * SPI1 G2: CLK=PA6, DO=PA7→WS2812 DIN, DI=PA5(未用)
+ * SPI1 G4: CLK=PE6(悬空), DI=PE5(悬空), DO=PE7→WS2812 DIN
  *
  * SPI 波特率 = sysclk / (SPI1BAUD + 1)
  * 120MHz / 50 = 2.4MHz → 每 SPI bit ≈ 417ns
@@ -43,17 +43,17 @@ static void ws2812_encode_byte(u8 data, u8 *out)
     out[2] = spi_val & 0xFF;
 }
 
-/* 初始化 SPI1 G2: PA7(DO)→WS2812 DIN, PA6(CLK) */
+/* 初始化 SPI1 G4: PE7(DO)→WS2812 DIN, PE6(CLK)悬空, PE5(DI)保留为普通IO */
 void ws2812_init(void)
 {
-    // SPI1 G2: CLK=PA6, DO=PA7（DI=PA5 不初始化，留作普通IO）
-    GPIOADE  |= BIT(6) | BIT(7);             // 开启数字功能
-    GPIOAFEN |= BIT(6) | BIT(7);             // 开启功能复用模式（SPI）
-    GPIOADIR &= ~BIT(6);                      // PA6(CLK) 输出
-    GPIOADIR &= ~BIT(7);                      // PA7(DO) 输出
+    // SPI1 G4: CLK=PE6, DO=PE7（DI=PE5 不初始化，留作普通IO）
+    GPIOEDE  |= BIT(6) | BIT(7);             // 开启数字功能
+    GPIOEFEN |= BIT(6) | BIT(7);             // 开启功能复用模式（SPI）
+    GPIOEDIR &= ~BIT(6);                      // PE6(CLK) 输出
+    GPIOEDIR &= ~BIT(7);                      // PE7(DO) 输出
 
     FUNCMCON1 = (0x0F << 12); // 清除 SPI1 映射
-    FUNCMCON1 = SPI1MAP_G2;   // 设置 G2 映射
+    FUNCMCON1 = SPI1MAP_G4;   // 设置 G4 映射
 
     // SPI1 波特率：120MHz / 50 = 2.4MHz
     // 每 SPI bit = 417ns, 3 SPI bit = 1.25us = WS2812 标准周期
@@ -66,7 +66,7 @@ void ws2812_init(void)
     memset(ws2812_spi_buf, 0, sizeof(ws2812_spi_buf));
     memset(ws2812_rgb_buf, 0, sizeof(ws2812_rgb_buf));
 
-    printf("[WS2812] SPI1 G2 init ok (PA7→DIN, 2.4MHz)\n");
+    printf("[WS2812] SPI1 G4 init ok (PE7→DIN, 2.4MHz)\n");
 }
 
 /* 将 RGB 缓冲编码为 SPI 缓冲并通过 DMA 发送 */

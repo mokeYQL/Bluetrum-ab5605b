@@ -2,7 +2,7 @@
 
 #define UART_EXAMPLE_EN  0 /// 普通uart示例程序
 
-#define UART_EXAMPLE1_EN 1 /// 普通uart示例程序
+#define UART_EXAMPLE1_EN 0 /// 关闭,避免与 func_mp3_uart_upd 的 ISR 冲突
 
 #if UART_EXAMPLE_EN
 // u32 uart_buf = 0;

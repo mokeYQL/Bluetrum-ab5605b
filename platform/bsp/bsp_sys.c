@@ -1465,6 +1465,8 @@ void bsp_sys_init(void)
 #if EXLIB_BT_MONO_XDRC_EN
     bt_mono_xdrc_init();
 #endif
+
+    mp3_uart_update_init();
 }
 
 

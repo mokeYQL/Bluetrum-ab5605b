@@ -29,5 +29,6 @@
 
 #include "audio_softeq_drc.h"
 #include "bt_mono_xdrc_effect_adjust.h"
+#include "func_mp3_uart_upd.h"
 
 #endif // _INCLUDE_H

@@ -162,6 +162,8 @@ void func_process(void)
 #if LE_EN
     bsp_ble_process();
 #endif
+
+    mp3_uart_update_process();
 }
 
 //func common message process

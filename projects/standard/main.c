@@ -134,7 +134,6 @@ int main(void)
     printf("Hello AB560X: %08x\n", (LVDCON & 0x1ff0000));
     bsp_sys_init();
     debug_print_mp3_res();
-    uart1_g1_test();
     func_run();
     return 0;
 }

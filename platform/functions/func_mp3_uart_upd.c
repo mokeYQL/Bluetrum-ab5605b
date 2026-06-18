@@ -12,7 +12,7 @@
 // 统计计数
 static volatile u32 rx_total_cnt = 0;
 static volatile u32 rx_byte_cnt  = 0;
-static u32 stat_tick = 0;
+static u32          stat_tick    = 0;
 
 // ===================== UART1 发送 =====================
 
@@ -36,22 +36,22 @@ static void mp3_upd_uart_init(void)
 
     // --- GPIO & Mapping (照搬 uart1_g1_init) ---
     GPIOAFEN |= BIT(6) | BIT(7);
-    GPIOADIR |= BIT(6);          // PA6 input (RX)
-    GPIOADIR &= ~BIT(7);         // PA7 output (TX)
-    GPIOAPU  |= BIT(6) | BIT(7);
-    GPIOADE  |= BIT(6) | BIT(7);
+    GPIOADIR |= BIT(6);  // PA6 input (RX)
+    GPIOADIR &= ~BIT(7); // PA7 output (TX)
+    GPIOAPU |= BIT(6) | BIT(7);
+    GPIOADE |= BIT(6) | BIT(7);
 
     FUNCMCON0 |= (0xF << 28) | (0xF << 24);
     FUNCMCON0 |= (0x1 << 28) | (0x1 << 24); // G1 mapping
 
     // --- UART1 时钟 & 波特率 (照搬 uart_upd_init) ---
-    CLKGAT0 |= BIT(21);                                  // UART1 时钟门控 (官方SDK confirmed)
-    CLKCON1 |= BIT(14);                                  // uart_inc <- x26m_clkdiv2
+    CLKGAT0 |= BIT(21); // UART1 时钟门控 (官方SDK confirmed)
+    CLKCON1 |= BIT(14); // uart_inc <- x26m_clkdiv2
     baud_cfg  = ((26000000 / 2 + MP3_UPD_BAUD / 2) / MP3_UPD_BAUD) - 1;
     UART1BAUD = (baud_cfg << 16) | baud_cfg;
 
     // --- 使能 UART: BIT(5)=时钟源, BIT(7)=16x, BIT(4)=RX硬件, BIT(0)=EN ---
-    UART1CON  = BIT(5) | BIT(7) | BIT(4) | BIT(0);
+    UART1CON = BIT(5) | BIT(7) | BIT(4) | BIT(0);
 
     // --- 清空初始化过程中可能产生的 RX 残留数据 ---
     while (UART1CON & BIT(9)) {
@@ -73,24 +73,27 @@ void mp3_uart_update_init(void)
 
 void mp3_uart_update_process(void)
 {
-    // 热路径: 纯回环, 不调 printf
+    static u32 pkt_tick = 0;
+    static bool pkt_active = false;
+
     while (UART1CON & BIT(9)) {
         u8 ch = (u8)UART1DATA;
-        UART1CPND |= BIT(9);     // 清除 RX 完成标志
-        _uart1_putchar(ch);       // PA7 回发
+        UART1CPND |= BIT(9);
+
+        _uart1_putchar(ch);         // PA7 回发
+
+        printf("%02X ", ch);        // PB3 实时打印 HEX+空格
+
+        pkt_active = true;
+        pkt_tick = tick_get();
         rx_byte_cnt++;
         rx_total_cnt++;
         WDT_CLR();
     }
 
-    // 冷路径: 每 2 秒打印一次统计
-    if (tick_check_expire(stat_tick, 2000)) {
-        stat_tick = tick_get();
-        if (rx_byte_cnt > 0) {
-            printf("[MP3_UPD] rx %lu bytes (total %lu)\n",
-                   (unsigned long)rx_byte_cnt,
-                   (unsigned long)rx_total_cnt);
-            rx_byte_cnt = 0;
-        }
+    // 50ms 无数据 → 换行 (包边界)
+    if (pkt_active && tick_check_expire(pkt_tick, 50)) {
+        printf("\n");
+        pkt_active = false;
     }
 }

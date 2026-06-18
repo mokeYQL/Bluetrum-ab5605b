@@ -58,12 +58,83 @@ const uint8_t *bt_rf_get_param(void)
     return rf; // 使用内部参数
 }
 
+static void debug_print_mp3_res(void)
+{
+    // clang-format off
+    #define PRT_RES(name) \
+    printf("  %-30s buf=0x%08X  len=%5u (%2u.%02uKB)  end=0x%08X\n", \
+        #name, \
+        RES_BUF_##name, RES_LEN_##name, \
+        (RES_LEN_##name) / 1024, ((RES_LEN_##name) % 1024) * 100 / 1024, \
+        RES_BUF_##name + RES_LEN_##name)
+
+    printf("\n===== MP3 Resource Map (from NOR Flash 0x11000000) =====\n");
+    printf("  %-30s %-12s %-12s %-12s\n", "Name", "Flash Addr", "Size(bytes)", "End Addr");
+    printf("  ---------------------------------------------------------------\n");
+
+    // --- 通用提示音 ---
+    PRT_RES(POWERON_MP3);
+    PRT_RES(RING_MP3);
+    PRT_RES(UPDATE_MP3);
+    PRT_RES(UPDATE_DONE_MP3);
+
+    // --- 英文语音提示 ---
+    PRT_RES(EN_AUX_MODE_MP3);
+    PRT_RES(EN_BT_MODE_MP3);
+    PRT_RES(EN_CALLOUT_MP3);
+    PRT_RES(EN_CAMERA_MODE_MP3);
+    PRT_RES(EN_CAMERA_OFF_MP3);
+    PRT_RES(EN_CAMERA_ON_MP3);
+    PRT_RES(EN_CLOCK_MODE_MP3);
+    PRT_RES(EN_CONNECTED_MP3);
+    PRT_RES(EN_CONN_HID_MP3);
+    PRT_RES(EN_DISCONNECT_MP3);
+    PRT_RES(EN_DISCON_HID_MP3);
+    PRT_RES(EN_FM_MODE_MP3);
+    PRT_RES(EN_LANGUAGE_MP3);
+    PRT_RES(EN_LEFT_CH_MP3);
+    PRT_RES(EN_LOW_BATTERY_MP3);
+    PRT_RES(EN_MAX_VOL_MP3);
+    PRT_RES(EN_MUSIC_MODE_MP3);
+    PRT_RES(EN_NUM_0_MP3);
+    PRT_RES(EN_NUM_1_MP3);
+    PRT_RES(EN_NUM_2_MP3);
+    PRT_RES(EN_NUM_3_MP3);
+    PRT_RES(EN_NUM_4_MP3);
+    PRT_RES(EN_NUM_5_MP3);
+    PRT_RES(EN_NUM_6_MP3);
+    PRT_RES(EN_NUM_7_MP3);
+    PRT_RES(EN_NUM_8_MP3);
+    PRT_RES(EN_NUM_9_MP3);
+    PRT_RES(EN_PAIRING_MP3);
+    PRT_RES(EN_PC_MODE_MP3);
+    PRT_RES(EN_POWEROFF_MP3);
+    PRT_RES(EN_PRIV_CALL_MP3);
+    PRT_RES(EN_REC_START_MP3);
+    PRT_RES(EN_RIGHT_CH_MP3);
+    PRT_RES(EN_SDCARD_MODE_MP3);
+    PRT_RES(EN_SPK_MODE_MP3);
+    PRT_RES(EN_TAKE_PHOTO_MP3);
+    PRT_RES(EN_TWS_DISCON_MP3);
+    PRT_RES(EN_USB_MODE_MP3);
+    PRT_RES(EN_WAIT4CONN_MP3);
+
+    // --- 非MP3资源(参考) ---
+    printf("  --- Non-MP3 resources ---\n");
+    PRT_RES(MAX_VOL_WAV);
+    printf("  ===============================================================\n\n");
+
+    #undef PRT_RES
+    // clang-format on
+}
+
 // 正常启动Main函数
 int main(void)
 {
     printf("Hello AB560X: %08x\n", (LVDCON & 0x1ff0000));
     bsp_sys_init();
-    uart1_g1_test();
+    debug_print_mp3_res();
+    // uart1_g1_test();
     func_run();
     return 0;
 }

@@ -128,12 +128,34 @@ static void debug_print_mp3_res(void)
     // clang-format on
 }
 
+static void debug_dump_poweron_mp3(void)
+{
+    u8 *buf = (u8 *)RES_BUF_POWERON_MP3;
+    u32 len = RES_LEN_POWERON_MP3;
+    u32 dump_cnt = (len < 200) ? len : 200;
+
+    printf("===== POWERON_MP3 Hex Dump (first %lu of %lu bytes) =====\n",
+           (unsigned long)dump_cnt, (unsigned long)len);
+
+    for (u32 i = 0; i < dump_cnt; i++) {
+        if ((i % 16) == 0) {
+            printf("%04lX: ", (unsigned long)i);
+        }
+        printf("%02X ", buf[i]);
+        if ((i % 16) == 15 || i == dump_cnt - 1) {
+            printf("\n");
+        }
+    }
+    printf("===============================================================\n\n");
+}
+
 // 正常启动Main函数
 int main(void)
 {
     printf("Hello AB560X: %08x\n", (LVDCON & 0x1ff0000));
     bsp_sys_init();
     debug_print_mp3_res();
+    debug_dump_poweron_mp3();   // 打印 POWERON_MP3 前200字节 Hex
     func_run();
     return 0;
 }

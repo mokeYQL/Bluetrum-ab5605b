@@ -1727,7 +1727,7 @@
 1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_audio.c
 	"include.h"
 
-1781775266 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\include.h
+1781775753 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\include.h
 	"global.h"
 	"xcfg.h"
 	"config.h"
@@ -1741,6 +1741,7 @@
 	"app_fota.h"
 	"audio_softeq_drc.h"
 	"bt_mono_xdrc_effect_adjust.h"
+	"func_mp3_uart_upd.h"
 
 1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\global.h
 	<stddef.h>
@@ -2192,16 +2193,16 @@
 1710919366 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_spp.c
 	"include.h"
 
-1781775266 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_sys.c
+1781775757 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_sys.c
 	"include.h"
 
 1656983743 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_tkey.c
 	"include.h"
 
-1781775266 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_uart.c
+1781775766 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_uart.c
 	"include.h"
 
-1781775266 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func.c
+1781775762 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func.c
 	"include.h"
 
 1781156949 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_aux.c
@@ -2454,7 +2455,7 @@
 	"include.h"
 	"ledseg/display_ledseg.h"
 
-1781775297 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\main.c
+1781777793 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\main.c
 	"include.h"
 
 1693991373 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_aux.c
@@ -2612,4 +2613,6 @@
 1781156949 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_devinfo.c
 	"include.h"
 	"ble_devinfo.h"
+
+1781775725 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_mp3_uart_upd.h
 

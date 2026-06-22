@@ -130,12 +130,15 @@ static void debug_print_mp3_res(void)
 
 static void debug_dump_poweron_mp3(void)
 {
-    u8 *buf = (u8 *)RES_BUF_POWERON_MP3;
+    u32 flash_addr = RES_BUF_POWERON_MP3;
+    u8 *buf = (u8 *)flash_addr;
     u32 len = RES_LEN_POWERON_MP3;
     u32 dump_cnt = (len < 200) ? len : 200;
 
-    printf("===== POWERON_MP3 Hex Dump (first %lu of %lu bytes) =====\n",
-           (unsigned long)dump_cnt, (unsigned long)len);
+    printf("===== POWERON_MP3 Hex Dump =====\n");
+    printf(" Flash Addr: 0x%08lX  Buf: 0x%08lX  Len: %lu bytes\n",
+           (unsigned long)flash_addr, (unsigned long)buf, (unsigned long)len);
+    printf("---- first %lu bytes ----\n", (unsigned long)dump_cnt);
 
     for (u32 i = 0; i < dump_cnt; i++) {
         if ((i % 16) == 0) {

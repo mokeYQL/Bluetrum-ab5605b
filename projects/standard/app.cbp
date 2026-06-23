@@ -255,6 +255,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../../platform/functions/func_lowpwr.h" />
+		<Unit filename="../../platform/functions/func_mp3_uart_upd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../platform/functions/func_mp3_uart_upd.h" />
 		<Unit filename="../../platform/functions/func_music.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -368,14 +372,14 @@
 		<Unit filename="../../platform/modules/ble/ble.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="../../platform/modules/ble/ble_merach.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="../../platform/modules/ble/ble_merach.h" />
 		<Unit filename="../../platform/modules/ble/ble_devinfo.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../../platform/modules/ble/ble_devinfo.h" />
+		<Unit filename="../../platform/modules/ble/ble_merach.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../platform/modules/ble/ble_merach.h" />
 		<Unit filename="../../platform/modules/bt/a2dp.c">
 			<Option compilerVar="CC" />
 		</Unit>

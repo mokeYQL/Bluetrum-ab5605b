@@ -102,6 +102,41 @@ def generate_voc_header(entries, header_path):
     print(f"[OK] 生成 {header_path}")
 
 
+def build_voc_body(voc_dir):
+    """扫描 voc/ 目录, 返回 (voc_bin, entries) — 供 upgrade_tool 复用"""
+    if not os.path.isdir(voc_dir):
+        return None, []
+
+    all_files   = sorted(os.listdir(voc_dir))
+    mp3_files   = [f for f in all_files if f.lower().endswith(".mp3")]
+
+    if len(mp3_files) == 0:
+        return None, []
+    if len(mp3_files) > MAX_ENTRIES:
+        mp3_files = mp3_files[:MAX_ENTRIES]
+
+    header    = bytearray(HEADER_SIZE)
+    data_blob = bytearray()
+    entries   = []
+
+    for i, fname in enumerate(mp3_files):
+        fpath   = os.path.join(voc_dir, fname)
+        mp3_data = open(fpath, "rb").read()
+        mp3_size = len(mp3_data)
+        flash_addr = DATA_OFFSET + len(data_blob)
+        struct.pack_into("<I", header, i * 8,       flash_addr)
+        struct.pack_into("<I", header, i * 8 + 4,   mp3_size)
+        data_blob.extend(mp3_data)
+        entries.append((i, fname, flash_addr, mp3_size))
+
+    voc_bin = header + data_blob
+    total_size = len(voc_bin)
+    if total_size > FLASH_PART_SIZE:
+        return None, []
+
+    return voc_bin, entries
+
+
 def build_voc(voc_dir, output_path, header_path):
     """扫描 voc/ 目录, 生成带 TOC 头部的 voc.bin 和 voc.h"""
 

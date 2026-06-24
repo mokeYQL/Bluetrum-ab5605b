@@ -579,6 +579,7 @@
 			<Option compiler="riscv32" use="1" buildCommand="$compiler $options $includes -E -P -x c -c $file -o $(TARGET_OBJECT_DIR)ram.o" />
 		</Unit>
 		<Unit filename="res.h" />
+		<Unit filename="voc.h" />
 		<Unit filename="xcfg.h" />
 		<Extensions />
 	</Project>

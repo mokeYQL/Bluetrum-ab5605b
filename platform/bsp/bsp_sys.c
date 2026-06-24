@@ -1333,16 +1333,15 @@ void bsp_sys_init(void)
 #if I2S_EN && (I2S_MODE_SEL == 0) // I2S Master
     bsp_i2s_init();
 #endif
-
+    extern uint os_spiflash_read(void *buf, u32 addr, uint len);
+    register_spi_read_function((void *)os_spiflash_read);
 #if WARNING_POWER_ON
     if (SD_INSERT_EXCEPTION_RESET && is_sd_insert_reset()) {
         printf("sd insert exception reset, NO need to play power_on.mp3\n");
     } else {
         // mp3_res_play(RES_BUF_POWERON_MP3, RES_LEN_POWERON_MP3);
-        extern uint os_spiflash_read(void *buf, u32 addr, uint len);
-        register_spi_read_function((void *)os_spiflash_read);
-        mp3_res_play(0x76000, 13155);
-        register_spi_read_function(NULL);
+
+        mp3_res_play(VOC_ADDR(2), VOC_LEN(2));
     }
 
 #endif // WARNING_POWER_ON

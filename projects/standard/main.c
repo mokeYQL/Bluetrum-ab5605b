@@ -58,99 +58,99 @@ const uint8_t *bt_rf_get_param(void)
     return rf; // 使用内部参数
 }
 
-static void debug_print_mp3_res(void)
-{
-    // clang-format off
-    #define PRT_RES(name) \
-    printf("  %-30s buf=0x%08X  len=%5u (%2u.%02uKB)  end=0x%08X\n", \
-        #name, \
-        RES_BUF_##name, RES_LEN_##name, \
-        (RES_LEN_##name) / 1024, ((RES_LEN_##name) % 1024) * 100 / 1024, \
-        RES_BUF_##name + RES_LEN_##name)
+// static void debug_print_mp3_res(void)
+// {
+//     // clang-format off
+//     #define PRT_RES(name) \
+//     printf("  %-30s buf=0x%08X  len=%5u (%2u.%02uKB)  end=0x%08X\n", \
+//         #name, \
+//         RES_BUF_##name, RES_LEN_##name, \
+//         (RES_LEN_##name) / 1024, ((RES_LEN_##name) % 1024) * 100 / 1024, \
+//         RES_BUF_##name + RES_LEN_##name)
 
-    printf("\n===== MP3 Resource Map (from NOR Flash 0x11000000) =====\n");
-    printf("  %-30s %-12s %-12s %-12s\n", "Name", "Flash Addr", "Size(bytes)", "End Addr");
-    printf("  ---------------------------------------------------------------\n");
+//     printf("\n===== MP3 Resource Map (from NOR Flash 0x11000000) =====\n");
+//     printf("  %-30s %-12s %-12s %-12s\n", "Name", "Flash Addr", "Size(bytes)", "End Addr");
+//     printf("  ---------------------------------------------------------------\n");
 
-    // --- 通用提示音 ---
-    PRT_RES(POWERON_MP3);
-    PRT_RES(RING_MP3);
-    PRT_RES(UPDATE_MP3);
-    PRT_RES(UPDATE_DONE_MP3);
+//     // --- 通用提示音 ---
+//     PRT_RES(POWERON_MP3);
+//     PRT_RES(RING_MP3);
+//     PRT_RES(UPDATE_MP3);
+//     PRT_RES(UPDATE_DONE_MP3);
 
-    // --- 英文语音提示 ---
-    PRT_RES(EN_AUX_MODE_MP3);
-    PRT_RES(EN_BT_MODE_MP3);
-    PRT_RES(EN_CALLOUT_MP3);
-    PRT_RES(EN_CAMERA_MODE_MP3);
-    PRT_RES(EN_CAMERA_OFF_MP3);
-    PRT_RES(EN_CAMERA_ON_MP3);
-    PRT_RES(EN_CLOCK_MODE_MP3);
-    PRT_RES(EN_CONNECTED_MP3);
-    PRT_RES(EN_CONN_HID_MP3);
-    PRT_RES(EN_DISCONNECT_MP3);
-    PRT_RES(EN_DISCON_HID_MP3);
-    PRT_RES(EN_FM_MODE_MP3);
-    PRT_RES(EN_LANGUAGE_MP3);
-    PRT_RES(EN_LEFT_CH_MP3);
-    PRT_RES(EN_LOW_BATTERY_MP3);
-    PRT_RES(EN_MAX_VOL_MP3);
-    PRT_RES(EN_MUSIC_MODE_MP3);
-    PRT_RES(EN_NUM_0_MP3);
-    PRT_RES(EN_NUM_1_MP3);
-    PRT_RES(EN_NUM_2_MP3);
-    PRT_RES(EN_NUM_3_MP3);
-    PRT_RES(EN_NUM_4_MP3);
-    PRT_RES(EN_NUM_5_MP3);
-    PRT_RES(EN_NUM_6_MP3);
-    PRT_RES(EN_NUM_7_MP3);
-    PRT_RES(EN_NUM_8_MP3);
-    PRT_RES(EN_NUM_9_MP3);
-    PRT_RES(EN_PAIRING_MP3);
-    PRT_RES(EN_PC_MODE_MP3);
-    PRT_RES(EN_POWEROFF_MP3);
-    PRT_RES(EN_PRIV_CALL_MP3);
-    PRT_RES(EN_REC_START_MP3);
-    PRT_RES(EN_RIGHT_CH_MP3);
-    PRT_RES(EN_SDCARD_MODE_MP3);
-    PRT_RES(EN_SPK_MODE_MP3);
-    PRT_RES(EN_TAKE_PHOTO_MP3);
-    PRT_RES(EN_TWS_DISCON_MP3);
-    PRT_RES(EN_USB_MODE_MP3);
-    PRT_RES(EN_WAIT4CONN_MP3);
+//     // --- 英文语音提示 ---
+//     PRT_RES(EN_AUX_MODE_MP3);
+//     PRT_RES(EN_BT_MODE_MP3);
+//     PRT_RES(EN_CALLOUT_MP3);
+//     PRT_RES(EN_CAMERA_MODE_MP3);
+//     PRT_RES(EN_CAMERA_OFF_MP3);
+//     PRT_RES(EN_CAMERA_ON_MP3);
+//     PRT_RES(EN_CLOCK_MODE_MP3);
+//     PRT_RES(EN_CONNECTED_MP3);
+//     PRT_RES(EN_CONN_HID_MP3);
+//     PRT_RES(EN_DISCONNECT_MP3);
+//     PRT_RES(EN_DISCON_HID_MP3);
+//     PRT_RES(EN_FM_MODE_MP3);
+//     PRT_RES(EN_LANGUAGE_MP3);
+//     PRT_RES(EN_LEFT_CH_MP3);
+//     PRT_RES(EN_LOW_BATTERY_MP3);
+//     PRT_RES(EN_MAX_VOL_MP3);
+//     PRT_RES(EN_MUSIC_MODE_MP3);
+//     PRT_RES(EN_NUM_0_MP3);
+//     PRT_RES(EN_NUM_1_MP3);
+//     PRT_RES(EN_NUM_2_MP3);
+//     PRT_RES(EN_NUM_3_MP3);
+//     PRT_RES(EN_NUM_4_MP3);
+//     PRT_RES(EN_NUM_5_MP3);
+//     PRT_RES(EN_NUM_6_MP3);
+//     PRT_RES(EN_NUM_7_MP3);
+//     PRT_RES(EN_NUM_8_MP3);
+//     PRT_RES(EN_NUM_9_MP3);
+//     PRT_RES(EN_PAIRING_MP3);
+//     PRT_RES(EN_PC_MODE_MP3);
+//     PRT_RES(EN_POWEROFF_MP3);
+//     PRT_RES(EN_PRIV_CALL_MP3);
+//     PRT_RES(EN_REC_START_MP3);
+//     PRT_RES(EN_RIGHT_CH_MP3);
+//     PRT_RES(EN_SDCARD_MODE_MP3);
+//     PRT_RES(EN_SPK_MODE_MP3);
+//     PRT_RES(EN_TAKE_PHOTO_MP3);
+//     PRT_RES(EN_TWS_DISCON_MP3);
+//     PRT_RES(EN_USB_MODE_MP3);
+//     PRT_RES(EN_WAIT4CONN_MP3);
 
-    // --- 非MP3资源(参考) ---
-    printf("  --- Non-MP3 resources ---\n");
-    PRT_RES(MAX_VOL_WAV);
-    printf("  ===============================================================\n\n");
+//     // --- 非MP3资源(参考) ---
+//     printf("  --- Non-MP3 resources ---\n");
+//     PRT_RES(MAX_VOL_WAV);
+//     printf("  ===============================================================\n\n");
 
-    #undef PRT_RES
-    // clang-format on
-}
+//     #undef PRT_RES
+//     // clang-format on
+// }
 
-static void debug_dump_poweron_mp3(void)
-{
-    u32 flash_addr = RES_BUF_POWERON_MP3;
-    u8 *buf        = (u8 *)flash_addr;
-    u32 len        = RES_LEN_POWERON_MP3;
-    u32 dump_cnt   = (len < 200) ? len : 200;
+// static void debug_dump_poweron_mp3(void)
+// {
+//     u32 flash_addr = RES_BUF_POWERON_MP3;
+//     u8 *buf        = (u8 *)flash_addr;
+//     u32 len        = RES_LEN_POWERON_MP3;
+//     u32 dump_cnt   = (len < 200) ? len : 200;
 
-    printf("===== POWERON_MP3 Hex Dump =====\n");
-    printf(" Flash Addr: 0x%08lX  Buf: 0x%08lX  Len: %lu bytes\n",
-           (unsigned long)flash_addr, (unsigned long)buf, (unsigned long)len);
-    printf("---- first %lu bytes ----\n", (unsigned long)dump_cnt);
+//     printf("===== POWERON_MP3 Hex Dump =====\n");
+//     printf(" Flash Addr: 0x%08lX  Buf: 0x%08lX  Len: %lu bytes\n",
+//            (unsigned long)flash_addr, (unsigned long)buf, (unsigned long)len);
+//     printf("---- first %lu bytes ----\n", (unsigned long)dump_cnt);
 
-    for (u32 i = 0; i < dump_cnt; i++) {
-        if ((i % 16) == 0) {
-            printf("%04lX: ", (unsigned long)i);
-        }
-        printf("%02X ", buf[i]);
-        if ((i % 16) == 15 || i == dump_cnt - 1) {
-            printf("\n");
-        }
-    }
-    printf("===============================================================\n\n");
-}
+//     for (u32 i = 0; i < dump_cnt; i++) {
+//         if ((i % 16) == 0) {
+//             printf("%04lX: ", (unsigned long)i);
+//         }
+//         printf("%02X ", buf[i]);
+//         if ((i % 16) == 15 || i == dump_cnt - 1) {
+//             printf("\n");
+//         }
+//     }
+//     printf("===============================================================\n\n");
+// }
 
 static void hex_dump(u8 *buf, u32 len)
 {
@@ -165,62 +165,62 @@ static void hex_dump(u8 *buf, u32 len)
     }
 }
 
-static void debug_dump_voc_bin(void)
-{
-    extern uint os_spiflash_read(void *buf, u32 addr, uint len);
-    extern void os_spiflash_program(void *buf, u32 addr, uint len);
-    extern void os_spiflash_erase(u32 addr);
+// static void debug_dump_voc_bin(void)
+// {
+//     extern uint os_spiflash_read(void *buf, u32 addr, uint len);
+//     extern void os_spiflash_program(void *buf, u32 addr, uint len);
+//     extern void os_spiflash_erase(u32 addr);
 
-    u32 flash_offset = 0x76000;
-    u32 dump_cnt     = 200;
-    u8  buf[256] __attribute__((aligned(4)));
+//     u32 flash_offset = 0x76000;
+//     u32 dump_cnt     = 200;
+//     u8  buf[256] __attribute__((aligned(4)));
 
-    // ===== Step 1: 读取原始数据 =====
-    os_spiflash_read(buf, flash_offset, dump_cnt);
-    printf("===== [Step 1] Read @ NOR offset 0x%08lX (first %lu bytes) =====\n",
-           (unsigned long)flash_offset, (unsigned long)dump_cnt);
-    hex_dump(buf, dump_cnt);
-    printf("===============================================================\n\n");
+//     // ===== Step 1: 读取原始数据 =====
+//     os_spiflash_read(buf, flash_offset, dump_cnt);
+//     printf("===== [Step 1] Read @ NOR offset 0x%08lX (first %lu bytes) =====\n",
+//            (unsigned long)flash_offset, (unsigned long)dump_cnt);
+//     hex_dump(buf, dump_cnt);
+//     printf("===============================================================\n\n");
 
-    // ===== Step 2: 擦除扇区 (4KB) =====
-    printf("[Step 2] Erasing sector @ 0x%08lX ...\n", (unsigned long)flash_offset);
-    os_spiflash_erase(flash_offset);
-    delay_ms(500);
-    printf("[Step 2] Erase done\n\n");
+//     // ===== Step 2: 擦除扇区 (4KB) =====
+//     printf("[Step 2] Erasing sector @ 0x%08lX ...\n", (unsigned long)flash_offset);
+//     os_spiflash_erase(flash_offset);
+//     delay_ms(500);
+//     printf("[Step 2] Erase done\n\n");
 
-    // ===== Step 3: 读取擦除后 (应全为 0xFF) =====
-    os_spiflash_read(buf, flash_offset, dump_cnt);
-    printf("===== [Step 3] Read after erase (expect 0xFF) =====\n");
-    hex_dump(buf, dump_cnt);
-    printf("===============================================================\n\n");
+//     // ===== Step 3: 读取擦除后 (应全为 0xFF) =====
+//     os_spiflash_read(buf, flash_offset, dump_cnt);
+//     printf("===== [Step 3] Read after erase (expect 0xFF) =====\n");
+//     hex_dump(buf, dump_cnt);
+//     printf("===============================================================\n\n");
 
-    // ===== Step 4: 写回原始数据 (每次最多256B) =====
-    printf("[Step 4] Writing back 200 bytes ...\n");
-    // 先从缓冲备份原始数据（已经在 Step 1 被覆盖了，需要重读）
-    u8 restore_buf[256] __attribute__((aligned(4)));
-    os_spiflash_read(restore_buf, flash_offset, dump_cnt); // 这时还是 0xFF
-    // 实际上我们没保存原始数据，这里直接写 0xAA 测试
-    memset(restore_buf, 0xAA, dump_cnt);
-    os_spiflash_program(restore_buf, flash_offset, 256);    // 写前 256B
-    printf("[Step 4] Program done\n\n");
+//     // ===== Step 4: 写回原始数据 (每次最多256B) =====
+//     printf("[Step 4] Writing back 200 bytes ...\n");
+//     // 先从缓冲备份原始数据（已经在 Step 1 被覆盖了，需要重读）
+//     u8 restore_buf[256] __attribute__((aligned(4)));
+//     os_spiflash_read(restore_buf, flash_offset, dump_cnt); // 这时还是 0xFF
+//     // 实际上我们没保存原始数据，这里直接写 0xAA 测试
+//     memset(restore_buf, 0xAA, dump_cnt);
+//     os_spiflash_program(restore_buf, flash_offset, 256);    // 写前 256B
+//     printf("[Step 4] Program done\n\n");
 
-    // ===== Step 5: 读取写入后 =====
-    os_spiflash_read(buf, flash_offset, dump_cnt);
-    printf("===== [Step 5] Read after program (expect 0xAA) =====\n");
-    hex_dump(buf, dump_cnt);
-    printf("===============================================================\n\n");
+//     // ===== Step 5: 读取写入后 =====
+//     os_spiflash_read(buf, flash_offset, dump_cnt);
+//     printf("===== [Step 5] Read after program (expect 0xAA) =====\n");
+//     hex_dump(buf, dump_cnt);
+//     printf("===============================================================\n\n");
 
-    printf("[ALL DONE] erase/program/read verified\n");
-}
+//     printf("[ALL DONE] erase/program/read verified\n");
+// }
 
 // 正常启动Main函数
 int main(void)
 {
     printf("Hello AB560X: %08x\n", (LVDCON & 0x1ff0000));
     bsp_sys_init();
-    debug_print_mp3_res();
-    debug_dump_poweron_mp3(); // 打印 POWERON_MP3 前200字节 Hex
-    debug_dump_voc_bin();     // 打印 voc.bin @ 0x10076000
+    // debug_print_mp3_res();
+    // debug_dump_poweron_mp3(); // 打印 POWERON_MP3 前200字节 Hex
+    // debug_dump_voc_bin();     // 打印 voc.bin @ 0x10076000
     func_run();
     return 0;
 }

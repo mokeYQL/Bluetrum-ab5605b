@@ -1,6 +1,7 @@
 @echo off
 cd /d %~dp0
 @echo on
+python ..\..\..\..\tools\build_voc.py || goto err
 riscv32-elf-xmaker -b res.xm || goto err
 riscv32-elf-xmaker -b xcfg.xm || goto err
 exit /b 0

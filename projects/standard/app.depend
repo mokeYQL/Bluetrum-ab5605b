@@ -1727,7 +1727,7 @@
 1722826763 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_audio.c
 	"include.h"
 
-1781775266 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\include.h
+1782196555 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\header\include.h
 	"global.h"
 	"xcfg.h"
 	"config.h"
@@ -1764,7 +1764,7 @@
 
 1725420956 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\xcfg.h
 
-1781602039 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
+1782265676 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\config.h
 	"config_define.h"
 	"config_extra.h"
 
@@ -2035,7 +2035,7 @@
 	"port_mic.h"
 	"port_tkey.h"
 
-1617675127 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\multi_lang.h
+1782265676 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\plugin\multi_lang.h
 
 1778638164 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_pwm.h
 
@@ -2051,7 +2051,7 @@
 
 1630029642 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\port\port_tkey.h
 
-1781771952 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\res.h
+1782265676 e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\res.h
 
 1686562185 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\app\app_fota\app_fota.h
 
@@ -2065,7 +2065,7 @@
 1647584711 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_bpap.c
 	"include.h"
 
-1782178820 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_bt.c
+1782179341 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_bt.c
 	"include.h"
 	"api.h"
 
@@ -2193,7 +2193,7 @@
 1710919366 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_spp.c
 	"include.h"
 
-1781775757 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_sys.c
+1782267548 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_sys.c
 	"include.h"
 
 1656983743 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\bsp\bsp_tkey.c
@@ -2455,7 +2455,7 @@
 	"include.h"
 	"ledseg/display_ledseg.h"
 
-1781775297 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\main.c
+1782267474 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\main.c
 	"include.h"
 
 1693991373 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_aux.c
@@ -2463,7 +2463,7 @@
 	"func.h"
 	"bsp_karaok.h"
 
-1725860256 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_bt.c
+1782265676 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\message\msg_bt.c
 	"include.h"
 	"func.h"
 	"func_bt.h"
@@ -2533,12 +2533,12 @@
 	"func.h"
 	"func_idle.h"
 
-1782179119 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\app.xm
+1782267378 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\app.xm
 	"config.h"
 
 1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\download.xm
 
-1617675127 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\res.xm
+1782208296 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\res.xm
 
 1725420956 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\projects\standard\output\bin\xcfg.xm
 
@@ -2613,4 +2613,10 @@
 1781156949 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\modules\ble\ble_devinfo.c
 	"include.h"
 	"ble_devinfo.h"
+
+1781775725 e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_mp3_uart_upd.h
+
+1782179189 source:e:\bluetrum-ab5605b\bluetrum-ab5605b\platform\functions\func_mp3_uart_upd.c
+	"func_mp3_uart_upd.h"
+	"include.h"
 

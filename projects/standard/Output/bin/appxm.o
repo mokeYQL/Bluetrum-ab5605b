@@ -1,6 +1,6 @@
 setid(11111111-1111-1111-1111-111111111111);
 setflash(1, 0x80000, 1, 1, 0);
 setspace(0x5000);
-setuserbin(0x76000, 0x4000, voc.bin, 0);
+setuserbin(0x60000, 0x1B000, voc.bin, 0);
 make(dcf_buf, header.bin, app.bin, res.bin, xcfg.bin,voc.bin);
 save(dcf_buf, app.dcf);

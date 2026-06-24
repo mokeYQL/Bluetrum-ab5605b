@@ -1,13 +1,18 @@
 """
-AB5605B 多语音批量 UART 升级工具
-===============================
+AB5605B 多语音批量 UART 升级工具 v2
+====================================
 选择包含 .mp3 文件的文件夹, 自动构建 TOC 头部并升级到设备。
 支持最多 10 条语音, 总分区分区 108KB。
 
-协议: [0x55][0xAA][CMD 1B][PAYLOAD N]
-  CMD 0x01 = ERASE: 擦除 voc 分区
-  CMD 0x02 = DATA:  [seq 2B LE][256B data]
-  CMD 0x03 = FINISH
+协议 v2: [0x55][0xAA][CMD 1B][PAYLOAD N]
+  CMD 0x01 = ERASE : 擦除 voc 分区
+  CMD 0x02 = DATA  : [seq 2B LE][xor 1B][256B data] → 单包 XOR 校验
+  CMD 0x03 = FINISH: [crc16_lo][crc_hi]              → 整包 CRC16-CCITT 校验
+
+响应: [0xAA][0x55][CMD_ECHO][RESULT...]
+  ERASE : [AA 55 01 00]
+  DATA  : [AA 55 02 seq_lo seq_hi]
+  FINISH: [AA 55 03 result]  result=0x00成功, 0x01 CRC错误
 
 运行: python mp3_upgrade_tool.py
 依赖: pip install pyserial
@@ -42,6 +47,27 @@ ACK_HDR0 = 0xAA
 ACK_HDR1 = 0x55
 
 MAX_ENTRIES = 10
+
+
+# ---------------- CRC16-CCITT (与 firmware crc16_ccitt() 一致) ----------------
+def crc16_ccitt(crc, data):
+    """CRC16-CCITT, polynomial 0x1021, init=0, 逐字节计算"""
+    for b in data:
+        crc ^= b << 8
+        for _ in range(8):
+            if crc & 0x8000:
+                crc = ((crc << 1) ^ 0x1021) & 0xFFFF
+            else:
+                crc = (crc << 1) & 0xFFFF
+    return crc
+
+
+def xor_checksum(data):
+    """单字节 XOR 校验"""
+    v = 0
+    for b in data:
+        v ^= b
+    return v
 
 
 class VocUpgradeTool:
@@ -269,14 +295,16 @@ class VocUpgradeTool:
             self._update_progress(1)
             time.sleep(0.5)  # 等待擦除完成
 
-            # ---- 3. DATA (带重试) ----
+            # ---- 3. DATA (带重试, XOR校验) ----
             MAX_RETRY = 3
             for seq in range(total_chunks):
                 offset = seq * CHUNK_SIZE
                 chunk  = voc_bin[offset:offset + CHUNK_SIZE]
+                xor_val = xor_checksum(chunk)
 
                 frame = bytearray([FRAME_HDR0, FRAME_HDR1, CMD_DATA])
                 frame += struct.pack("<H", seq)
+                frame += bytes([xor_val])
                 frame += chunk
 
                 seq_bytes = struct.pack("<H", seq)
@@ -300,16 +328,35 @@ class VocUpgradeTool:
                 if seq % 50 == 0:
                     self._update_status(f"发送中... {seq+1}/{total_chunks}")
 
-            # ---- 4. FINISH ----
+            # ---- 4. FINISH (CRC16校验) ----
+            # 计算整包 CRC16-CCITT (从 0x60000 开始, 含 80B TOC + MP3 + 补零)
+            pc_crc = crc16_ccitt(0, voc_bin)
+            self._log(f"整包 CRC16-CCITT = 0x{pc_crc:04X}, 总大小 {len(voc_bin)} 字节")
+            crc_lo = pc_crc & 0xFF
+            crc_hi = (pc_crc >> 8) & 0xFF
+
             self._update_status("发送 FINISH 命令...")
-            self.ser.write(bytes([FRAME_HDR0, FRAME_HDR1, CMD_FINISH]))
-            if not self._wait_ack(CMD_FINISH, b"\x00", "FINISH"):
+            frame = bytearray([FRAME_HDR0, FRAME_HDR1, CMD_FINISH, crc_lo, crc_hi])
+            self.ser.write(frame)
+
+            # 等待 FINISH ACK: [AA 55 03 result]
+            result = self._wait_finish_ack()
+            if result is None:
+                self._update_status("FINISH 超时!")
                 return
             self._update_progress(total_chunks + 2)
 
-            self._update_status("升级完成! 共 {} 条语音.".format(len(mp3_files)))
-            self.window.after(0, lambda: messagebox.showinfo(
-                "完成", f"升级成功!\n\n{len(mp3_files)} 条语音, {total_size/1024:.1f} KB"))
+            if result == 0x00:
+                self._update_status("升级成功! 共 {} 条语音.".format(len(mp3_files)))
+                self.window.after(0, lambda: messagebox.showinfo(
+                    "完成", f"升级成功!\n\n{len(mp3_files)} 条语音, {total_size/1024:.1f} KB\nCRC16 校验通过"))
+            elif result == 0x01:
+                self._update_status("CRC校验失败!")
+                self._log(f"CRC16 校验失败: PC=0x{pc_crc:04X}, 设备本地CRC不一致")
+                self.window.after(0, lambda: messagebox.showerror(
+                    "失败", "CRC16 校验失败!\n设备读回Flash数据CRC与上位机不一致"))
+            else:
+                self._update_status(f"FINISH 未知结果: 0x{result:02X}")
 
         except Exception as e:
             self._log(f"错误: {e}")
@@ -319,7 +366,7 @@ class VocUpgradeTool:
                 state=tk.NORMAL if (self.ser and self.ser.is_open and self.voc_folder) else tk.DISABLED))
 
     def _wait_ack(self, cmd, expected_tail, desc):
-        """等待 [0xAA][0x55][cmd][expected_tail...]"""
+        """等待 [0xAA][0x55][cmd][expected_tail...] 用于 ERASE / DATA"""
         ack_len = 3 + len(expected_tail)
         buf = bytearray()
         deadline = time.time() + 3.0    # 单次等待 3 秒 (有重试机制)
@@ -342,6 +389,29 @@ class VocUpgradeTool:
         self._log(f"[FAIL] {desc} 超时, 收到: {buf.hex(' ')}")
         self._update_status(f"{desc} 超时!")
         return False
+
+    def _wait_finish_ack(self):
+        """等待 FINISH ACK: [AA 55 03 result], 返回 result 字节或 None"""
+        ack_len = 4  # [AA 55 03 result]
+        buf = bytearray()
+        deadline = time.time() + 10.0   # FINISH 需要 CRC 校验, 等待更久
+        while time.time() < deadline:
+            b = self.ser.read(1)
+            if b:
+                buf += b
+                if len(buf) >= ack_len:
+                    for i in range(len(buf) - ack_len + 1):
+                        if buf[i] == ACK_HDR0 and buf[i + 1] == ACK_HDR1 and buf[i + 2] == CMD_FINISH:
+                            result = buf[i + 3]
+                            self._log(f"[FINISH] result=0x{result:02X} ({'成功' if result == 0 else 'CRC失败'})")
+                            return result
+                    if len(buf) > 256:
+                        buf = buf[-128:]
+            else:
+                time.sleep(0.01)
+
+        self._log(f"[FAIL] FINISH 超时, 收到: {buf.hex(' ')}")
+        return None
 
     # ---------------- UI 辅助 (线程安全) ----------------
     def _log(self, msg):

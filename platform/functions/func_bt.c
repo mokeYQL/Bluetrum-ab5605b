@@ -1,7 +1,9 @@
 #include "include.h"
+
 #include "func.h"
 #include "func_bt.h"
-#include "port_ws2812.h"        // ★ WS2812 灯带
+
+#include "port_ws2812.h" // ★ WS2812 灯带
 
 void sbc_decode_exit(void);
 void btrf_power_balance_exit(void);
@@ -14,7 +16,7 @@ u16 func_bt_chkclr_warning(u16 bits)
     u16 value;
     GLOBAL_INT_DISABLE();
     value = f_bt.warning_status & bits;
-    if(value != 0) {
+    if (value != 0) {
         f_bt.warning_status &= ~value;
         GLOBAL_INT_RESTORE();
         return value;
@@ -23,9 +25,8 @@ u16 func_bt_chkclr_warning(u16 bits)
     return value;
 }
 
-
 #if FUNC_BT_EN
-#if BT_HFP_REC_EN
+    #if BT_HFP_REC_EN
 void bt_sco_rec_start(void);
 void bt_sco_rec_stop(void);
 void bt_sco_rec_mix_do(u8 *buf, u32 samples);
@@ -40,17 +41,17 @@ void bt_sco_rec_mix(u8 *buf, u32 samples)
 AT(.text.func.bt)
 void func_bt_sco_rec_init(void)
 {
-    rec_src.spr = SPR_8000;
-    rec_src.nchannel = 0x01;
+    rec_src.spr          = SPR_8000;
+    rec_src.nchannel     = 0x01;
     rec_src.source_start = bt_sco_rec_start;
     rec_src.source_stop  = bt_sco_rec_stop;
-    f_bt.rec_pause = 0;
-    rec_cb.sco_flag = 1;
+    f_bt.rec_pause       = 0;
+    rec_cb.sco_flag      = 1;
     bt_sco_rec_init();
 }
-#endif
+    #endif
 
-#if BT_REC_EN
+    #if BT_REC_EN
 void bt_music_rec_start(void);
 void bt_music_rec_stop(void);
 
@@ -61,15 +62,15 @@ void bt_music_rec_init(void)
     if (DAC_OUT_SPR == DAC_OUT_48K) {
         rec_src.spr = SPR_48000;
     }
-#if KARAOK_REC_EN
+        #if KARAOK_REC_EN
     rec_src.nchannel = 0x11;
-#else
-	rec_src.nchannel = 0x82;
-#endif
+        #else
+    rec_src.nchannel = 0x82;
+        #endif
     rec_src.source_start = bt_music_rec_start;
     rec_src.source_stop  = bt_music_rec_stop;
-    f_bt.rec_pause = 0;
-    rec_cb.sco_flag = 0;
+    f_bt.rec_pause       = 0;
+    rec_cb.sco_flag      = 0;
 }
 
 AT(.text.func.bt)
@@ -82,7 +83,7 @@ bool bt_rec_status_process(void)
                 return true;
             }
             f_bt.rec_pause = 1;
-            return false;       //结束录音
+            return false; // 结束录音
         }
     }
     return true;
@@ -91,17 +92,17 @@ bool bt_rec_status_process(void)
 AT(.text.func.bt)
 void bt_music_rec_continue(void)
 {
-#if !BT_HFP_REC_EN
+        #if !BT_HFP_REC_EN
     if ((f_bt.rec_pause) && ((f_bt.disp_status == BT_STA_PLAYING) || (f_bt.disp_status == BT_STA_CONNECTED))) {
-        msg_enqueue(KU_REC);    //继续录音
+        msg_enqueue(KU_REC); // 继续录音
         f_bt.rec_pause = 0;
     }
-#endif
+        #endif
 }
 
-#endif // BT_REC_EN
+    #endif // BT_REC_EN
 
-#if DAC_OFF_FOR_BT_CONN_EN
+    #if DAC_OFF_FOR_BT_CONN_EN
 void func_bt_set_dac(u8 enable)
 {
     if (DAC_OFF_FOR_BT_CONN_EN) {
@@ -118,7 +119,7 @@ void func_bt_set_dac(u8 enable)
         }
     }
 }
-#endif // DAC_OFF_FOR_BT_CONN_EN
+    #endif // DAC_OFF_FOR_BT_CONN_EN
 
 void func_bt_mp3_res_play(u32 addr, u32 len)
 {
@@ -126,58 +127,58 @@ void func_bt_mp3_res_play(u32 addr, u32 len)
         return;
     }
 
-#if BT_TWS_EN
+    #if BT_TWS_EN
     bool tws_res_is_busy(void);
-    while(tws_res_is_busy()) {
+    while (tws_res_is_busy()) {
         tws_res_proc();
     }
-#endif
+    #endif
 
-#if BT_REC_EN
+    #if BT_REC_EN
     sfunc_record_pause();
-#endif
+    #endif
 
-#if DAC_OFF_FOR_BT_CONN_EN
+    #if DAC_OFF_FOR_BT_CONN_EN
     u8 dac_sta = f_bt.dac_sta;
     func_bt_set_dac(1);
-#endif // DAC_OFF_FOR_BT_CONN_EN
+    #endif // DAC_OFF_FOR_BT_CONN_EN
 
     bt_audio_bypass();
     mp3_res_play(addr, len);
     bt_audio_enable();
 
-#if DAC_OFF_FOR_BT_CONN_EN
+    #if DAC_OFF_FOR_BT_CONN_EN
     func_bt_set_dac(dac_sta);
-#endif // DAC_OFF_FOR_BT_CONN_EN
+    #endif // DAC_OFF_FOR_BT_CONN_EN
 
-#if BT_REC_EN
+    #if BT_REC_EN
     sfunc_record_continue();
-#endif
+    #endif
 }
 
-//切换提示音语言
+// 切换提示音语言
 void func_bt_switch_voice_lang(void)
 {
-#if (LANG_SELECT == LANG_EN_ZH)
+    #if (LANG_SELECT == LANG_EN_ZH)
     if (xcfg_cb.lang_id >= LANG_EN_ZH) {
         sys_cb.lang_id = (sys_cb.lang_id) ? 0 : 1;
         multi_lang_init(sys_cb.lang_id);
         param_lang_id_write();
         param_sync();
         if (xcfg_cb.bt_tws_en) {
-            bt_tws_sync_setting();                                              //同步语言
-            tws_res_play(TWS_RES_LANGUAGE_EN + sys_cb.lang_id);                 //同步播放语言提示音
+            bt_tws_sync_setting();                              // 同步语言
+            tws_res_play(TWS_RES_LANGUAGE_EN + sys_cb.lang_id); // 同步播放语言提示音
         } else {
             func_mp3_res_play(RES_BUF_LANGUAGE_MP3, RES_LEN_LANGUAGE_MP3);
         }
     }
-#endif
+    #endif
 }
 
-#if BT_TWS_EN
+    #if BT_TWS_EN
 static void func_bt_tws_set_channel(void)
 {
-    if(f_bt.tws_status & 0xc0) {   //对箱状态.
+    if (f_bt.tws_status & 0xc0) { // 对箱状态.
         tws_get_lr_channel(f_bt.tws_status);
         dac_mono_init(0, sys_cb.tws_left_channel);
     } else {
@@ -189,23 +190,23 @@ u8 func_bt_tws_get_channel(void)
 {
     return sys_cb.tws_left_channel;
 }
-#endif
+    #endif
 
 void func_bt_warning(void)
 {
     u16 tws_warning;
-#if BT_TWS_EN
+    #if BT_TWS_EN
     bool tws_res_is_busy(void);
-    while(tws_res_is_busy()) {
+    while (tws_res_is_busy()) {
         tws_res_proc();
     }
-#endif
+    #endif
 
     tws_warning = func_bt_chkclr_warning(BT_WARN_TWS_DISCON | BT_WARN_TWS_CON);
-    if(tws_warning) {
-#if BT_TWS_EN
-        if(xcfg_cb.bt_tws_en) {
-            if(xcfg_cb.bt_tws_lr_mode != 0) {
+    if (tws_warning) {
+    #if BT_TWS_EN
+        if (xcfg_cb.bt_tws_en) {
+            if (xcfg_cb.bt_tws_lr_mode != 0) {
                 func_bt_tws_set_channel();
             }
         #if WARNING_BT_TWS_DISCON
@@ -214,39 +215,39 @@ void func_bt_warning(void)
             }
         #endif
         }
-#endif
+    #endif
     }
 
-    if(func_bt_chkclr_warning(BT_WARN_DISCON)) {
-#if WARNING_BT_DISCONNECT
-        func_mp3_res_play(RES_BUF_DISCONNECT_MP3, RES_LEN_DISCONNECT_MP3);
-#endif // WARNING_BT_DISCONNECT
-#if WARNING_BT_WAIT_CONNECT
+    if (func_bt_chkclr_warning(BT_WARN_DISCON)) {
+    #if WARNING_BT_DISCONNECT
+        func_mp3_res_play(VOC_ADDR(2), VOC_LEN(2));
+    #endif // WARNING_BT_DISCONNECT
+    #if WARNING_BT_WAIT_CONNECT
         func_mp3_res_play(RES_BUF_WAIT4CONN_MP3, RES_LEN_WAIT4CONN_MP3);
-#endif // WARNING_BT_WAIT_CONNECT
+    #endif // WARNING_BT_WAIT_CONNECT
         f_bt.autoplay = 0;
     }
 
-	if(func_bt_chkclr_warning(BT_WARN_CON)) {
-#if WARNING_BT_CONNECT
-        func_mp3_res_play(RES_BUF_CONNECTED_MP3, RES_LEN_CONNECTED_MP3);
-#endif
+    if (func_bt_chkclr_warning(BT_WARN_CON)) {
+    #if WARNING_BT_CONNECT
+        func_mp3_res_play(VOC_ADDR(1), VOC_LEN(1));
+    #endif
         f_bt.autoplay = 1;
     }
 
-#if WARNING_BT_TWS_CONNECT
-    if(xcfg_cb.bt_tws_en) {
-        tws_warning = func_bt_chkclr_warning(BT_WARN_TWS_SCON | BT_WARN_TWS_MCON );
-        if(tws_warning != 0) {
+    #if WARNING_BT_TWS_CONNECT
+    if (xcfg_cb.bt_tws_en) {
+        tws_warning = func_bt_chkclr_warning(BT_WARN_TWS_SCON | BT_WARN_TWS_MCON);
+        if (tws_warning != 0) {
             f_bt.tws_had_pair = 1;
             if (xcfg_cb.bt_tws_lr_mode != 0) {
                 func_bt_tws_set_channel();
             }
-            ///固定声道方案，TWS连接后异步播放声道提示音。否则同步播放连接提示音
+            /// 固定声道方案，TWS连接后异步播放声道提示音。否则同步播放连接提示音
             if (xcfg_cb.bt_tws_lr_mode >= 8) {
                 tws_get_lr_channel(tws_warning << 4);
 
-                if(sys_cb.tws_left_channel) {
+                if (sys_cb.tws_left_channel) {
                     func_mp3_res_play(RES_BUF_LEFT_CH_MP3, RES_LEN_LEFT_CH_MP3);
                 } else {
                     bt_audio_bypass();
@@ -261,47 +262,47 @@ void func_bt_warning(void)
             }
         }
     }
-#endif
-#if WARNING_BT_PAIR
-    if(func_bt_chkclr_warning(BT_WARN_PAIRING)) {
+    #endif
+    #if WARNING_BT_PAIR
+    if (func_bt_chkclr_warning(BT_WARN_PAIRING)) {
         func_mp3_res_play(RES_BUF_PAIRING_MP3, RES_LEN_PAIRING_MP3);
     }
-#endif
-#if BT_HID_MENU_EN
-    //按键手动断开HID Profile的提示音
+    #endif
+    #if BT_HID_MENU_EN
+    // 按键手动断开HID Profile的提示音
     if (xcfg_cb.bt_hid_menu_en) {
-    #if WARNING_BT_HID_MENU
+        #if WARNING_BT_HID_MENU
         if (func_bt_chkclr_warning(BT_WARN_HID_CON)) {
             func_mp3_res_play(RES_BUF_CAMERA_ON_MP3, RES_LEN_CAMERA_ON_MP3);
         }
-    #endif
+        #endif
 
-    #if WARNING_BT_HID_MENU
+        #if WARNING_BT_HID_MENU
         if (func_bt_chkclr_warning(BT_WARN_HID_DISCON)) {
             func_mp3_res_play(RES_BUF_CAMERA_OFF_MP3, RES_LEN_CAMERA_OFF_MP3);
         }
-    #endif
+        #endif
 
-    #if BT_HID_DISCON_DEFAULT_EN
+        #if BT_HID_DISCON_DEFAULT_EN
         if (f_bt.hid_discon_flag) {
             if (bt_hid_is_ready_to_discon()) {
                 f_bt.hid_discon_flag = 0;
                 bt_hid_disconnect();
             }
         }
-    #endif // BT_HID_DISCON_DEFAULT_EN
+        #endif // BT_HID_DISCON_DEFAULT_EN
     }
-#endif // BT_HID_MENU_EN
+    #endif // BT_HID_MENU_EN
 }
 
 void func_bt_disp_status(void)
 {
     uint status = bt_get_disp_status();
 
-    if(f_bt.disp_status != status) {
+    if (f_bt.disp_status != status) {
         f_bt.disp_status = status;
-        f_bt.sta_update = 1;
-        if(!bt_is_connected()) {
+        f_bt.sta_update  = 1;
+        if (!bt_is_connected()) {
             en_auto_pwroff();
             sys_cb.sleep_en = BT_PAIR_SLEEP_EN;
         } else {
@@ -318,14 +319,14 @@ void func_bt_disp_status(void)
         case BT_STA_INITING:
         case BT_STA_IDLE:
             led_bt_idle();
-#if WARNING_BT_PAIR
-            if(f_bt.need_pairing && f_bt.disp_status == BT_STA_IDLE) {
+    #if WARNING_BT_PAIR
+            if (f_bt.need_pairing && f_bt.disp_status == BT_STA_IDLE) {
                 f_bt.need_pairing = 0;
-                if(xcfg_cb.warning_bt_pair && xcfg_cb.bt_tws_en) {
+                if (xcfg_cb.warning_bt_pair && xcfg_cb.bt_tws_en) {
                     f_bt.warning_status |= BT_WARN_PAIRING;
                 }
             }
-#endif
+    #endif
             break;
         case BT_STA_SCANNING:
             led_bt_scan();
@@ -350,19 +351,19 @@ void func_bt_disp_status(void)
             break;
         }
 
-        if(f_bt.disp_status >= BT_STA_CONNECTED) {
+        if (f_bt.disp_status >= BT_STA_CONNECTED) {
             f_bt.need_pairing = 1;
-#if DAC_OFF_FOR_BT_CONN_EN
+    #if DAC_OFF_FOR_BT_CONN_EN
             func_bt_set_dac(1);
         } else {
             func_bt_set_dac(0);
-#endif // DAC_OFF_FOR_BT_CONN_EN
+    #endif // DAC_OFF_FOR_BT_CONN_EN
         }
-#if BT_BACKSTAGE_EN
+    #if BT_BACKSTAGE_EN
         if (f_bt.disp_status < BT_STA_PLAYING && func_cb.sta_break != FUNC_NULL) {
             func_cb.sta = func_cb.sta_break;
         }
-#endif
+    #endif
     }
 }
 
@@ -371,11 +372,11 @@ void func_bt_status(void)
 {
     func_bt_disp_status();
 
-#if FUNC_BTHID_EN
-    if(is_bthid_mode()) {
+    #if FUNC_BTHID_EN
+    if (is_bthid_mode()) {
         func_bt_hid_warning();
     } else
-#endif
+    #endif
     {
         func_bt_warning();
     }
@@ -385,9 +386,9 @@ AT(.text.func.bt)
 void func_bt_sub_process(void)
 {
     func_bt_status();
-#if USER_TKEY_DEBUG_EN
+    #if USER_TKEY_DEBUG_EN
     bsp_tkey_spp_tx();
-#endif
+    #endif
 }
 
 AT(.text.func.bt)
@@ -396,48 +397,47 @@ void func_bt_process(void)
     func_process();
     func_bt_sub_process();
 
-    if(f_bt.disp_status == BT_STA_INCOMING) {
-#if BT_HFP_RING_NUMBER_EN
+    if (f_bt.disp_status == BT_STA_INCOMING) {
+    #if BT_HFP_RING_NUMBER_EN
         sfunc_bt_ring();
-#endif
+    #endif
         reset_sleep_delay();
         reset_pwroff_delay();
         f_bt.siri_kl_flag = 0;
         f_bt.user_kl_flag = 0;
-#if BT_REC_EN
+    #if BT_REC_EN
         bt_music_rec_continue();
-#endif
-    } else if(f_bt.disp_status == BT_STA_OTA) {
-
-#if SYS_KARAOK_EN
-    bsp_karaok_exit(AUDIO_PATH_KARAOK);
-#endif
+    #endif
+    } else if (f_bt.disp_status == BT_STA_OTA) {
+    #if SYS_KARAOK_EN
+        bsp_karaok_exit(AUDIO_PATH_KARAOK);
+    #endif
 
         sfunc_bt_ota();
         reset_sleep_delay();
         reset_pwroff_delay();
-    } else if(f_bt.disp_status >= BT_STA_OUTGOING) {
+    } else if (f_bt.disp_status >= BT_STA_OUTGOING) {
         sfunc_bt_call();
         reset_sleep_delay();
         reset_pwroff_delay();
         f_bt.siri_kl_flag = 0;
         f_bt.user_kl_flag = 0;
-#if BT_REC_EN
+    #if BT_REC_EN
         bt_music_rec_continue();
-#endif
+    #endif
     }
 
-    if(sys_cb.pwroff_delay == 0) {
+    if (sys_cb.pwroff_delay == 0) {
         sys_cb.pwrdwn_tone_en = 1;
-        func_cb.sta = FUNC_PWROFF;
+        func_cb.sta           = FUNC_PWROFF;
         return;
     }
-    if(sleep_process(bt_is_sleep)) {
+    if (sleep_process(bt_is_sleep)) {
         f_bt.disp_status = 0xff;
     }
-#if RGB_WS2812_EN
-    ws2812_flush();         // ★ WS2812 灯带刷新（主循环，不关中断）
-#endif
+    #if RGB_WS2812_EN
+    ws2812_flush(); // ★ WS2812 灯带刷新（主循环，不关中断）
+    #endif
 }
 
 AT(.text.func.bt)
@@ -454,9 +454,9 @@ AT(.text.func.bt)
 void func_bt_chk_off(void)
 {
     if ((func_cb.sta != FUNC_BT) && (f_bt.bt_is_inited)) {
-#if BT_PWRKEY_5S_DISCOVER_EN
+    #if BT_PWRKEY_5S_DISCOVER_EN
         bsp_bt_pwrkey5s_clr();
-#endif
+    #endif
         bt_disconnect(1);
         bt_off();
         f_bt.bt_is_inited = 0;
@@ -466,129 +466,128 @@ void func_bt_chk_off(void)
 AT(.text.func.bt)
 void func_bt_enter(void)
 {
-#if LED_MATRIX_HUART_TX
+    #if LED_MATRIX_HUART_TX
     huart_tx_mode(1);
-#endif
+    #endif
 
-#if SYS_KARAOK_EN
+    #if SYS_KARAOK_EN
     bsp_karaok_exit(AUDIO_PATH_BTMIC);
-#endif
+    #endif
     func_cb.mp3_res_play = func_bt_mp3_res_play;
 
-#if WARNING_FUNC_BT
+    #if WARNING_FUNC_BT
     mp3_res_play(RES_BUF_BT_MODE_MP3, RES_LEN_BT_MODE_MP3);
-#endif // WARNING_FUNC_BT
+    #endif // WARNING_FUNC_BT
 
-#if WARNING_BT_WAIT_CONNECT
+    #if WARNING_BT_WAIT_CONNECT
     mp3_res_play(RES_BUF_WAIT4CONN_MP3, RES_LEN_WAIT4CONN_MP3);
-#endif // WARNING_BT_WAIT_CONNECT
+    #endif // WARNING_BT_WAIT_CONNECT
 
     func_bt_enter_display();
     led_bt_init();
     dis_auto_pwroff();
     func_bt_init();
-    f_bt.disp_status = 0xfe;
-    f_bt.rec_pause = 0;
-    f_bt.pp_2_unmute = 0;
+    f_bt.disp_status      = 0xfe;
+    f_bt.rec_pause        = 0;
+    f_bt.pp_2_unmute      = 0;
     sys_cb.key2unmute_cnt = 0;
 
     bt_redial_init();
     bt_audio_enable();
-#if DAC_DNR_EN
+    #if DAC_DNR_EN
     dac_dnr_set_sta(1);
     sys_cb.dnr_sta = 1;
-#endif
+    #endif
 
-#if BT_PWRKEY_5S_DISCOVER_EN
-    if(bsp_bt_pwrkey5s_check()) {
-        f_bt.need_pairing = 0;  //已经播报了
+    #if BT_PWRKEY_5S_DISCOVER_EN
+    if (bsp_bt_pwrkey5s_check()) {
+        f_bt.need_pairing = 0; // 已经播报了
         func_bt_disp_status();
-#if WARNING_BT_PAIR
+        #if WARNING_BT_PAIR
         func_mp3_res_play(RES_BUF_PAIRING_MP3, RES_LEN_PAIRING_MP3);
-#endif
+        #endif
     } else {
         func_bt_disp_status();
-#if WARNING_BT_PAIR
+        #if WARNING_BT_PAIR
         if (xcfg_cb.warning_bt_pair && !xcfg_cb.bt_tws_en) {
             func_mp3_res_play(RES_BUF_PAIRING_MP3, RES_LEN_PAIRING_MP3);
         }
-#endif // WARNING_BT_PAIR
+        #endif // WARNING_BT_PAIR
     }
-#endif
+    #endif
 
-#if BT_REC_EN
+    #if BT_REC_EN
     bt_music_rec_init();
-#endif // BT_REC_EN
+    #endif // BT_REC_EN
 
-#if BT_TWS_EN
-    if(xcfg_cb.bt_tws_pair_mode > 1) {
+    #if BT_TWS_EN
+    if (xcfg_cb.bt_tws_pair_mode > 1) {
         bt_tws_set_scan(1, 1);
     }
-#endif
+    #endif
 
-#if BT_POWER_OPTIMIZE
-    vddio_voltage_configure();  //该函数会回调getcfg_vddio_sel,在蓝牙下把VDDIO设置为2.7V左右
-#endif
+    #if BT_POWER_OPTIMIZE
+    vddio_voltage_configure(); // 该函数会回调getcfg_vddio_sel,在蓝牙下把VDDIO设置为2.7V左右
+    #endif
 
-#if DAC_OFF_FOR_BT_CONN_EN
+    #if DAC_OFF_FOR_BT_CONN_EN
     f_bt.dac_sta = 1;
     func_bt_set_dac(0);
-#endif // DAC_OFF_FOR_BT_CONN_EN
+    #endif // DAC_OFF_FOR_BT_CONN_EN
 
-#if MICAUX_ANALOG_OUT_ALWAYS
+    #if MICAUX_ANALOG_OUT_ALWAYS
     micaux_analog_out_init();
-#endif // MICAUX_ANALOG_OUT_ALWAYS
+    #endif // MICAUX_ANALOG_OUT_ALWAYS
 
-#if SYS_KARAOK_EN
+    #if SYS_KARAOK_EN
     if (f_bt.disp_status < BT_STA_INCOMING) {
         bsp_karaok_init(AUDIO_PATH_KARAOK, func_cb.sta);
     }
-#endif
-
+    #endif
 }
 
 AT(.text.func.bt)
 void func_bt_exit(void)
 {
-#if BT_REC_EN
+    #if BT_REC_EN
     sfunc_record_stop();
-#endif // BT_REC_EN
+    #endif // BT_REC_EN
 
     dac_fade_out();
-#if DAC_DNR_EN
+    #if DAC_DNR_EN
     dac_dnr_set_sta(0);
     sys_cb.dnr_sta = 0;
-#endif
-#if BT_PWRKEY_5S_DISCOVER_EN
+    #endif
+    #if BT_PWRKEY_5S_DISCOVER_EN
     bsp_bt_pwrkey5s_clr();
-#endif
+    #endif
     func_bt_exit_display();
     bt_audio_bypass();
-#if BT_TWS_EN
+    #if BT_TWS_EN
     dac_mono_init(1, 0);
-#endif
-#if !BT_BACKSTAGE_EN
+    #endif
+    #if !BT_BACKSTAGE_EN
     bt_disconnect(1);
     bt_off();
     f_bt.bt_is_inited = 0;
-#else
-    // BT后台模式: 不停音乐，只静音音频，保持连接和播放状态
-    // 切回BT时音乐自动恢复出声
-#endif
+    #else
+        // BT后台模式: 不停音乐，只静音音频，保持连接和播放状态
+        // 切回BT时音乐自动恢复出声
+    #endif
 
-#if BT_RF_POWER_BALANCE_EN
+    #if BT_RF_POWER_BALANCE_EN
     btrf_power_balance_exit();
-#endif
-    f_bt.rec_pause = 0;
-    f_bt.pp_2_unmute = 0;
+    #endif
+    f_bt.rec_pause        = 0;
+    f_bt.pp_2_unmute      = 0;
     sys_cb.key2unmute_cnt = 0;
-#if BT_POWER_OPTIMIZE
-    vddio_voltage_configure();  //该函数会回调getcfg_vddio_sel,退出蓝牙时，恢复正常配置中的VDDIO电压
-#endif
+    #if BT_POWER_OPTIMIZE
+    vddio_voltage_configure(); // 该函数会回调getcfg_vddio_sel,退出蓝牙时，恢复正常配置中的VDDIO电压
+    #endif
     func_cb.last = FUNC_BT;
-#if DAC_OFF_FOR_BT_CONN_EN
+    #if DAC_OFF_FOR_BT_CONN_EN
     func_bt_set_dac(1);
-#endif // DAC_OFF_FOR_BT_CONN_EN
+    #endif // DAC_OFF_FOR_BT_CONN_EN
 }
 
 AT(.text.func.bt)
@@ -606,17 +605,17 @@ void func_bt(void)
 
     func_bt_exit();
 }
-#if 0
-#define test_put    0
-#if test_put
+    #if 0
+        #define test_put 0
+        #if test_put
 
-#define SCLK_GPIOCLR    GPIOBCLR
-#define SCLK_GPIOSET    GPIOBSET
-#define SCLK_BIT        BIT(1)
+            #define SCLK_GPIOCLR GPIOBCLR
+            #define SCLK_GPIOSET GPIOBSET
+            #define SCLK_BIT     BIT(1)
 
-#define SDAT_GPIOCLR    GPIOBCLR
-#define SDAT_GPIOSET    GPIOBSET
-#define SDAT_BIT        BIT(0)
+            #define SDAT_GPIOCLR GPIOBCLR
+            #define SDAT_GPIOSET GPIOBSET
+            #define SDAT_BIT     BIT(0)
 void my_spi_init_rec(void)
 {
     GPIOBDE |=BIT(0)|BIT(1)|BIT(2);
@@ -666,15 +665,15 @@ void put_spi_buf(u8 *ptr, u16 len)
 
     GPIOBSET = BIT(2);
 }
-#else
+        #else
 void my_spi_init_rec(void){}
 void put_spi_buf(u8 *ptr, u16 len){}
-#endif
+        #endif
 
 //AT(.com_text.dac)
 //void dac_src0_dma_out_proc(void *buf, uint len)           //用户定义DMA输出（使用DMA则不用one byte发送）
 //{
     //put_spi_buf(buf, 128);
 //}
-#endif // 0
-#endif //FUNC_BT_EN
+    #endif // 0
+#endif     // FUNC_BT_EN

@@ -674,30 +674,31 @@
 #define WARNING_VOLUME               xcfg_cb.warning_volume // 播放提示音的音量级数
 #define LANG_SELECT                  LANG_EN                // 提示音语言选择
 
-#define WARNING_POWER_ON             1
-#define WARNING_POWER_OFF            1
-#define WARNING_FUNC_MUSIC           0
-#define WARNING_FUNC_BT              0
-#define WARNING_FUNC_CLOCK           0
-#define WARNING_FUNC_FMRX            0
-#define WARNING_FUNC_AUX             0
-#define WARNING_FUNC_USBDEV          0
-#define WARNING_FUNC_SPEAKER         0
-#define WARNING_LOW_BATTERY          0
-#define WARNING_BT_WAIT_CONNECT      0
-#define WARNING_BT_CONNECT           1
-#define WARNING_BT_DISCONNECT        1
-#define WARNING_BT_TWS_CONNECT       1
-#define WARNING_BT_TWS_DISCON        0
-#define WARNING_BT_INCALL            1
-#define WARNING_BT_CALLOUT           1
-#define WARNING_USB_SD               0
-#define WARNING_MAX_VOLUME           1
-#define WARNING_MIN_VOLUME           0
-#define WARNING_BT_HID_MENU          0 // BT HID MENU手动连接/断开HID Profile提示音
-#define WARNING_BTHID_CONN           0 // BTHID模式是否有独立的连接/断开提示音
-#define WARNING_BT_PAIR              0 // BT PAIRING提示音
-#define WARNING_UPDATE_DONE          1
+#define WARNING_POWER_ON             1 // 开机提示音
+#define WARNING_BT_CONNECT           1 // 蓝牙已连接提示音
+#define WARNING_BT_DISCONNECT        1 // 蓝牙断开提示音
+#define WARNING_MAX_VOLUME           1 // 最大音量提示音
+#define WARNING_BT_INCALL            1 // 来电提示音
+
+#define WARNING_POWER_OFF            0 // 关机提示音
+#define WARNING_FUNC_MUSIC           0 // 进入音乐模式提示音
+#define WARNING_FUNC_BT              0 // 进入蓝牙模式提示音
+#define WARNING_FUNC_CLOCK           0 // 进入时钟模式提示音
+#define WARNING_FUNC_FMRX            0 // 进入FM收音模式提示音
+#define WARNING_FUNC_AUX             0 // 进入AUX模式提示音
+#define WARNING_FUNC_USBDEV          0 // 进入USB模式提示音
+#define WARNING_FUNC_SPEAKER         0 // 进入外放模式提示音
+#define WARNING_LOW_BATTERY          0 // 低电量提示音
+#define WARNING_BT_WAIT_CONNECT      0 // 蓝牙等待连接提示音
+#define WARNING_BT_TWS_CONNECT       0 // TWS已连接提示音
+#define WARNING_BT_TWS_DISCON        0 // TWS断开提示音
+#define WARNING_BT_CALLOUT           0 // 去电提示音
+#define WARNING_USB_SD               0 // USB/SD卡插拔提示音
+#define WARNING_MIN_VOLUME           0 // 最小音量提示音
+#define WARNING_BT_HID_MENU          0 // BT HID手动连接/断开提示音
+#define WARNING_BTHID_CONN           0 // BTHID独立连接/断开提示音
+#define WARNING_BT_PAIR              0 // 蓝牙配对提示音
+#define WARNING_UPDATE_DONE          0 // 升级完成提示音
 
 #define SW_VERSION                   "V0.0.1" // 只能使用数字0-9,ota需要转码
 

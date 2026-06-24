@@ -1341,7 +1341,7 @@ void bsp_sys_init(void)
     } else {
         // mp3_res_play(RES_BUF_POWERON_MP3, RES_LEN_POWERON_MP3);
 
-        mp3_res_play(VOC_ADDR(2), VOC_LEN(2));
+        mp3_res_play(VOC_ADDR(0), VOC_LEN(0));
     }
 
 #endif // WARNING_POWER_ON

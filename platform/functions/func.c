@@ -367,6 +367,11 @@ void func_message(u16 msg)
                 param_sys_vol_write();
                 sys_cb.cm_times = 0;
                 sys_cb.cm_vol_change = 1;
+            #if WARNING_MAX_VOLUME
+                if (sys_cb.vol == VOL_MAX) {
+                    maxvol_tone_play();
+                }
+            #endif // WARNING_MAX_VOLUME
             }
             break;
 
@@ -376,6 +381,11 @@ void func_message(u16 msg)
             param_sys_vol_write();
             sys_cb.cm_times = 0;
             sys_cb.cm_vol_change = 1;
+        #if WARNING_MAX_VOLUME
+            if (sys_cb.vol == VOL_MAX) {
+                maxvol_tone_play();
+            }
+        #endif // WARNING_MAX_VOLUME
             break;
 
         case EVT_BT_SCAN_START:

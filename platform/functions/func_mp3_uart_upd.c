@@ -22,7 +22,7 @@
 #define MP3_UPD_PART_SIZE    0x1B000    // 108 KB (110592 bytes)
 #define MP3_UPD_CHUNK_SIZE   256        // 每包数据量
 #define MP3_UPD_SECTOR_SIZE  4096
-#define MP3_UPD_BAUD         115200
+#define MP3_UPD_BAUD         9600
 
 // ---- 协议常量 ----
 #define FRAME_HDR0           0x55

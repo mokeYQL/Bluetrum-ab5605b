@@ -67,7 +67,7 @@ class VocUpgradeTool:
                    command=self._scan_ports).grid(row=0, column=2, padx=2)
 
         ttk.Label(frm, text="波特率:").grid(row=0, column=3, sticky=tk.W, padx=(15, 0))
-        self.combo_baud = ttk.Combobox(frm, width=10, values=["115200"], state="readonly")
+        self.combo_baud = ttk.Combobox(frm, width=10, values=["9600", "115200"], state="readonly")
         self.combo_baud.current(0)
         self.combo_baud.grid(row=0, column=4, padx=5)
 
@@ -141,7 +141,7 @@ class VocUpgradeTool:
                 messagebox.showwarning("提示", "请先选择 COM 口")
                 return
             try:
-                self.ser = serial.Serial(port, 115200, timeout=2)
+                self.ser = serial.Serial(port, int(self.combo_baud.get()), timeout=2)
                 self.lbl_serial.config(text=f"{port} 已连接", foreground="green")
                 if self.voc_folder:
                     self.btn_send.config(state=tk.NORMAL)

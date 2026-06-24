@@ -71,6 +71,18 @@ def generate_voc_header(entries, header_path):
         f"#define VOC_COUNT       {len(entries)}",
         f"#define VOC_MAX_ENTRIES {MAX_ENTRIES}",
         f"#define VOC_PART_SIZE   0x{FLASH_PART_SIZE:05X}u  // setuserbin partition size",
+        f"#define VOC_TOC_ADDR    0x{BASE_FLASH_ADDR:05X}u  // TOC 头部地址",
+        "",
+        '// 运行时从 Flash 读取 TOC 条目 (UART 升级后地址/长度可能已变化)',
+        'static inline bool voc_read_entry(u8 idx, u32 *p_addr, u32 *p_len) {',
+        '    if (idx >= VOC_MAX_ENTRIES) return false;',
+        '    extern uint os_spiflash_read(void *buf, u32 addr, uint len);',
+        '    u32 toc[2];',
+        '    os_spiflash_read(toc, VOC_TOC_ADDR + idx * 8, 8);',
+        '    *p_addr = toc[0];',
+        '    *p_len  = toc[1];',
+        '    return (*p_addr != 0 && *p_len != 0);',
+        '}',
         "",
     ]
 

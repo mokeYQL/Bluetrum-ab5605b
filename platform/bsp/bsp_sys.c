@@ -1339,9 +1339,10 @@ void bsp_sys_init(void)
     if (SD_INSERT_EXCEPTION_RESET && is_sd_insert_reset()) {
         printf("sd insert exception reset, NO need to play power_on.mp3\n");
     } else {
-        // mp3_res_play(RES_BUF_POWERON_MP3, RES_LEN_POWERON_MP3);
-
-        mp3_res_play(VOC_ADDR(0), VOC_LEN(0));
+        u32 addr, len;
+        if (voc_read_entry(0, &addr, &len)) {
+            mp3_res_play(addr, len); // 从 Flash TOC 动态读取
+        }
     }
 
 #endif // WARNING_POWER_ON

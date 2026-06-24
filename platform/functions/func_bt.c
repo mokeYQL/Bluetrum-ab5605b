@@ -1,4 +1,5 @@
 #include "include.h"
+#include "voc.h"
 
 #include "func.h"
 #include "func_bt.h"
@@ -220,7 +221,11 @@ void func_bt_warning(void)
 
     if (func_bt_chkclr_warning(BT_WARN_DISCON)) {
     #if WARNING_BT_DISCONNECT
-        func_mp3_res_play(VOC_ADDR(2), VOC_LEN(2));
+        {
+            u32 a, l;
+            if (voc_read_entry(2, &a, &l))
+                func_mp3_res_play(a, l);
+        }
     #endif // WARNING_BT_DISCONNECT
     #if WARNING_BT_WAIT_CONNECT
         func_mp3_res_play(RES_BUF_WAIT4CONN_MP3, RES_LEN_WAIT4CONN_MP3);
@@ -230,7 +235,11 @@ void func_bt_warning(void)
 
     if (func_bt_chkclr_warning(BT_WARN_CON)) {
     #if WARNING_BT_CONNECT
-        func_mp3_res_play(VOC_ADDR(1), VOC_LEN(1));
+        {
+            u32 a, l;
+            if (voc_read_entry(1, &a, &l))
+                func_mp3_res_play(a, l);
+        }
     #endif
         f_bt.autoplay = 1;
     }

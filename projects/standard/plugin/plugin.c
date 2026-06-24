@@ -372,13 +372,17 @@ u32 get_wav_res_digvol(void)
 void maxvol_tone_play(void)
 {
 #if WARING_MAXVOL_MP3
+    u32 addr, len;
+    if (!voc_read_entry(3, &addr, &len))
+        return; // 从 Flash 动态读取索引3的地址和长度
+
     #if BT_TWS_EN
     if ((xcfg_cb.bt_tws_en) && (func_cb.sta == FUNC_BT)) {
-        tws_res_play(TWS_RES_MAX_VOL); // 同步播放最大音量语音
+        tws_res_play(TWS_RES_MAX_VOL);
     } else
     #endif
     {
-        func_mp3_res_play(VOC_ADDR(3), VOC_LEN(3));
+        func_mp3_res_play(addr, len);
     }
 
     if (sys_cb.maxvol_fade) {

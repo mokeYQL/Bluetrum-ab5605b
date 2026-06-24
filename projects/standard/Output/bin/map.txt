@@ -5722,48 +5722,48 @@ LOAD Output\obj\projects\standard\port\port_ws2812.o
                 0x000000001000ca8c        0xc Output\obj\platform\bsp\bsp_spp.o
                 0x000000001000ca8c                spp_disconnect_callback
  .text.bsp.sys.init
-                0x000000001000ca98      0x316 Output\obj\platform\bsp\bsp_sys.o
+                0x000000001000ca98      0x320 Output\obj\platform\bsp\bsp_sys.o
                 0x000000001000cbc6                rtc_init
                 0x000000001000cc5e                bsp_update_init
                 0x000000001000ccb6                bsp_sys_init
- .text.bsp.sys  0x000000001000cdae       0x86 Output\obj\platform\bsp\bsp_sys.o
-                0x000000001000cdae                bsp_sys_mute
-                0x000000001000cde2                bsp_sys_unmute
-                0x000000001000ce14                bsp_clr_mute_sta
+ .text.bsp.sys  0x000000001000cdb8       0x86 Output\obj\platform\bsp\bsp_sys.o
+                0x000000001000cdb8                bsp_sys_mute
+                0x000000001000cdec                bsp_sys_unmute
+                0x000000001000ce1e                bsp_clr_mute_sta
  .text.uart0_mapping_sel
-                0x000000001000ce34       0xb2 Output\obj\platform\bsp\bsp_sys.o
-                0x000000001000ce34                uart0_mapping_sel
+                0x000000001000ce3e       0xb2 Output\obj\platform\bsp\bsp_sys.o
+                0x000000001000ce3e                uart0_mapping_sel
  .text.bsp_get_xosc_xcfg
-                0x000000001000cee6       0x20 Output\obj\platform\bsp\bsp_sys.o
-                0x000000001000cee6                bsp_get_xosc_xcfg
+                0x000000001000cef0       0x20 Output\obj\platform\bsp\bsp_sys.o
+                0x000000001000cef0                bsp_get_xosc_xcfg
  .text.print_comm_info
-                0x000000001000cf06       0x5e Output\obj\platform\bsp\bsp_sys.o
-                0x000000001000cf06                print_comm_info
+                0x000000001000cf10       0x5e Output\obj\platform\bsp\bsp_sys.o
+                0x000000001000cf10                print_comm_info
  .text.func.process
-                0x000000001000cf64       0x6e Output\obj\platform\functions\func.o
-                0x000000001000cf64                print_info
-                0x000000001000cf8c                func_process
+                0x000000001000cf6e       0x6c Output\obj\platform\functions\func.o
+                0x000000001000cf6e                print_info
+                0x000000001000cf96                func_process
  .text.func.msg
-                0x000000001000cfd2      0x2ce Output\obj\platform\functions\func.o
-                0x000000001000cfd2                func_message
- .text.func     0x000000001000d2a0      0x104 Output\obj\platform\functions\func.o
-                0x000000001000d2a0                func_enter
-                0x000000001000d2ec                func_exit
-                0x000000001000d342                func_run
+                0x000000001000cfda      0x2ce Output\obj\platform\functions\func.o
+                0x000000001000cfda                func_message
+ .text.func     0x000000001000d2a8      0x104 Output\obj\platform\functions\func.o
+                0x000000001000d2a8                func_enter
+                0x000000001000d2f4                func_exit
+                0x000000001000d34a                func_run
  .text.func.aux
-                0x000000001000d3a4      0x14a Output\obj\platform\functions\func_aux.o
-                0x000000001000d3a4                func_aux_start
-                0x000000001000d3d0                func_aux_stop
-                0x000000001000d3e6                func_aux_pause_play
-                0x000000001000d41a                func_aux_setvol_callback
-                0x000000001000d450                func_aux_process
-                0x000000001000d460                func_aux
- .text.bsp.aux  0x000000001000d4ee       0x30 Output\obj\platform\functions\func_aux.o
-                0x000000001000d4ee                func_aux_mp3_res_play
+                0x000000001000d3ac      0x14a Output\obj\platform\functions\func_aux.o
+                0x000000001000d3ac                func_aux_start
+                0x000000001000d3d8                func_aux_stop
+                0x000000001000d3ee                func_aux_pause_play
+                0x000000001000d422                func_aux_setvol_callback
+                0x000000001000d458                func_aux_process
+                0x000000001000d468                func_aux
+ .text.bsp.aux  0x000000001000d4f6       0x30 Output\obj\platform\functions\func_aux.o
+                0x000000001000d4f6                func_aux_mp3_res_play
  .text.func_bt_mp3_res_play
-                0x000000001000d51e       0x24 Output\obj\platform\functions\func_bt.o
-                0x000000001000d51e                func_bt_mp3_res_play
- *fill*         0x000000001000d542       0x3e 
+                0x000000001000d526       0x24 Output\obj\platform\functions\func_bt.o
+                0x000000001000d526                func_bt_mp3_res_play
+ *fill*         0x000000001000d54a       0x36 
  .text.func_bt_chkclr_warning
                 0x000000001000d580       0x40 Output\obj\platform\functions\func_bt.o
                 0x000000001000d580                func_bt_chkclr_warning
@@ -5771,24 +5771,24 @@ LOAD Output\obj\projects\standard\port\port_ws2812.o
                 0x000000001000d5c0        0x2 Output\obj\platform\functions\func_bt.o
                 0x000000001000d5c0                func_bt_switch_voice_lang
  .text.func_bt_warning
-                0x000000001000d5c2       0x5e Output\obj\platform\functions\func_bt.o
+                0x000000001000d5c2       0x72 Output\obj\platform\functions\func_bt.o
                 0x000000001000d5c2                func_bt_warning
- *fill*         0x000000001000d620        0x0 
+ *fill*         0x000000001000d634        0x0 
  .text.func_bt_disp_status
-                0x000000001000d620       0xfa Output\obj\platform\functions\func_bt.o
-                0x000000001000d620                func_bt_disp_status
- .text.func.bt  0x000000001000d71a      0x1ba Output\obj\platform\functions\func_bt.o
-                0x000000001000d71a                func_bt_status
-                0x000000001000d72a                func_bt_sub_process
-                0x000000001000d72c                func_bt_process
-                0x000000001000d7bc                func_bt_init
-                0x000000001000d7de                func_bt_chk_off
-                0x000000001000d80e                func_bt_enter
-                0x000000001000d862                func_bt_exit
-                0x000000001000d89e                func_bt
- .text.bthid    0x000000001000d8d4       0x18 Output\obj\platform\functions\func_bt_hid.o
-                0x000000001000d8d4                is_bthid_mode
- *fill*         0x000000001000d8ec      0x114 
+                0x000000001000d634       0xfa Output\obj\platform\functions\func_bt.o
+                0x000000001000d634                func_bt_disp_status
+ .text.func.bt  0x000000001000d72e      0x1ba Output\obj\platform\functions\func_bt.o
+                0x000000001000d72e                func_bt_status
+                0x000000001000d73e                func_bt_sub_process
+                0x000000001000d740                func_bt_process
+                0x000000001000d7d0                func_bt_init
+                0x000000001000d7f2                func_bt_chk_off
+                0x000000001000d822                func_bt_enter
+                0x000000001000d876                func_bt_exit
+                0x000000001000d8b2                func_bt
+ .text.bthid    0x000000001000d8e8       0x18 Output\obj\platform\functions\func_bt_hid.o
+                0x000000001000d8e8                is_bthid_mode
+ *fill*         0x000000001000d900      0x100 
  .text.lowpwr.sleep
                 0x000000001000da00      0x4f4 Output\obj\platform\functions\func_lowpwr.o
                 0x000000001000da00                sleep_process
@@ -6164,83 +6164,83 @@ LOAD Output\obj\projects\standard\port\port_ws2812.o
                 0x000000001000f4ae       0x12 Output\obj\projects\standard\plugin\plugin.o
                 0x000000001000f4ae                is_sleep_dac_off_enable
  .text.maxvol_tone_play
-                0x000000001000f4c0       0x3e Output\obj\projects\standard\plugin\plugin.o
+                0x000000001000f4c0       0x4a Output\obj\projects\standard\plugin\plugin.o
                 0x000000001000f4c0                maxvol_tone_play
  .text.plugin_music_eq
-                0x000000001000f4fe       0x18 Output\obj\projects\standard\plugin\plugin.o
-                0x000000001000f4fe                plugin_music_eq
+                0x000000001000f50a       0x18 Output\obj\projects\standard\plugin\plugin.o
+                0x000000001000f50a                plugin_music_eq
  .text.led_disp
-                0x000000001000f516      0x1cc Output\obj\projects\standard\port\port_led.o
-                0x000000001000f516                led_power_up
-                0x000000001000f542                led_power_down
-                0x000000001000f56a                led_idle
-                0x000000001000f57c                led_bt_init
-                0x000000001000f5a6                led_bt_idle
-                0x000000001000f5d0                led_bt_reconnect
-                0x000000001000f5fa                led_bt_connected
-                0x000000001000f624                led_bt_play
-                0x000000001000f64e                led_bt_ring
-                0x000000001000f678                led_bt_call
-                0x000000001000f6a2                led_fm_scan
-                0x000000001000f6b4                led_music_busy
-                0x000000001000f6b6                led_record
-                0x000000001000f6c8                led_fm_play
-                0x000000001000f6ca                led_aux_play
-                0x000000001000f6cc                led_music_play
-                0x000000001000f6ce                led_bt_scan
-                0x000000001000f6d0                led_bt_pb_sleep
+                0x000000001000f522      0x1cc Output\obj\projects\standard\port\port_led.o
+                0x000000001000f522                led_power_up
+                0x000000001000f54e                led_power_down
+                0x000000001000f576                led_idle
+                0x000000001000f588                led_bt_init
+                0x000000001000f5b2                led_bt_idle
+                0x000000001000f5dc                led_bt_reconnect
+                0x000000001000f606                led_bt_connected
+                0x000000001000f630                led_bt_play
+                0x000000001000f65a                led_bt_ring
+                0x000000001000f684                led_bt_call
+                0x000000001000f6ae                led_fm_scan
+                0x000000001000f6c0                led_music_busy
+                0x000000001000f6c2                led_record
+                0x000000001000f6d4                led_fm_play
+                0x000000001000f6d6                led_aux_play
+                0x000000001000f6d8                led_music_play
+                0x000000001000f6da                led_bt_scan
+                0x000000001000f6dc                led_bt_pb_sleep
  .text.led_func_init
-                0x000000001000f6e2       0xe0 Output\obj\projects\standard\port\port_led.o
-                0x000000001000f6e2                led_func_init
+                0x000000001000f6ee       0xe0 Output\obj\projects\standard\port\port_led.o
+                0x000000001000f6ee                led_func_init
  .text.is_linein_enter_enable
-                0x000000001000f7c2       0x3c Output\obj\projects\standard\port\port_linein.o
-                0x000000001000f7c2                is_linein_enter_enable
+                0x000000001000f7ce       0x3c Output\obj\projects\standard\port\port_linein.o
+                0x000000001000f7ce                is_linein_enter_enable
  .text.linein_detect_init
-                0x000000001000f7fe       0xd6 Output\obj\projects\standard\port\port_linein.o
-                0x000000001000f7fe                linein_detect_init
+                0x000000001000f80a       0xd6 Output\obj\projects\standard\port\port_linein.o
+                0x000000001000f80a                linein_detect_init
  .text.loudspeaker_mute_init
-                0x000000001000f8d4       0x68 Output\obj\projects\standard\port\port_mute.o
-                0x000000001000f8d4                loudspeaker_mute_init
- .text.mute     0x000000001000f93c       0x28 Output\obj\projects\standard\port\port_mute.o
-                0x000000001000f93c                loudspeaker_disable
+                0x000000001000f8e0       0x68 Output\obj\projects\standard\port\port_mute.o
+                0x000000001000f8e0                loudspeaker_mute_init
+ .text.mute     0x000000001000f948       0x28 Output\obj\projects\standard\port\port_mute.o
+                0x000000001000f948                loudspeaker_disable
  .text.amplifier
-                0x000000001000f964       0x9c Output\obj\projects\standard\port\port_mute.o
-                0x000000001000f964                amp_sel_cfg_d
-                0x000000001000f994                amp_sel_cfg_init
-                0x000000001000f9aa                amp_sel_cfg_ab
-                0x000000001000f9dc                amp_sel_cfg_dis
+                0x000000001000f970       0x9c Output\obj\projects\standard\port\port_mute.o
+                0x000000001000f970                amp_sel_cfg_d
+                0x000000001000f9a0                amp_sel_cfg_init
+                0x000000001000f9b6                amp_sel_cfg_ab
+                0x000000001000f9e8                amp_sel_cfg_dis
  .text.ws2812_encode_byte
-                0x000000001000fa00       0x36 Output\obj\projects\standard\port\port_ws2812.o
+                0x000000001000fa0c       0x36 Output\obj\projects\standard\port\port_ws2812.o
  .text.ws2812_init
-                0x000000001000fa36       0x82 Output\obj\projects\standard\port\port_ws2812.o
-                0x000000001000fa36                ws2812_init
+                0x000000001000fa42       0x82 Output\obj\projects\standard\port\port_ws2812.o
+                0x000000001000fa42                ws2812_init
  .text.ws2812_set_color
-                0x000000001000fab8       0x24 Output\obj\projects\standard\port\port_ws2812.o
-                0x000000001000fab8                ws2812_set_color
+                0x000000001000fac4       0x24 Output\obj\projects\standard\port\port_ws2812.o
+                0x000000001000fac4                ws2812_set_color
  .text.ws2812_flush
-                0x000000001000fadc      0x2d0 Output\obj\projects\standard\port\port_ws2812.o
-                0x000000001000fadc                ws2812_flush
- .text.aux      0x000000001000fdac      0x89e ..\..\platform\libs\libplatform.a(audio.o)
-                0x000000001000fe78                set_aux_analog_vol
-                0x000000001000fed4                set_aux_analog_gain
-                0x000000001000ff14                aux_analog_channel_select
-                0x0000000010010078                aux_analog_channel_close
-                0x00000000100100d6                analog_aux2pa_start
-                0x000000001001023a                analog_aux2pa_exit
-                0x00000000100102d0                analog_aux2pa_dig2anl_enable
-                0x00000000100102ee                analog_aux2pa_dig2anl_disable
-                0x000000001001030a                sdadc_analog_aux_start
-                0x000000001001047e                sdadc_analog_aux_exit
-                0x00000000100104f4                aux_shorting_enable
-                0x0000000010010514                aux_shorting_disable
-                0x0000000010010534                aux2pa_sdadc_enable
-                0x00000000100105e2                aux_channel_mute
-                0x00000000100105fc                aux_channel_unmute
-                0x0000000010010612                analog_aux2pa_exit_karaok
+                0x000000001000fae8      0x2d0 Output\obj\projects\standard\port\port_ws2812.o
+                0x000000001000fae8                ws2812_flush
+ .text.aux      0x000000001000fdb8      0x89e ..\..\platform\libs\libplatform.a(audio.o)
+                0x000000001000fe84                set_aux_analog_vol
+                0x000000001000fee0                set_aux_analog_gain
+                0x000000001000ff20                aux_analog_channel_select
+                0x0000000010010084                aux_analog_channel_close
+                0x00000000100100e2                analog_aux2pa_start
+                0x0000000010010246                analog_aux2pa_exit
+                0x00000000100102dc                analog_aux2pa_dig2anl_enable
+                0x00000000100102fa                analog_aux2pa_dig2anl_disable
+                0x0000000010010316                sdadc_analog_aux_start
+                0x000000001001048a                sdadc_analog_aux_exit
+                0x0000000010010500                aux_shorting_enable
+                0x0000000010010520                aux_shorting_disable
+                0x0000000010010540                aux2pa_sdadc_enable
+                0x00000000100105ee                aux_channel_mute
+                0x0000000010010608                aux_channel_unmute
+                0x000000001001061e                analog_aux2pa_exit_karaok
  .text.adpll_adjust_speed
-                0x000000001001064a       0x42 ..\..\platform\libs\libplatform.a(audio.o)
-                0x000000001001064a                adpll_adjust_speed
- *fill*         0x000000001001068c       0x74 
+                0x0000000010010656       0x42 ..\..\platform\libs\libplatform.a(audio.o)
+                0x0000000010010656                adpll_adjust_speed
+ *fill*         0x0000000010010698       0x68 
  .text.dac_clk_source_sel
                 0x0000000010010700       0x7a ..\..\platform\libs\libplatform.a(audio.o)
                 0x0000000010010700                dac_clk_source_sel

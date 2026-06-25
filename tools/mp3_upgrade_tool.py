@@ -93,7 +93,7 @@ class VocUpgradeTool:
                    command=self._scan_ports).grid(row=0, column=2, padx=2)
 
         ttk.Label(frm, text="波特率:").grid(row=0, column=3, sticky=tk.W, padx=(15, 0))
-        self.combo_baud = ttk.Combobox(frm, width=10, values=["9600", "115200"], state="readonly")
+        self.combo_baud = ttk.Combobox(frm, width=10, values=["115200", "57600", "19200", "9600"], state="readonly")
         self.combo_baud.current(0)
         self.combo_baud.grid(row=0, column=4, padx=5)
 

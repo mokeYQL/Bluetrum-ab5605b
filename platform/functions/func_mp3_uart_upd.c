@@ -13,17 +13,20 @@
  *   ERASE:  [AA 55 01 00]
  *   DATA:   [AA 55 02 seq_lo seq_hi]
  *   FINISH: [AA 55 03 result]  result=0x00成功, 0x01 CRC错误
+ *
+ * 接收方式: UART1 RX 中断 → FIFO → 主循环状态机处理
  */
 
 #include "func_mp3_uart_upd.h"
 #include "include.h"
+#include "fifo.h"
 
 // ---- 分区配置 ----
 #define MP3_UPD_FLASH_ADDR   0x60000
 #define MP3_UPD_PART_SIZE    0x1B000    // 108 KB
 #define MP3_UPD_CHUNK_SIZE   256
 #define MP3_UPD_SECTOR_SIZE  4096
-#define MP3_UPD_BAUD         9600
+#define MP3_UPD_BAUD         115200
 
 // ---- 协议常量 ----
 #define FRAME_HDR0           0x55
@@ -64,6 +67,20 @@ static u16 upd_need;
 static u16 upd_idx;
 static u8  upd_payload[259];  // seq 2B + xor 1B + data 256B max
 static u16 upd_max_seq;        // 记录最大 seq, 用于 FINISH 时计算读回大小
+
+// ---- UART1 RX FIFO (ISR → 主循环) ----
+static fifo_t g_upd_fifo;
+
+// ===================== UART1 RX 中断 =====================
+AT(.com_text.isr)
+void mp3_upd_rx_isr(void)
+{
+    if (UART1CON & BIT(9)) {
+        u8 ch = (u8)UART1DATA;
+        UART1CPND |= BIT(9);
+        fifo_put(&g_upd_fifo, ch);
+    }
+}
 
 // ===================== UART1 发送 =====================
 static void _uart1_putchar(u8 ch)
@@ -207,11 +224,15 @@ static void mp3_upd_uart_init(void)
     UART1BAUD = (baud_cfg << 16) | baud_cfg;
 
     UART1CON = BIT(5) | BIT(7) | BIT(4) | BIT(0);
+    UART1CON |= BIT(2);   // 使能 RX 中断
 
     while (UART1CON & BIT(9)) {
         (void)UART1DATA;
         UART1CPND |= BIT(9);
     }
+
+    fifo_init(&g_upd_fifo);
+    sys_irq_init(IRQ_UART_VECTOR, 0, mp3_upd_rx_isr);
 }
 
 // ===================== 公共接口 =====================
@@ -229,9 +250,9 @@ void mp3_uart_update_init(void)
 
 void mp3_uart_update_process(void)
 {
-    while (UART1CON & BIT(9)) {
-        u8 ch = (u8)UART1DATA;
-        UART1CPND |= BIT(9);
+    while (fifo_avail(&g_upd_fifo)) {
+        u8 ch;
+        fifo_get(&g_upd_fifo, &ch);
         WDT_CLR();
 
         switch (upd_state) {

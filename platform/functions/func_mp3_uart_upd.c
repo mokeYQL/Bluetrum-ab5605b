@@ -18,26 +18,26 @@
  */
 
 #include "func_mp3_uart_upd.h"
-#include "include.h"
 #include "fifo.h"
+#include "include.h"
 
 // ---- 分区配置 ----
-#define MP3_UPD_FLASH_ADDR   0x60000
-#define MP3_UPD_PART_SIZE    0x1B000    // 108 KB
-#define MP3_UPD_CHUNK_SIZE   256
-#define MP3_UPD_SECTOR_SIZE  4096
-#define MP3_UPD_BAUD         115200
+#define MP3_UPD_FLASH_ADDR  0x60000
+#define MP3_UPD_PART_SIZE   0x1B000 // 108 KB
+#define MP3_UPD_CHUNK_SIZE  256
+#define MP3_UPD_SECTOR_SIZE 4096
+#define MP3_UPD_BAUD        115200
 
 // ---- 协议常量 ----
-#define FRAME_HDR0           0x55
-#define FRAME_HDR1           0xAA
-#define CMD_ERASE            0x01
-#define CMD_DATA             0x02
-#define CMD_FINISH           0x03
+#define FRAME_HDR0          0x55
+#define FRAME_HDR1          0xAA
+#define CMD_ERASE           0x01
+#define CMD_DATA            0x02
+#define CMD_FINISH          0x03
 
 extern void os_spiflash_erase(u32 addr);
 extern void os_spiflash_program(void *buf, u32 addr, uint len);
-extern uint  os_spiflash_read(void *buf, u32 addr, uint len);
+extern uint os_spiflash_read(void *buf, u32 addr, uint len);
 
 // ===================== CRC16-CCITT =====================
 static u16 crc16_ccitt(u16 crc, u8 *data, u32 len)
@@ -55,7 +55,8 @@ static u16 crc16_ccitt(u16 crc, u8 *data, u32 len)
 }
 
 // ===================== 协议状态机 =====================
-enum {
+enum
+{
     UPD_IDLE,
     UPD_GOT_55,
     UPD_GOT_AA,
@@ -65,8 +66,8 @@ static u8  upd_state;
 static u8  upd_cmd;
 static u16 upd_need;
 static u16 upd_idx;
-static u8  upd_payload[259];  // seq 2B + xor 1B + data 256B max
-static u16 upd_max_seq;        // 记录最大 seq, 用于 FINISH 时计算读回大小
+static u8  upd_payload[259]; // seq 2B + xor 1B + data 256B max
+static u16 upd_max_seq;      // 记录最大 seq, 用于 FINISH 时计算读回大小
 
 // ---- UART1 RX FIFO (ISR → 主循环) ----
 static fifo_t g_upd_fifo;
@@ -98,7 +99,7 @@ static void _uart1_puts(u8 *buf, u16 len)
 
 static void upd_ack(u8 cmd, u8 *extra, u8 extra_len)
 {
-    u8 ack[8] = {0xAA, 0x55, cmd, 0x00};
+    u8 ack[8]    = {0xAA, 0x55, cmd, 0x00};
     u8 total_len = 4;
     if (extra && extra_len > 0 && extra_len <= 4) {
         for (u8 i = 0; i < extra_len; i++)
@@ -137,7 +138,7 @@ static void upd_do_erase(void)
 static void upd_do_data(void)
 {
     u16 seq      = upd_payload[0] | ((u16)upd_payload[1] << 8);
-    u8  xor_recv = upd_payload[2];               // 接收到的 XOR 校验值
+    u8  xor_recv = upd_payload[2];                                    // 接收到的 XOR 校验值
     u8  xor_calc = xor_checksum(&upd_payload[3], MP3_UPD_CHUNK_SIZE); // 本地计算
 
     if (xor_recv != xor_calc) {
@@ -171,7 +172,7 @@ static void upd_do_data(void)
 
 static void upd_do_finish(void)
 {
-    u16 pc_crc = upd_payload[0] | ((u16)upd_payload[1] << 8);
+    u16 pc_crc     = upd_payload[0] | ((u16)upd_payload[1] << 8);
     u32 total_size = ((u32)(upd_max_seq + 1)) * MP3_UPD_CHUNK_SIZE;
 
     printf("[MP3_UPD] Verify CRC16, read %u bytes...\n", (unsigned int)total_size);
@@ -193,12 +194,12 @@ static void upd_do_finish(void)
 
     if (pc_crc == local_crc) {
         printf("[MP3_UPD] CRC OK! Update complete\n");
-        upd_ack(CMD_FINISH, NULL, 0);   // result=0x00 = 成功
+        upd_ack(CMD_FINISH, NULL, 0); // result=0x00 = 成功
         delay_ms(200);
-        WDT_RST();                       // 复位生效
+        WDT_RST(); // 复位生效
     } else {
         printf("[MP3_UPD] CRC FAIL!\n");
-        u8 result = 0x01;                // result=0x01 = CRC 不匹配
+        u8 result = 0x01; // result=0x01 = CRC 不匹配
         upd_ack(CMD_FINISH, &result, 1);
     }
     upd_state = UPD_IDLE;
@@ -210,8 +211,8 @@ static void mp3_upd_uart_init(void)
     u32 baud_cfg;
 
     GPIOAFEN |= BIT(6) | BIT(7);
-    GPIOADIR |= BIT(6);   // PA6 input (RX)
-    GPIOADIR &= ~BIT(7);  // PA7 output (TX)
+    GPIOADIR |= BIT(6);  // PA6 input (RX)
+    GPIOADIR &= ~BIT(7); // PA7 output (TX)
     GPIOAPU |= BIT(6) | BIT(7);
     GPIOADE |= BIT(6) | BIT(7);
 
@@ -224,7 +225,7 @@ static void mp3_upd_uart_init(void)
     UART1BAUD = (baud_cfg << 16) | baud_cfg;
 
     UART1CON = BIT(5) | BIT(7) | BIT(4) | BIT(0);
-    UART1CON |= BIT(2);   // 使能 RX 中断
+    UART1CON |= BIT(2); // 使能 RX 中断
 
     while (UART1CON & BIT(9)) {
         (void)UART1DATA;
@@ -256,7 +257,6 @@ void mp3_uart_update_process(void)
         WDT_CLR();
 
         switch (upd_state) {
-
         case UPD_IDLE:
             if (ch == FRAME_HDR0) {
                 upd_state = UPD_GOT_55;
@@ -280,11 +280,11 @@ void mp3_uart_update_process(void)
             if (ch == CMD_ERASE) {
                 upd_do_erase();
             } else if (ch == CMD_DATA) {
-                upd_need  = 2 + 1 + MP3_UPD_CHUNK_SIZE;  // seq 2B + xor 1B + data
+                upd_need  = 2 + 1 + MP3_UPD_CHUNK_SIZE; // seq 2B + xor 1B + data
                 upd_idx   = 0;
                 upd_state = UPD_RX_PAYLOAD;
             } else if (ch == CMD_FINISH) {
-                upd_need  = 2;  // CRC16 2B
+                upd_need  = 2; // CRC16 2B
                 upd_idx   = 0;
                 upd_state = UPD_RX_PAYLOAD;
             }

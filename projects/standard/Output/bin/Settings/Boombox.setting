@@ -6,9 +6,9 @@
         <add key="func_aux_en" value="True" />
         <add key="func_fmrx_en" value="True" />
         <add key="powkey_10s_reset" value="False" />
-        <add key="spk_mute_en" value="False" />
-        <add key="spk_mute_io_sel" value="0" />
-        <add key="high_mute" value="True" />
+        <add key="spk_mute_en" value="True" />
+        <add key="spk_mute_io_sel" value="16" />
+        <add key="high_mute" value="False" />
         <add key="loudspeaker_unmute_delay" value="6" />
         <add key="ampabd_type" value="独立IO电平控制" />
         <add key="ampabd_io_sel" value="0" />
@@ -238,5 +238,6 @@
         <add key="fmrx_cs_filter_fixed" value="True" />
         <add key="fmrx_cs_filter_sel" value="1" />
         <add key="fmrx_audio_ch" value="0" />
+        <add key="USERBIN_DIR_SEL" value="默认" />
     </appSettings>
 </configuration>

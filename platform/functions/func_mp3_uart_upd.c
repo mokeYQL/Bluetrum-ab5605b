@@ -16,10 +16,12 @@
  *
  * 接收方式: UART1 RX 中断 → FIFO → 主循环状态机处理
  */
-
-#include "func_mp3_uart_upd.h"
-#include "fifo.h"
 #include "include.h"
+
+#include "fifo.h"
+#include "func_mp3_uart_upd.h"
+
+#include "port_ws2812.h"
 
 // ---- 分区配置 ----
 #define MP3_UPD_FLASH_ADDR  0x60000
@@ -30,11 +32,17 @@
 
 // ---- 协议常量 (0xA5 帧格式) ----
 #define FRAME_HDR           0xA5
-#define CMD_ESP             0x13    // ESP32S3 → AB5605B
-#define CMD_AB              0x12    // AB5605B → ESP32S3
-#define CMD_ERASE           0x0A    // 擦除 (携带总包CRC)
-#define CMD_DATA            0x0B    // 写数据
-#define CMD_FINISH          0x0C    // 完成校验
+#define CMD_ESP             0x13 // ESP32S3 → AB5605B
+#define CMD_AB              0x12 // AB5605B → ESP32S3
+#define CMD_ERASE           0x0A // 擦除 (携带总包CRC)
+#define CMD_DATA            0x0B // 写数据
+#define CMD_FINISH          0x0C // 完成校验
+
+// ---- 设备信息宏定义 ----
+#define DEV_INFO_PN         BT_NAME_DEFAULT // 产品名称
+#define DEV_INFO_FN         "Bluetrum"      // 厂家名称
+#define DEV_INFO_HV         "1.0.0"         // 硬件版本 (格式 x.x.x)
+#define DEV_INFO_SV         "1.0.0"         // 软件版本 (格式 x.x.x)
 
 extern void os_spiflash_erase(u32 addr);
 extern void os_spiflash_program(void *buf, u32 addr, uint len);
@@ -88,9 +96,9 @@ enum
 };
 
 static u8  upd_state;
-static u8  upd_cmd_class;   // 命令分类 (0x13)
-static u8  upd_sub_cmd;     // 子命令 (0x0A/0x0B/0x0C)
-static u16 upd_data_len;    // 数据段长度
+static u8  upd_cmd_class; // 命令分类 (0x13)
+static u8  upd_sub_cmd;   // 子命令 (0x0A/0x0B/0x0C)
+static u16 upd_data_len;  // 数据段长度
 static u16 upd_idx;
 static u8  upd_payload[259]; // seq 2B + xor 1B + data 256B max
 static u8  upd_rx_fcs;       // 接收到的 FCS
@@ -253,6 +261,114 @@ static void upd_process_frame(void)
         return;
     }
 
+    // ---- 控制命令分发 ----
+    if (upd_sub_cmd == 0x01) {
+        // 查询设备信息 → 返回JSON
+        char json[128];
+        snprintf(json, sizeof(json),
+                 "{\"pn\":\"%s\",\"fn\":\"%s\",\"hv\":\"%s\",\"sv\":\"%s\"}",
+                 DEV_INFO_PN, DEV_INFO_FN, DEV_INFO_HV, DEV_INFO_SV);
+        upd_send_frame(CMD_AB, 0x01, (u8 *)json, strlen(json));
+        printf("[UART_CTL] Query info: %s\n", json);
+        return;
+    }
+    if (upd_sub_cmd == 0x02) {
+        // 系统复位 → 先应答再复位
+        u8 result = 0x00;
+        upd_send_frame(CMD_AB, 0x02, &result, 1);
+        printf("[UART_CTL] System reset\n");
+        delay_ms(50);
+        WDT_RST();
+        return;
+    }
+    if (upd_sub_cmd == 0x03) {
+        u8 result = 0x00;
+        if (upd_payload[0] == 0x01) {
+            bsp_sys_mute();
+            printf("[UART_CTL] Mute ON\n");
+        } else {
+            bsp_sys_unmute();
+            printf("[UART_CTL] Mute OFF\n");
+        }
+        upd_send_frame(CMD_AB, 0x03, &result, 1);
+        return;
+    }
+    if (upd_sub_cmd == 0x04) {
+        u8 vol    = upd_payload[0];
+        u8 result = 0x00;
+        bsp_set_volume(vol);
+        printf("[UART_CTL] Volume set: %u\n", vol);
+        upd_send_frame(CMD_AB, 0x04, &result, 1);
+        return;
+    }
+    if (upd_sub_cmd == 0x05) {
+        u8 src    = upd_payload[0];
+        u8 result = 0x00;
+        if (src == 0x01) {
+            func_cb.sta = FUNC_BT;
+            printf("[UART_CTL] Audio switch: BT\n");
+        } else {
+            func_cb.sta = FUNC_AUX;
+            printf("[UART_CTL] Audio switch: AUX\n");
+        }
+        upd_send_frame(CMD_AB, 0x05, &result, 1);
+        return;
+    }
+    if (upd_sub_cmd == 0x06) {
+        uint bt_sta = bt_get_status();
+        u8   result;
+        if (bt_sta == BT_STA_CONNECTED)
+            result = 0x02; // 已连接
+        else if (bt_sta == BT_STA_PLAYING)
+            result = 0x03; // 播放中
+        else if (bt_sta == BT_STA_CONNECTING || bt_sta == BT_STA_SCANNING || bt_sta == BT_STA_INITING)
+            result = 0x01; // 连接中
+        else
+            result = 0x00; // 已断开
+        printf("[UART_CTL] BT status: %u (raw=%u)\n", result, bt_sta);
+        upd_send_frame(CMD_AB, 0x06, &result, 1);
+        return;
+    }
+    if (upd_sub_cmd == 0x08) {
+        u8 mode   = upd_payload[0];
+        u8 result = 0x00;
+#if RGB_WS2812_EN
+        ws2812_override_mode = mode;
+        printf("[UART_CTL] LED mode: %u\n", mode);
+#else
+        printf("[UART_CTL] LED mode: %u (WS2812 disabled)\n", mode);
+#endif
+        upd_send_frame(CMD_AB, 0x08, &result, 1);
+        return;
+    }
+    if (upd_sub_cmd == 0x09) {
+        u8 result = 0x00;
+        if (upd_data_len > 0 && upd_data_len < sizeof(upd_payload)) {
+            upd_payload[upd_data_len] = '\0';
+            char *name                = (char *)upd_payload;
+            // 1. 更新运行时名称
+            updata_bt_name(name);
+            memset(xcfg_cb.bt_name, 0, sizeof(xcfg_cb.bt_name));
+            strncpy(xcfg_cb.bt_name, name, sizeof(xcfg_cb.bt_name) - 1);
+            // 2. 写入Flash持久化 (格式: ##名称##)
+            u8 flash_buf[36];
+            u8 len = upd_data_len + 4; // ## + name + ##
+            if (len > 36)
+                len = 36;
+            memset(flash_buf, 0, sizeof(flash_buf));
+            flash_buf[0] = 0x23;
+            flash_buf[1] = 0x23;
+            memcpy(&flash_buf[2], name, upd_data_len);
+            flash_buf[2 + upd_data_len]     = 0x23;
+            flash_buf[2 + upd_data_len + 1] = 0x23;
+            cm_write(flash_buf, PAGE0(BT_NAME_UPDATA), len);
+            cm_sync();
+            printf("[UART_CTL] BT name saved: %s\n", name);
+        }
+        upd_send_frame(CMD_AB, 0x09, &result, 1);
+        return;
+    }
+    // ---- OTA命令分发 ----
     if (upd_sub_cmd == CMD_ERASE) {
         upd_do_erase();
     } else if (upd_sub_cmd == CMD_DATA) {
@@ -325,21 +441,21 @@ void mp3_uart_update_process(void)
 
         case UPD_GOT_HDR:
             upd_cmd_class = ch;
-            upd_state = UPD_GOT_CMD;
+            upd_state     = UPD_GOT_CMD;
             break;
 
         case UPD_GOT_CMD:
             upd_sub_cmd = ch;
-            upd_state = UPD_GOT_SUBCMD;
+            upd_state   = UPD_GOT_SUBCMD;
             break;
 
         case UPD_GOT_SUBCMD:
-            upd_data_len = (u16)ch << 8;  // LEN_H
-            upd_state = UPD_RX_LEN_L;
+            upd_data_len = (u16)ch << 8; // LEN_H
+            upd_state    = UPD_RX_LEN_L;
             break;
 
         case UPD_RX_LEN_L:
-            upd_data_len |= ch;           // LEN_L
+            upd_data_len |= ch; // LEN_L
             upd_idx = 0;
             if (upd_data_len > 0) {
                 upd_state = UPD_RX_DATA;
@@ -359,7 +475,7 @@ void mp3_uart_update_process(void)
 
         case UPD_RX_FCS:
             upd_rx_fcs = ch;
-            upd_state = UPD_IDLE;
+            upd_state  = UPD_IDLE;
             upd_process_frame();
             break;
         }

@@ -23,6 +23,9 @@ static u8 ws2812_spi_buf[WS2812_BUF_SIZE];
 // RGB 原始数据缓冲（用户填充，GRB 顺序）
 static u8 ws2812_rgb_buf[WS2812_NUM_LEDS * 3];
 
+// UART命令覆盖模式: 0xFF=无覆盖, 0x00=关, 0x01=常亮, 0x02=呼吸, 0x03=音乐律动
+u8 ws2812_override_mode = 0xFF;
+
 /* 将 1 字节 WS2812 数据编码为 3 字节 SPI 数据
  * 每 bit WS2812 → 3 bit SPI:  0→100,  1→110
  * 8 bit → 24 bit SPI → 3 字节（大端，SPI 先发高位）
@@ -101,9 +104,48 @@ void ws2812_set_color(u8 led_idx, u8 r, u8 g, u8 b)
 /* 在 func_bt_process() 主循环中调用 */
 void ws2812_flush(void)
 {
+    u8 i;
+
+    /* ---- UART命令覆盖模式 ---- */
+    if (ws2812_override_mode != 0xFF) {
+        if (ws2812_override_mode == WS2812_MODE_OFF) {
+            // 全灭
+            for (i = 0; i < WS2812_NUM_LEDS; i++)
+                ws2812_set_color(i, 0, 0, 0);
+            ws2812_update();
+        } else if (ws2812_override_mode == WS2812_MODE_ON) {
+            // 常亮蓝色
+            for (i = 0; i < WS2812_NUM_LEDS; i++)
+                ws2812_set_color(i, 0, 0, 64);
+            ws2812_update();
+        } else if (ws2812_override_mode == WS2812_MODE_BREATH) {
+            // 呼吸效果: 用整数三角波查表替代浮点sin
+            static u8  breath_phase = 0;
+            static u32 breath_tick  = 0;
+            if (tick_check_expire(breath_tick, 20)) {
+                breath_tick = tick_get();
+                breath_phase++;
+            }
+            // 0~127递增 + 128~255递减, 产生平滑呼吸波形
+            u8 b;
+            if (breath_phase < 128)
+                b = breath_phase * 2;
+            else
+                b = (255 - breath_phase) * 2;
+            for (i = 0; i < WS2812_NUM_LEDS; i++)
+                ws2812_set_color(i, 0, 0, b);
+            ws2812_update();
+        } else {
+            // WS2812_MODE_REACT = 恢复自动模式
+            ws2812_override_mode = 0xFF;
+        }
+        return;
+    }
+
+    /* ---- 原有自动模式 (BT/AUX音乐律动) ---- */
     static u32 last_tick = 0;
     u16 energy;
-    u8 level, i, r, g, b;
+    u8 level, r, g, b;
 
     if (!tick_check_expire(last_tick, 80))
         return; // 每80ms刷新

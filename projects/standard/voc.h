@@ -22,25 +22,25 @@ static inline bool voc_read_entry(u8 idx, u32 *p_addr, u32 *p_len) {
 
 // 01_powon.mp3
 #define VOC_POWON_ADDR     0x060050u
-#define VOC_POWON_LEN      17475u
+#define VOC_POWON_LEN      18195u
 
 // 02_connected.mp3
-#define VOC_CONNECTED_ADDR     0x064493u
-#define VOC_CONNECTED_LEN      15747u
+#define VOC_CONNECTED_ADDR     0x064763u
+#define VOC_CONNECTED_LEN      13155u
 
 // 03_disconnect.mp3
-#define VOC_DISCONNECT_ADDR     0x068216u
-#define VOC_DISCONNECT_LEN      16323u
+#define VOC_DISCONNECT_ADDR     0x067AC6u
+#define VOC_DISCONNECT_LEN      12867u
 
 // 04_max_vol.mp3
-#define VOC_MAX_VOL_ADDR     0x06C1D9u
-#define VOC_MAX_VOL_LEN      16323u
+#define VOC_MAX_VOL_ADDR     0x06AD09u
+#define VOC_MAX_VOL_LEN      12435u
 
 // 按索引的地址/长度数组 (索引 0 ~ VOC_COUNT-1)
 #define VOC_ADDR(idx)  ((idx) < VOC_COUNT ? voc_addrs[idx] : 0)
 #define VOC_LEN(idx)   ((idx) < VOC_COUNT ? voc_lens[idx]  : 0)
 
-static const unsigned int voc_addrs[VOC_COUNT] = { 0x060050u, 0x064493u, 0x068216u, 0x06C1D9u };
-static const unsigned int voc_lens[VOC_COUNT]  = { 17475u, 15747u, 16323u, 16323u };
+static const unsigned int voc_addrs[VOC_COUNT] = { 0x060050u, 0x064763u, 0x067AC6u, 0x06AD09u };
+static const unsigned int voc_lens[VOC_COUNT]  = { 18195u, 13155u, 12867u, 12435u };
 
 #endif // __VOC_H__

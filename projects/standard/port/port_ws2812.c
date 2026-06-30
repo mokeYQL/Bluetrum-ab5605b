@@ -114,26 +114,26 @@ void ws2812_flush(void)
                 ws2812_set_color(i, 0, 0, 0);
             ws2812_update();
         } else if (ws2812_override_mode == WS2812_MODE_ON) {
-            // 常亮蓝色
+            // 常亮白色 (40灯全亮)
             for (i = 0; i < WS2812_NUM_LEDS; i++)
-                ws2812_set_color(i, 0, 0, 64);
+                ws2812_set_color(i, 255, 255, 255);
             ws2812_update();
         } else if (ws2812_override_mode == WS2812_MODE_BREATH) {
-            // 呼吸效果: 用整数三角波查表替代浮点sin
+            // 呼吸效果: 40灯全白, 完整呼吸周期≈1秒
             static u8  breath_phase = 0;
             static u32 breath_tick  = 0;
-            if (tick_check_expire(breath_tick, 20)) {
+            if (tick_check_expire(breath_tick, 4)) {
                 breath_tick = tick_get();
                 breath_phase++;
             }
-            // 0~127递增 + 128~255递减, 产生平滑呼吸波形
+            // 0→全亮→0→全亮 三角波循环
             u8 b;
             if (breath_phase < 128)
                 b = breath_phase * 2;
             else
                 b = (255 - breath_phase) * 2;
             for (i = 0; i < WS2812_NUM_LEDS; i++)
-                ws2812_set_color(i, 0, 0, b);
+                ws2812_set_color(i, b, b, b);
             ws2812_update();
         } else {
             // WS2812_MODE_REACT = 恢复自动模式

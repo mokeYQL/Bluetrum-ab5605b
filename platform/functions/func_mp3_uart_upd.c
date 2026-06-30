@@ -350,7 +350,7 @@ static void upd_process_frame(void)
             updata_bt_name(name);
             memset(xcfg_cb.bt_name, 0, sizeof(xcfg_cb.bt_name));
             strncpy(xcfg_cb.bt_name, name, sizeof(xcfg_cb.bt_name) - 1);
-            // 2. 写入Flash持久化 (格式: ##名称##)
+            // 2. 写入Flash持久化到BT_NAME_UPDATA地址
             u8 flash_buf[36];
             u8 len = upd_data_len + 4; // ## + name + ##
             if (len > 36)

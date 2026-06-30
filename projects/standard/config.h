@@ -186,7 +186,7 @@
 #define LE_ADV0_EN                      0 // 是否打开无连接广播功能
 #define LE_WIN10_POPUP                  0 // 是否打开win10 swift pair快速配对
 
-#define USB_BT_NAME_UPDATA              0 // 打开U盘升级蓝牙名字功能文件名：bt_name.btn
+#define USB_BT_NAME_UPDATA              1 // 打开U盘升级蓝牙名字功能文件名：bt_name.btn
 
 /*****************************************************************************
  * Module    : 通话功能配置

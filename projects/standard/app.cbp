@@ -203,6 +203,10 @@
 		<Unit filename="../../platform/bsp/bsp_uart.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="../../platform/functions/fifo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../platform/functions/fifo.h" />
 		<Unit filename="../../platform/functions/func.c">
 			<Option compilerVar="CC" />
 		</Unit>

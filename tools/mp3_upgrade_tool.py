@@ -1,14 +1,13 @@
 """
-AB5605B UART 综合工具 v4
+AB5605B UART 综合工具 v5
 ====================================
 集成了 OTA 语音升级 + 控制协议（查询/复位/静音/音量/音频切换/蓝牙状态/LED灯效/广播名称）。
 
-协议 v3 (0xA5 帧格式):
-  帧格式: [0xA5][命令分类][子命令][LEN_H][LEN_L][数据段][FCS]
-  命令分类 0x13 = ESP32S3 → AB5605B (下发)
-  命令分类 0x12 = AB5605B → ESP32S3 (上报)
+协议 v4 (0xA5 精简帧格式):
+  帧格式: [0xA5][命令][LEN_H][LEN_L][数据段][FCS]
+  功能点作为命令，无独立命令分类字节
 
-  控制命令:
+  命令:
     0x01 查询设备信息   → JSON 应答
     0x02 系统复位       → 无应答(立即复位)
     0x03 静音控制       → 0x00取消/0x01静音
@@ -35,26 +34,23 @@ import time
 import os
 import json
 
-# ---------------- 协议常量 (0xA5 帧格式) ----------------
+# ---------------- 协议常量 (0xA5 精简帧格式) ----------------
 FRAME_HDR  = 0xA5
-CMD_ESP    = 0x13    # ESP32S3 → AB5605B
-CMD_AB     = 0x12    # AB5605B → ESP32S3
 
-# 控制子命令
+# 控制命令
 CMD_QUERY_INFO  = 0x01
 CMD_RESET       = 0x02
 CMD_MUTE        = 0x03
 CMD_VOLUME      = 0x04
 CMD_AUDIO_SW    = 0x05
 CMD_BT_STATUS   = 0x06
-CMD_OTA_STATUS  = 0x07   # AB主动上报
-CMD_LED         = 0x08
-CMD_BT_NAME     = 0x09
+CMD_LED         = 0x07
+CMD_BT_NAME     = 0x08
 
-# OTA子命令
-CMD_ERASE       = 0x0A
-CMD_DATA        = 0x0B
-CMD_FINISH      = 0x0C
+# OTA命令
+CMD_ERASE       = 0x09
+CMD_DATA        = 0x0A
+CMD_FINISH      = 0x0B
 
 # ---------------- voc 分区配置 ----------------
 FLASH_ADDR     = 0x60000
@@ -94,9 +90,9 @@ def xor_checksum(data):
     return v
 
 
-def calc_fcs(cmd_class, sub_cmd, data):
-    """计算 0xA5 帧的 FCS = 命令分类 ^ 子命令 ^ LEN_H ^ LEN_L ^ DATA..."""
-    fcs = cmd_class ^ sub_cmd
+def calc_fcs(cmd, data):
+    """计算 0xA5 帧的 FCS = 命令 ^ LEN_H ^ LEN_L ^ DATA..."""
+    fcs = cmd
     length = len(data)
     fcs ^= (length >> 8) & 0xFF
     fcs ^= length & 0xFF
@@ -105,18 +101,18 @@ def calc_fcs(cmd_class, sub_cmd, data):
     return fcs
 
 
-def build_frame(cmd_class, sub_cmd, data=b""):
-    """构建 0xA5 协议帧"""
+def build_frame(cmd, data=b""):
+    """构建 0xA5 协议帧（精简格式）"""
     length = len(data)
-    fcs = calc_fcs(cmd_class, sub_cmd, data)
-    return bytes([FRAME_HDR, cmd_class, sub_cmd,
+    fcs = calc_fcs(cmd, data)
+    return bytes([FRAME_HDR, cmd,
                   (length >> 8) & 0xFF, length & 0xFF]) + data + bytes([fcs])
 
 
 class AB5605BTool:
     def __init__(self):
         self.window = tk.Tk()
-        self.window.title("AB5605B 综合工具 v4")
+        self.window.title("AB5605B 综合工具 v5")
         self.window.geometry("820x960")
         self.window.resizable(True, True)
         self.ser = None
@@ -352,11 +348,11 @@ class AB5605BTool:
             self._log(f"错误: {e}")
             self._update_status(f"失败: {e}")
 
-    def _send_cmd(self, sub_cmd, data=b""):
-        """发送控制命令并返回应答数据段(含FCS校验), 失败返回None"""
-        frame = build_frame(CMD_ESP, sub_cmd, data)
+    def _send_cmd(self, cmd, data=b""):
+        """发送命令并返回应答数据段(含FCS校验), 失败返回None"""
+        frame = build_frame(cmd, data)
         self.ser.write(frame)
-        return self._wait_response(sub_cmd, 3.0)
+        return self._wait_response(cmd, 3.0)
 
     def _ctrl_query_info(self):
         self._update_status("查询设备信息...")
@@ -380,7 +376,7 @@ class AB5605BTool:
         if not messagebox.askyesno("确认", "确定要复位AB5605B吗？"):
             return
         self._update_status("发送复位命令...")
-        frame = build_frame(CMD_ESP, CMD_RESET, bytes([0x01]))
+        frame = build_frame(CMD_RESET)  # 复位命令无数据段
         self.ser.write(frame)
         self._log("复位命令已发送, 设备将立即复位")
         self._update_status("复位命令已发送")
@@ -452,38 +448,38 @@ class AB5605BTool:
         else:
             self._update_status("广播名称设置失败")
 
-    # ---------------- 通用应答接收 (0xA5格式) ----------------
-    def _wait_response(self, sub_cmd, timeout=3.0):
-        """等待指定子命令的应答帧, 返回数据段bytes(已校验FCS), 失败返回None"""
+    # ---------------- 通用应答接收 (0xA5精简格式) ----------------
+    def _wait_response(self, cmd, timeout=3.0):
+        """等待指定命令的应答帧, 返回数据段bytes(已校验FCS), 失败返回None"""
         buf = bytearray()
         deadline = time.time() + timeout
         while time.time() < deadline:
             b = self.ser.read(1)
             if b:
                 buf += b
-                idx = buf.find(bytes([FRAME_HDR, CMD_AB, sub_cmd]))
+                idx = buf.find(bytes([FRAME_HDR, cmd]))
                 while idx >= 0:
                     buf = buf[idx:]
-                    if len(buf) < 5:
+                    if len(buf) < 4:
                         break
-                    data_len = (buf[3] << 8) | buf[4]
-                    total = 5 + data_len + 1
+                    data_len = (buf[2] << 8) | buf[3]
+                    total = 4 + data_len + 1
                     if len(buf) < total:
                         break
-                    recv_data = bytes(buf[5:5 + data_len])
-                    recv_fcs = buf[5 + data_len]
-                    calc = calc_fcs(CMD_AB, sub_cmd, recv_data)
+                    recv_data = bytes(buf[4:4 + data_len])
+                    recv_fcs = buf[4 + data_len]
+                    calc = calc_fcs(cmd, recv_data)
                     if recv_fcs == calc:
                         return recv_data
                     else:
                         self._log(f"[WARN] FCS不匹配 calc=0x{calc:02X} recv=0x{recv_fcs:02X}")
                         buf = buf[total:]
-                        idx = buf.find(bytes([FRAME_HDR, CMD_AB, sub_cmd]))
+                        idx = buf.find(bytes([FRAME_HDR, cmd]))
                 if len(buf) > 512:
                     buf = buf[-256:]
             else:
                 time.sleep(0.01)
-        self._log(f"[FAIL] 等待子命令0x{sub_cmd:02X}应答超时")
+        self._log(f"[FAIL] 等待命令0x{cmd:02X}应答超时")
         return None
 
     # ---------------- OTA: 文件夹选择 ----------------
@@ -611,7 +607,7 @@ class AB5605BTool:
         crc_hi = (pc_crc >> 8) & 0xFF
         self._log(f"擦除: CRC16=0x{pc_crc:04X}")
         self._update_status("发送 ERASE...")
-        frame = build_frame(CMD_ESP, CMD_ERASE, bytes([crc_lo, crc_hi]))
+        frame = build_frame(CMD_ERASE, bytes([crc_lo, crc_hi]))
         self.ser.write(frame)
         resp = self._wait_response(CMD_ERASE)
         if resp is not None and resp == b"\x00":
@@ -630,7 +626,7 @@ class AB5605BTool:
         chunk = voc_bin[offset:offset + CHUNK_SIZE]
         xor_val = xor_checksum(chunk)
         payload = struct.pack("<H", seq) + bytes([xor_val]) + chunk
-        frame = build_frame(CMD_ESP, CMD_DATA, payload)
+        frame = build_frame(CMD_DATA, payload)
         seq_bytes = struct.pack("<H", seq)
         self._update_status(f"发送 DATA seq={seq}...")
         self.ser.write(frame)
@@ -640,7 +636,7 @@ class AB5605BTool:
 
     def _do_finish_only(self):
         self._update_status("发送 FINISH...")
-        frame = build_frame(CMD_ESP, CMD_FINISH)
+        frame = build_frame(CMD_FINISH)
         self.ser.write(frame)
         resp = self._wait_response(CMD_FINISH, 10.0)
         if resp is None:
@@ -686,7 +682,7 @@ class AB5605BTool:
 
             # 2. ERASE
             self._update_status("发送 ERASE (含CRC)...")
-            frame = build_frame(CMD_ESP, CMD_ERASE, bytes([crc_lo, crc_hi]))
+            frame = build_frame(CMD_ERASE, bytes([crc_lo, crc_hi]))
             self.ser.write(frame)
             resp = self._wait_response(CMD_ERASE)
             if resp is None or resp != b"\x00":
@@ -702,7 +698,7 @@ class AB5605BTool:
                 chunk  = voc_bin[offset:offset + CHUNK_SIZE]
                 xor_val = xor_checksum(chunk)
                 payload = struct.pack("<H", seq) + bytes([xor_val]) + chunk
-                frame = build_frame(CMD_ESP, CMD_DATA, payload)
+                frame = build_frame(CMD_DATA, payload)
                 seq_bytes = struct.pack("<H", seq)
 
                 for retry in range(max_retry + 1):
@@ -724,7 +720,7 @@ class AB5605BTool:
 
             # 4. FINISH
             self._update_status("发送 FINISH...")
-            frame = build_frame(CMD_ESP, CMD_FINISH)
+            frame = build_frame(CMD_FINISH)
             self.ser.write(frame)
             resp = self._wait_response(CMD_FINISH, 10.0)
             if resp is None:
